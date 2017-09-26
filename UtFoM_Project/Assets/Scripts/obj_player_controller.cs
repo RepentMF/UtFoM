@@ -11,20 +11,20 @@ public class obj_player_controller : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetAxisRaw(hori) > 0.5f || Input.GetAxisRaw(hori) < -0.5f)
+
+        if(Input.GetAxis(hori) > 0.5f || Input.GetAxis(hori) < -0.5f)
         {
-            transform.Translate(new Vector3(Input.GetAxisRaw(hori) * moveSpeed * Time.deltaTime, 0f, 0f));
+            transform.Translate(new Vector3(System.Math.Sign(Input.GetAxisRaw(hori)) * moveSpeed * Time.deltaTime, 0f, 0f));
         }
 
-        if (Input.GetAxisRaw(vert) > 0.5f || Input.GetAxisRaw(vert) < -0.5f)
+        if(Input.GetAxis(vert) > 0.5f || Input.GetAxis(vert) < -0.5f)
         {
-            transform.Translate(new Vector3(0f, Input.GetAxisRaw(vert) * moveSpeed * Time.deltaTime, 0f));
+            transform.Translate(new Vector3(0f, System.Math.Sign(Input.GetAxisRaw(vert)) * moveSpeed * Time.deltaTime, 0f));
         }
     }
 }
