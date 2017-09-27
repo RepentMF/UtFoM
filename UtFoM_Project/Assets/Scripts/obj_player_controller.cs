@@ -80,38 +80,37 @@ public class obj_player_controller : MonoBehaviour
             {
                 stickAngle = stickDir * 180 / (float)System.Math.PI;
             }
-        }
 
-        if (stickAngle < 45 || stickAngle > 315)
-        {
-            quad1And4Bool = true;
-            quad1And2Bool = false;
-            quad2And3Bool = false;
-            quad3And4Bool = false;
+            if (stickAngle < 45 || stickAngle > 315)
+            {
+                quad1And4Bool = true;
+                quad1And2Bool = false;
+                quad2And3Bool = false;
+                quad3And4Bool = false;
+            }
+            else if (stickAngle > 45 && stickAngle < 135)
+            {
+                quad1And4Bool = false;
+                quad1And2Bool = true;
+                quad2And3Bool = false;
+                quad3And4Bool = false;
+            }
+            else if (stickAngle > 135 && stickAngle < 225)
+            {
+                quad1And4Bool = false;
+                quad1And2Bool = false;
+                quad2And3Bool = true;
+                quad3And4Bool = false;
+            }
+            else if (stickAngle > 225 && stickAngle < 315)
+            {
+                quad1And4Bool = false;
+                quad1And2Bool = false;
+                quad2And3Bool = false;
+                quad3And4Bool = true;
+            }
         }
-        else if (stickAngle > 45 && stickAngle < 135)
-        {
-            quad1And4Bool = false;
-            quad1And2Bool = true;
-            quad2And3Bool = false;
-            quad3And4Bool = false;
-        }
-        else if (stickAngle > 135 && stickAngle < 225)
-        {
-            quad1And4Bool = false;
-            quad1And2Bool = false;
-            quad2And3Bool = true;
-            quad3And4Bool = false;
-        }
-        else if (stickAngle > 225 && stickAngle < 315)
-        {
-            quad1And4Bool = false;
-            quad1And2Bool = false;
-            quad2And3Bool = false;
-            quad3And4Bool = true;
-        }
-
-        if (System.Math.Abs(Input.GetAxisRaw(hori)) < deadzone && System.Math.Abs(Input.GetAxisRaw(vert)) < deadzone)
+        else if (System.Math.Abs(Input.GetAxisRaw(hori)) < deadzone && System.Math.Abs(Input.GetAxisRaw(vert)) < deadzone)
         {
             quad1And4Bool = false;
             quad1And2Bool = false;
