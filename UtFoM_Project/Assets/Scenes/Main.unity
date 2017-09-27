@@ -197,7 +197,7 @@ MonoBehaviour:
   runSpeed: 0.16
   hSpeed: 0
   vSpeed: 0
-  deadzone: 0.25
+  deadzone: 0.5
   hori: Horizontal
   vert: Vertical
 --- !u!95 &406801354

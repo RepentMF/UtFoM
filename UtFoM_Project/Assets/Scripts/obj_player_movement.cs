@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class obj_player_controller : MonoBehaviour
+public class obj_player_movement : MonoBehaviour
 {
-    public float stickX, stickY, stickDir, walkSpeed, runSpeed, hSpeed, vSpeed, deadzone;
-    private float moveSpeed, stickAngle;
-    private bool quad1And4Bool, quad1And2Bool, quad2And3Bool, quad3And4Bool;
+    public float stickDir, walkSpeed, runSpeed, hSpeed, vSpeed, deadzone;
     public string hori = "Horizontal";
     public string vert = "Vertical";
+    private float moveSpeed, stickAngle;
+    private bool quad1And4Bool, quad1And2Bool, quad2And3Bool, quad3And4Bool;
     private Animator ani;
 
     // Calculations and checks for player movement speed
@@ -25,8 +25,6 @@ public class obj_player_controller : MonoBehaviour
         }
 
         // Calculates correct direction and magnitude for obj_player movement speeds
-        stickX = Input.GetAxisRaw(hori);
-        stickY = Input.GetAxisRaw(vert);
         stickDir = (float)System.Math.Atan(Input.GetAxisRaw(vert) / Input.GetAxisRaw(hori));
         hSpeed = (float)System.Math.Cos(stickDir) * moveSpeed * System.Math.Sign(Input.GetAxisRaw(hori));
         vSpeed = (float)System.Math.Sin(stickDir) * moveSpeed;
