@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class obj_player_controller : MonoBehaviour
 {
-    public float stickDir, walkSpeed, runSpeed, hSpeed, vSpeed, deadzone;
+    public float stickX, stickY, stickDir, walkSpeed, runSpeed, hSpeed, vSpeed, deadzone;
     private float moveSpeed, stickAngle;
     private bool quad1And4Bool, quad1And2Bool, quad2And3Bool, quad3And4Bool;
     public string hori = "Horizontal";
@@ -25,6 +25,8 @@ public class obj_player_controller : MonoBehaviour
         }
 
         // Calculates correct direction and magnitude for obj_player movement speeds
+        stickX = Input.GetAxisRaw(hori);
+        stickY = Input.GetAxisRaw(vert);
         stickDir = (float)System.Math.Atan(Input.GetAxisRaw(vert) / Input.GetAxisRaw(hori));
         hSpeed = (float)System.Math.Cos(stickDir) * moveSpeed * System.Math.Sign(Input.GetAxisRaw(hori));
         vSpeed = (float)System.Math.Sin(stickDir) * moveSpeed;
@@ -38,15 +40,15 @@ public class obj_player_controller : MonoBehaviour
         }
 
         // Applies movement changes
-        if (System.Math.Abs(Input.GetAxisRaw(hori)) > deadzone || System.Math.Abs(Input.GetAxisRaw(vert)) > deadzone)
+        if (System.Math.Abs(Input.GetAxisRaw(hori)) >= deadzone || System.Math.Abs(Input.GetAxisRaw(vert)) >= deadzone)
         {
             transform.Translate(new Vector2(hSpeed, vSpeed));
         }
     }
 
-    void DetStickAngle(float stickDir)
+    void DetStickAngle()
     {
-        if (System.Math.Abs(Input.GetAxisRaw(hori)) > deadzone || System.Math.Abs(Input.GetAxisRaw(vert)) > deadzone)
+        if (System.Math.Abs(Input.GetAxisRaw(hori)) >= deadzone || System.Math.Abs(Input.GetAxisRaw(vert)) >= deadzone)
         {
             if (System.Math.Sign(Input.GetAxisRaw(hori)) > 0 && System.Math.Sign(Input.GetAxisRaw(vert)) > 0)
             {
@@ -64,15 +66,15 @@ public class obj_player_controller : MonoBehaviour
             {
                 stickAngle = (stickDir * 180 / (float)System.Math.PI) + 360;
             }
-            else if (Input.GetAxisRaw(hori) == 0 && Input.GetAxisRaw(vert) == 1)
+            else if (Input.GetAxisRaw(hori) == 0 && System.Math.Sign(Input.GetAxisRaw(vert)) == 1)
             {
                 stickAngle = 90;
             }
-            else if (Input.GetAxisRaw(hori) == -1 && Input.GetAxisRaw(vert) == 0)
+            else if (System.Math.Sign(Input.GetAxisRaw(hori)) == -1 && Input.GetAxisRaw(vert) == 0)
             {
                 stickAngle = 180;
             }
-            else if (Input.GetAxisRaw(hori) == 0 && Input.GetAxisRaw(vert) == -1)
+            else if (Input.GetAxisRaw(hori) == 0 && System.Math.Sign(Input.GetAxisRaw(vert)) == -1)
             {
                 stickAngle = 270;
             }
@@ -121,7 +123,7 @@ public class obj_player_controller : MonoBehaviour
 
     void animationOperation()
     {
-        DetStickAngle(stickDir);
+        DetStickAngle();
         ani.SetFloat("stickAngle", stickAngle);
         ani.SetBool("quad1And4Angle", quad1And4Bool);
         ani.SetBool("quad1And2Angle", quad1And2Bool);
