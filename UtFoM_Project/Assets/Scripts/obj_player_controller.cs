@@ -5,10 +5,9 @@ using UnityEngine;
 public class obj_player_controller : MonoBehaviour
 {
     public float stickX, stickY, stickDir, walkSpeed, runSpeed, hSpeed, vSpeed, deadzone;
-    private float moveSpeed, stickAngle;
-    private bool quad1And4Bool, quad1And2Bool, quad2And3Bool, quad3And4Bool;
     public string hori = "Horizontal";
     public string vert = "Vertical";
+    private float moveSpeed, stickAngle;
     private Animator ani;
 
     // Calculations and checks for player movement speed
@@ -82,42 +81,6 @@ public class obj_player_controller : MonoBehaviour
             {
                 stickAngle = stickDir * 180 / (float)System.Math.PI;
             }
-
-            if (stickAngle < 45 || stickAngle > 315)
-            {
-                quad1And4Bool = true;
-                quad1And2Bool = false;
-                quad2And3Bool = false;
-                quad3And4Bool = false;
-            }
-            else if (stickAngle > 45 && stickAngle < 135)
-            {
-                quad1And4Bool = false;
-                quad1And2Bool = true;
-                quad2And3Bool = false;
-                quad3And4Bool = false;
-            }
-            else if (stickAngle > 135 && stickAngle < 225)
-            {
-                quad1And4Bool = false;
-                quad1And2Bool = false;
-                quad2And3Bool = true;
-                quad3And4Bool = false;
-            }
-            else if (stickAngle > 225 && stickAngle < 315)
-            {
-                quad1And4Bool = false;
-                quad1And2Bool = false;
-                quad2And3Bool = false;
-                quad3And4Bool = true;
-            }
-        }
-        else if (System.Math.Abs(Input.GetAxisRaw(hori)) < deadzone && System.Math.Abs(Input.GetAxisRaw(vert)) < deadzone)
-        {
-            quad1And4Bool = false;
-            quad1And2Bool = false;
-            quad2And3Bool = false;
-            quad3And4Bool = false;
         }
     }
 
@@ -125,10 +88,6 @@ public class obj_player_controller : MonoBehaviour
     {
         DetStickAngle();
         ani.SetFloat("stickAngle", stickAngle);
-        ani.SetBool("quad1And4Angle", quad1And4Bool);
-        ani.SetBool("quad1And2Angle", quad1And2Bool);
-        ani.SetBool("quad2And3Angle", quad2And3Bool);
-        ani.SetBool("quad3And4Angle", quad3And4Bool);
     }
 
     // Use this for initialization

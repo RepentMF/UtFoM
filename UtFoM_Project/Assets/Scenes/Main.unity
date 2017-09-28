@@ -192,12 +192,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1a30628aaf23f43b014fd9a6a34740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stickX: 0
+  stickY: 0
   stickDir: 0
   walkSpeed: 0.07
   runSpeed: 0.16
   hSpeed: 0
   vSpeed: 0
-  deadzone: 0.25
+  deadzone: 0.5
   hori: Horizontal
   vert: Vertical
 --- !u!95 &406801354
