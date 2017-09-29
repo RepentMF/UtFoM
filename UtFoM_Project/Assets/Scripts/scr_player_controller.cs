@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class obj_player_controller : MonoBehaviour
+public class scr_player_controller : MonoBehaviour
 {
     public float stickX, stickY, stickDir, walkSpeed, runSpeed, hSpeed, vSpeed, deadzone;
     public string hori = "Horizontal";
     public string vert = "Vertical";
+    private bool groundMovement = false;
     private float moveSpeed, stickAngle;
     private Animator ani;
 
@@ -27,8 +28,8 @@ public class obj_player_controller : MonoBehaviour
         stickX = Input.GetAxisRaw(hori);
         stickY = Input.GetAxisRaw(vert);
         stickDir = (float)System.Math.Atan(Input.GetAxisRaw(vert) / Input.GetAxisRaw(hori));
-        hSpeed = (float)System.Math.Cos(stickDir) * moveSpeed * System.Math.Sign(Input.GetAxisRaw(hori));
-        vSpeed = (float)System.Math.Sin(stickDir) * moveSpeed;
+        hSpeed = (float)System.Math.Cos(stickDir) * moveSpeed * System.Math.Sign(Input.GetAxisRaw(hori)) * Time.deltaTime;
+        vSpeed = (float)System.Math.Sin(stickDir) * moveSpeed * Time.deltaTime;
         if (Input.GetAxisRaw(hori) < 0 && Input.GetAxisRaw(vert) < 0)
         {
             vSpeed *= System.Math.Sign(Input.GetAxisRaw(vert));
@@ -49,6 +50,7 @@ public class obj_player_controller : MonoBehaviour
     {
         if (System.Math.Abs(Input.GetAxisRaw(hori)) >= deadzone || System.Math.Abs(Input.GetAxisRaw(vert)) >= deadzone)
         {
+            groundMovement = true;
             if (System.Math.Sign(Input.GetAxisRaw(hori)) > 0 && System.Math.Sign(Input.GetAxisRaw(vert)) > 0)
             {
                 stickAngle = stickDir * 180 / (float)System.Math.PI;
@@ -82,11 +84,16 @@ public class obj_player_controller : MonoBehaviour
                 stickAngle = stickDir * 180 / (float)System.Math.PI;
             }
         }
+        else
+        {
+            groundMovement = false;
+        }
     }
 
     void animationOperation()
     {
         DetStickAngle();
+        ani.SetBool("groundMovement", groundMovement);
         ani.SetFloat("stickAngle", stickAngle);
     }
 
