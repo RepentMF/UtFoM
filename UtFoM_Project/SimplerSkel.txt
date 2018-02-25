@@ -1,0 +1,20 @@
+Bottom Floor: 			dungeon1
+the pits: 			town 1
+			weapon 1: basic sword
+Sunken Sanctum: 		town 2
+the chapel: 			dungeon 2
+			weapon 2: hammer
+the forest: 			town 3
+old man roy's house: 		dungeon 3
+			weapon 3: knife
+the forest's heart: 		dungeon 4
+			weapon 4: fire staff
+the bridge: 			dungeon 5
+the first basement: 		town 4
+the science lab: 		dungeon 6
+room before the unknown: 	town 5
+			weapon 5: knight weapon
+the catacombs: 			dungeon 7
+the unknown: 			dungeon 8
+			weapon lock
+the outside: 			dungeon 9
