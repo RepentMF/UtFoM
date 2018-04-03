@@ -1708,6 +1708,7 @@ TextureImporter:
     21303402: roguelikeSheet_transparent_1701
     21303404: roguelikeSheet_transparent_1702
     21303406: roguelikeSheet_transparent_1703
+  externalObjects: {}
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -1761,20 +1762,24 @@ TextureImporter:
   platformSettings:
   - buildTarget: DefaultTexturePlatform
     maxTextureSize: 1024
+    resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 0
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: Standalone
     maxTextureSize: 1024
+    resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 0
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:

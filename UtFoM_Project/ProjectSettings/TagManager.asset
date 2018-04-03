@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -41,9 +42,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: lyr_groundLevel
+  - name: lyr_ground
     uniqueID: 2563000183
     locked: 0
   - name: lyr_player
     uniqueID: 1047844911
+    locked: 0
+  - name: lyr_objects
+    uniqueID: 1867677115
     locked: 0
