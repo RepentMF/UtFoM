@@ -5,7 +5,7 @@ using UnityEngine;
 public class scr_playerHealthControl : MonoBehaviour
 {
     public int maxHP;
-    private int currentHP;
+    public int currentHP;
 
     public void damagePlayer(int damage)
     {
@@ -18,13 +18,13 @@ public class scr_playerHealthControl : MonoBehaviour
     }
 
 	// Use this for initialization
-	void Start ()
+	void Start()
     {
         resetCurrentHP();
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void Update()
     {
 		if (currentHP <= 0)
         {

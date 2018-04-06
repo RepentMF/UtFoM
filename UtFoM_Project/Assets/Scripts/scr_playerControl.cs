@@ -8,6 +8,7 @@ public class scr_playerControl : MonoBehaviour
         attackTime;
     public string hori = "Horizontal";
     public string vert = "Vertical";
+    public string startName;
     private bool isAttacking, groundMovement = false;
     private static bool playerExists = false;
     private float moveSpeed, stickAngle, attackCount;

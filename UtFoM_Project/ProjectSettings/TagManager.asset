@@ -45,9 +45,12 @@ TagManager:
   - name: lyr_ground
     uniqueID: 2563000183
     locked: 0
+  - name: lyr_objects
+    uniqueID: 1867677115
+    locked: 0
   - name: lyr_player
     uniqueID: 1047844911
     locked: 0
-  - name: lyr_objects
-    uniqueID: 1867677115
+  - name: lyr_ui
+    uniqueID: 3299580301
     locked: 0
