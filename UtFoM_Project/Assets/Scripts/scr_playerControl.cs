@@ -32,8 +32,8 @@ public class scr_playerControl : MonoBehaviour
         stickX = Input.GetAxisRaw(hori);
         stickY = Input.GetAxisRaw(vert);
         stickDir = (float) System.Math.Atan(Input.GetAxisRaw(vert) / Input.GetAxisRaw(hori));
-        hSpeed = (float) System.Math.Cos(stickDir) * moveSpeed * System.Math.Sign(Input.GetAxisRaw(hori)) * Time.deltaTime;
-        vSpeed = (float) System.Math.Sin(stickDir) * moveSpeed * Time.deltaTime;
+        hSpeed = (float) System.Math.Cos(stickDir) * moveSpeed * System.Math.Sign(Input.GetAxisRaw(hori));
+        vSpeed = (float) System.Math.Sin(stickDir) * moveSpeed;
         if (Input.GetAxisRaw(hori) < 0 && Input.GetAxisRaw(vert) < 0)
         {
             vSpeed *= System.Math.Sign(Input.GetAxisRaw(vert));
@@ -62,19 +62,19 @@ public class scr_playerControl : MonoBehaviour
             groundMovement = true;
             if (System.Math.Sign(Input.GetAxisRaw(hori)) > 0 && System.Math.Sign(Input.GetAxisRaw(vert)) > 0)
             {
-                stickAngle = stickDir * 180 / (float)System.Math.PI;
+                stickAngle = stickDir * 180 / (float) System.Math.PI;
             }
             else if (System.Math.Sign(Input.GetAxisRaw(hori)) < 0 && System.Math.Sign(Input.GetAxisRaw(vert)) > 0)
             {
-                stickAngle = (stickDir * 180 / (float)System.Math.PI) + 180;
+                stickAngle = (stickDir * 180 / (float) System.Math.PI) + 180;
             }
             else if (System.Math.Sign(Input.GetAxisRaw(hori)) < 0 && System.Math.Sign(Input.GetAxisRaw(vert)) < 0)
             {
-                stickAngle = (stickDir * 180 / (float)System.Math.PI) + 180;
+                stickAngle = (stickDir * 180 / (float) System.Math.PI) + 180;
             }
             else if (System.Math.Sign(Input.GetAxisRaw(hori)) > 0 && System.Math.Sign(Input.GetAxisRaw(vert)) < 0)
             {
-                stickAngle = (stickDir * 180 / (float)System.Math.PI) + 360;
+                stickAngle = (stickDir * 180 / (float) System.Math.PI) + 360;
             }
             else if (Input.GetAxisRaw(hori) == 0 && System.Math.Sign(Input.GetAxisRaw(vert)) == 1)
             {
@@ -90,7 +90,7 @@ public class scr_playerControl : MonoBehaviour
             }
             else
             {
-                stickAngle = stickDir * 180 / (float)System.Math.PI;
+                stickAngle = stickDir * 180 / (float) System.Math.PI;
             }
         }
         else

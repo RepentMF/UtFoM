@@ -7,11 +7,13 @@ public class scr_uiControl : MonoBehaviour
 {
     public Slider health;
     public Text healthText;
+    public Text lvlText;
     public scr_playerHealthControl playerHealthControl;
     private static bool uiExists;
+    private scr_playerStatControl playerStatControl;
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start () 
 	{
         if (!uiExists)
         {
@@ -22,6 +24,8 @@ public class scr_uiControl : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        playerStatControl = GetComponent<scr_playerStatControl>();
     }
 
     // Update is called once per frame
@@ -30,5 +34,7 @@ public class scr_uiControl : MonoBehaviour
         health.maxValue = playerHealthControl.maxHP;
         health.value = playerHealthControl.currentHP;
         healthText.text = "HP: " + playerHealthControl.currentHP + " / " + playerHealthControl.maxHP;
+
+        lvlText.text = "Level " + playerStatControl.currentLvl;
     }
 }

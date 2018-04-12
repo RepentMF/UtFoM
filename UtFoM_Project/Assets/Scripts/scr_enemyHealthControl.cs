@@ -6,6 +6,8 @@ public class scr_enemyHealthControl : MonoBehaviour
 {
     public int maxHP;
     private int currentHP;
+    public int experience;
+    private scr_playerStatControl player;
 
     public void damageEnemy(int damage)
     {
@@ -21,6 +23,8 @@ public class scr_enemyHealthControl : MonoBehaviour
     void Start()
     {
         resetCurrentHP();
+
+        player = FindObjectOfType<scr_playerStatControl>();
     }
 
     // Update is called once per frame
@@ -28,7 +32,10 @@ public class scr_enemyHealthControl : MonoBehaviour
     {
         if (currentHP <= 0)
         {
+            currentHP = 0;
             Destroy(gameObject);
+
+            player.addExp(experience);
         }
     }
 }

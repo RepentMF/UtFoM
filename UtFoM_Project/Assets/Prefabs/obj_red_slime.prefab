@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 50579870112310510}
   - component: {fileID: 114906370138471890}
   - component: {fileID: 114837207775351424}
+  - component: {fileID: 114689330405940442}
   m_Layer: 0
   m_Name: obj_red_slime
   m_TagString: enemy
@@ -97,6 +98,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114689330405940442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1731946937335582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d437fcf7557ba0548ac448db694930c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 15
+  experience: 5
 --- !u!114 &114837207775351424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -120,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861170795a8661b41b6174f6634f0ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 1
   idleTime: 2
   moveTime: 1
   reloadTime: 2
