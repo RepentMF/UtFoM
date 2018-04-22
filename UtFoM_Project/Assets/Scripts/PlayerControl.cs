@@ -15,7 +15,7 @@ public class PlayerControl : MonoBehaviour
 
     void movePlayer()
     {
-        if ((Input.GetAxis("RT") > 0) || (Input.GetKey("r")))
+        if (/*(Input.GetAxis("RT") > 0) || */(Input.GetKey("r")))
         {
             moveSpeed = runSpeed;
         }
