@@ -9,9 +9,9 @@ public class PlayerControl : MonoBehaviour
         maxHealth, weaponAtk;
     public float deadzone, hSpeed, moveSpeed, runSpeed, stickAngle, stickDir, stickX, stickY, 
         vSpeed, walkSpeed;
+    public Animator animator;
+    public Rigidbody2D body;
     private ArrayList inv;
-    private Animator animator;
-    private Rigidbody2D body;
 
     void movePlayer()
     {
@@ -22,6 +22,41 @@ public class PlayerControl : MonoBehaviour
         else
         {
             moveSpeed = walkSpeed;
+        }
+
+        // Calculates correct direction and magnitude for obj_player movement speeds
+        stickX = Input.GetAxisRaw(hori);
+        stickY = Input.GetAxisRaw(vert);
+        if (stickX == 0 && stickY == 0)
+        {
+            stickDir = 0;
+        }
+        else
+        {
+            stickDir = (float)System.Math.Atan(Input.GetAxisRaw(vert) / Input.GetAxisRaw(hori));
+        }
+        hSpeed = (float)System.Math.Cos(stickDir) * moveSpeed * System.Math.Sign(Input.GetAxisRaw(hori));
+        vSpeed = (float)System.Math.Sin(stickDir) * moveSpeed;
+        
+        if (Input.GetAxisRaw(hori) < 0 && Input.GetAxisRaw(vert) < 0)
+        {
+            vSpeed *= System.Math.Sign(Input.GetAxisRaw(vert));
+        }
+        else if (Input.GetAxisRaw(hori) < 0 && Input.GetAxisRaw(vert) > 0)
+        {
+            vSpeed *= -1;
+        }
+
+        // Applies movement changes
+        if (System.Math.Abs(Input.GetAxisRaw(hori)) >= deadzone || System.Math.Abs(Input.GetAxisRaw(vert)) >= deadzone)
+        {
+            //transform.Translate(new Vector2(hSpeed, vSpeed));
+            body.velocity = new Vector2(hSpeed, vSpeed);
+        }
+        else
+        {
+            //body.velocity = new Vector2(0f, 0f);
+            body.velocity = Vector2.zero;
         }
     }
 
@@ -67,12 +102,14 @@ public class PlayerControl : MonoBehaviour
     void animatePlayer()
     {
         determineAngle();
-        animator.SetFloat("Stick's Angle", stickAngle);
+        //animator.SetFloat("Stick's Angle", stickAngle);
     }
 
 	// Use this for initialization
 	void Start() 
 	{
+        walkSpeed = currentSpd;
+        runSpeed = currentSpd * 1.5f;
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
 	}
