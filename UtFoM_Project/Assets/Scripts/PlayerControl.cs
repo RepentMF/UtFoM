@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    public bool isGrounded = true;
+    public bool grounded = true;
     public int currentAtk, currentHealth, currentSpd, extraAtk, extraSpd, extraHealth,
        maxHealth, weaponAtk;
     public float deadzone, hSpeed, moveSpeed, runSpeed, stickAngle, stickDir, stickX, stickY,
@@ -102,9 +102,14 @@ public class PlayerControl : MonoBehaviour
 
     void animatePlayer()
     {
-        determineAngle();
-        animator.SetBool("isGrounded", isGrounded);
-        animator.SetFloat("stickAngle", stickAngle);
+
+        animator.SetBool("grounded", grounded);
+
+        if (moveSpeed > 0)
+        {
+            determineAngle();
+            animator.SetFloat("stickAngle", stickAngle);
+        }
     }
 
 	// Use this for initialization
