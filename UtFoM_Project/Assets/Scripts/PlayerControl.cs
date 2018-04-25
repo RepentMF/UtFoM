@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour 
+public class PlayerControl : MonoBehaviour
 {
-    private string hori = "Horizontal", vert = "Vertical", respawnName;
+    public bool isGrounded = true;
     public int currentAtk, currentHealth, currentSpd, extraAtk, extraSpd, extraHealth,
-        maxHealth, weaponAtk;
-    public float deadzone, hSpeed, moveSpeed, runSpeed, stickAngle, stickDir, stickX, stickY, 
+       maxHealth, weaponAtk;
+    public float deadzone, hSpeed, moveSpeed, runSpeed, stickAngle, stickDir, stickX, stickY,
         vSpeed, walkSpeed;
+    private string hori = "Horizontal", vert = "Vertical", respawnName;
     public Animator animator;
     public Rigidbody2D body;
     private ArrayList inv;
@@ -102,7 +103,8 @@ public class PlayerControl : MonoBehaviour
     void animatePlayer()
     {
         determineAngle();
-        //animator.SetFloat("Stick's Angle", stickAngle);
+        animator.SetBool("isGrounded", isGrounded);
+        animator.SetFloat("stickAngle", stickAngle);
     }
 
 	// Use this for initialization
@@ -110,6 +112,7 @@ public class PlayerControl : MonoBehaviour
 	{
         walkSpeed = currentSpd;
         runSpeed = currentSpd * 1.5f;
+
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
 	}
