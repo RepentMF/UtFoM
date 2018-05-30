@@ -144,25 +144,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb6e7ff16220618418528472b6846a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dodging: 0
   grounded: 1
   moving: 0
-  dodging: 0
+  running: 0
   currentAtk: 0
   currentHealth: 0
-  currentSpd: 10
-  extraAtk: 0
-  extraSpd: 0
-  extraHealth: 0
-  maxHealth: 0
+  currentSpd: 0
+  maxStm: 0
   weaponAtk: 0
+  cripple: 0
+  crippleTimer: 0
+  crippleSpd: 0
+  currentStm: 0
   deadzone: 0
-  dodgeTime: 0.5
+  dodgeTime: 0
   dodgeTimer: 0
+  dodgeSpeed: 0
+  dodgeSpeedH: 0
+  dodgeSpeedV: 0
   hSpeed: 0
   moveSpeed: 0
   runSpeed: 0
   stickAngle: 0
   lastStickAngle: 0
+  runTime: 0
   stickDir: 0
   stickX: 0
   stickY: 0
@@ -171,6 +177,7 @@ MonoBehaviour:
   animator: {fileID: 148729953}
   body: {fileID: 148729954}
   sprite: {fileID: 148729951}
+  quickItem: {fileID: 0}
   inv: []
   interactable: {fileID: 0}
 --- !u!212 &148729951
