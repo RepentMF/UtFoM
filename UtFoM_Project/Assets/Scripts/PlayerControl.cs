@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    public bool dodging = false, grounded = true, moving = false, running = false;
-    public int currentAtk, currentHealth, currentSpd, maxStm = 9, weaponAtk;
-    public float cripple = -9.0f, crippleTimer, crippleSpd, currentStm, deadzone, dodgeTime = 0.5f, 
-        dodgeTimer = 0.0f, dodgeSpeed, dodgeSpeedH, dodgeSpeedV, hSpeed, moveSpeed, 
-        runSpeed, stickAngle, lastStickAngle, runTime = 1.0f, stickDir, stickX, stickY, vSpeed, walkSpeed;
+    public bool crippled = false, dodging = false, grounded = true, moving = false, 
+        running = false;
+    public int currentAtk, currentHealth, currentSpd, maxHealth, maxStm, weaponAtk;
+    public float cripple, crippleTimer, crippleSpd, currentStm, deadzone, dodgeTime,
+        dodgeTimer, dodgeSpeed, dodgeSpeedH, dodgeSpeedV, hSpeed, moveSpeed, restTimer,
+        runSpeed, stickAngle, lastStickAngle, runTime, stickDir, stickX, stickY, vSpeed, walkSpeed;
     private string hori = "Horizontal", vert = "Vertical", respawnName;
     public Animator animator;
     public Rigidbody2D body;
@@ -26,7 +27,7 @@ public class PlayerControl : MonoBehaviour
         {
             moveSpeed = runSpeed;
         }
-        else if (currentStm == -1)
+        else if (crippled)
         {
             moveSpeed = crippleSpd;
         }
@@ -81,48 +82,6 @@ public class PlayerControl : MonoBehaviour
         {
             //body.velocity = new Vector2(0f, 0f);
             body.velocity = Vector2.zero;
-        }
-    }
-
-    // Performs dodging operations
-    void DodgePlayer()
-    {
-        // Changes boolean for animator
-        animator.SetBool("dodging", dodging);
-
-        // If the dodge timer is at zero
-        if (dodgeTimer == 0.0f)
-        {
-            // Make the player dodge
-            dodgeSpeedH = (float)System.Math.Cos(stickDir) * dodgeSpeed * System.Math.Sign(Input.GetAxisRaw(hori));
-            dodgeSpeedV = (float)System.Math.Sin(stickDir) * dodgeSpeed;
-            if (Input.GetAxisRaw(hori) < 0 && Input.GetAxisRaw(vert) < 0)
-            {
-                dodgeSpeedV *= System.Math.Sign(Input.GetAxisRaw(vert));
-            }
-            else if (Input.GetAxisRaw(hori) < 0 && Input.GetAxisRaw(vert) > 0)
-            {
-                dodgeSpeedV *= -1;
-            }
-            body.velocity = new Vector2(dodgeSpeedH, dodgeSpeedV);
-            sprite.color = new Color(0f, 1f, 0f);
-        }
-
-        // Increment the dodge timer
-        dodgeTimer += Time.deltaTime;
-
-        // If the dodge timer reaches the max dodge time
-        if (dodgeTimer >= dodgeTime)
-        {
-            // Make the player stop dodging and change the boolean for the animator
-            dodgeTimer = 0.0f;
-            dodging = false;
-            grounded = true;
-            animator.SetBool("dodging", dodging);
-            hSpeed = 0f;
-            vSpeed = 0f;
-            body.velocity = new Vector2(hSpeed, vSpeed);
-            sprite.color = new Color(1f, 1f, 1f);
         }
     }
 
@@ -194,24 +153,114 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    // Performs dodging operations
+    void Dodge()
     {
-        // If colliding with an interactable, tell the game you are
-        if (collision.CompareTag("Interactable"))
+        // Changes boolean for animator
+        animator.SetBool("dodging", dodging);
+
+        // If the dodge timer is at zero
+        if (dodgeTimer == 0.0f)
         {
-            interactable = collision.gameObject;
+            // Make the player dodge
+            dodgeSpeedH = (float)System.Math.Cos(stickDir) * dodgeSpeed * System.Math.Sign(Input.GetAxisRaw(hori));
+            dodgeSpeedV = (float)System.Math.Sin(stickDir) * dodgeSpeed;
+            if (Input.GetAxisRaw(hori) < 0 && Input.GetAxisRaw(vert) < 0)
+            {
+                dodgeSpeedV *= System.Math.Sign(Input.GetAxisRaw(vert));
+            }
+            else if (Input.GetAxisRaw(hori) < 0 && Input.GetAxisRaw(vert) > 0)
+            {
+                dodgeSpeedV *= -1;
+            }
+            body.velocity = new Vector2(dodgeSpeedH, dodgeSpeedV);
+            sprite.color = new Color(0f, 1f, 0f);
+        }
+
+        // Increment the dodge timer
+        dodgeTimer += Time.deltaTime;
+
+        // If the dodge timer reaches the max dodge time
+        if (dodgeTimer >= dodgeTime)
+        {
+            // Make the player stop dodging and change the boolean for the animator
+            dodgeTimer = 0.0f;
+            dodging = false;
+            grounded = true;
+            animator.SetBool("dodging", dodging);
+            hSpeed = 0f;
+            vSpeed = 0f;
+            body.velocity = new Vector2(hSpeed, vSpeed);
+            sprite.color = new Color(1f, 1f, 1f);
         }
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    void CalculateStamina()
     {
-        // If no longer colliding with an interactable, the game you aren't
-        if (collision.CompareTag("Interactable"))
+        if (crippled)
         {
-            if (collision.gameObject == interactable)
+            running = false;
+            crippleTimer += Time.deltaTime;
+            
+            if (crippleTimer >= runTime)
             {
-                interactable = null;
+                crippled = false;
+                currentStm = maxStm;
+                crippleTimer = cripple;
+                restTimer = -4.0f;
             }
+        }
+        else if (running && moving && currentStm > 0 && grounded && !dodging)
+        {
+            crippleTimer = cripple;
+            restTimer = -4.0f;
+
+            currentStm -= Time.deltaTime;
+        }
+        else if (currentStm == 0)
+        {
+            restTimer += Time.deltaTime;
+            if (restTimer > runTime)
+            {
+                currentStm += Time.deltaTime;
+                restTimer = -4.0f;
+                crippled = false;
+            }
+            else if ((running && restTimer > -4.0f + Time.deltaTime) || (restTimer >= (-4.0f + dodgeTime) && (dodging || !grounded)))
+            {
+                crippled = true;
+            }
+        }
+        else if (currentStm < 0)
+        {
+            currentStm = 0;
+            running = false;
+        }
+        else if (currentStm < maxStm && grounded && !dodging)
+        {
+            crippleTimer = cripple;
+            restTimer = -4.0f;
+
+            currentStm += Time.deltaTime;
+
+            if (currentStm > maxStm)
+            {
+                currentStm = maxStm;
+            }
+        }
+    }
+
+    void CheckStats()
+    {
+        // (Search for a more elegant way to do this)
+        // Check and make sure stats never go beyond their max
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        if (currentStm > maxStm)
+        {
+            currentStm = maxStm;
         }
     }
 
@@ -228,6 +277,36 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        // If colliding with an interactable, tell the game you are
+        if (collision.CompareTag("Interactable"))
+        {
+            interactable = collision.gameObject;
+            if (quickItem != null)
+            {
+                if (interactable.GetComponent<Item>().type == "refill" && quickItem.type == "estus")
+                {
+                    quickItem.quantity++;
+                    interactable.SetActive(false);
+                }
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        // If no longer colliding with an interactable, the game you aren't
+        if (collision.CompareTag("Interactable"))
+        {
+            if (collision.gameObject == interactable)
+            {
+                interactable = null;
+            }
+        }
+    }
+
+
     // Use this for initialization
     void Start() 
 	{
@@ -238,7 +317,9 @@ public class PlayerControl : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Main")
         {
             // Sets up player's first stats and direction
-            currentSpd = 10;
+            maxHealth = 20;
+            currentHealth = 10;
+            currentSpd = 12;
             walkSpeed = currentSpd;
             crippleSpd = currentSpd * 0.6f;
             runSpeed = currentSpd * 1.5f;
@@ -249,7 +330,9 @@ public class PlayerControl : MonoBehaviour
             currentStm = maxStm;
             cripple = -9.0f;
             dodgeTime = 0.5f;
+            dodgeTimer = 0.0f;
             runTime = 1.0f;
+            restTimer = -4.0f;
         }
 	}
 
@@ -275,79 +358,83 @@ public class PlayerControl : MonoBehaviour
             {
                 MovePlayer();
                 AnimatePlayer();
-                
-                if (running && moving && currentStm >= 0)
-                {
-                    crippleTimer = cripple;
-
-                    currentStm -= Time.deltaTime;
-                }
-                else if (currentStm < 0)
-                {
-                    currentStm = -1;
-                    running = false;
-                    crippleTimer += Time.deltaTime;
-                    if (crippleTimer >= runTime)
-                    {
-                        currentStm = maxStm;
-                        crippleTimer = cripple;
-                    }
-                }
-                else if (currentStm < maxStm)
-                {
-                    crippleTimer = cripple;
-
-                    currentStm += Time.deltaTime;
-                    if (currentStm > maxStm)
-                    {
-                        currentStm = maxStm;
-                    }
-                }
 
                 // Check if the player tries to interact with something
                 if (Input.GetKeyDown("e") && interactable != null)
                 {
-                    if (interactable.GetComponent<Item>())
+                    if (interactable.GetComponent<Item>() && interactable.GetComponent<Item>().type != "refill")
                     {
                         inv.Add(interactable.GetComponent<Item>());
+                        // set item to shortcut item (temp)
+                        quickItem = inv[0];
                         interactable.gameObject.SetActive(false);
                     }
                 }
                 // Then check if the player tries to dodge or jump
-                else if (Input.GetKeyDown("f") && currentStm > 0)
+                else if (Input.GetKeyDown("f") && !crippled && (Mathf.Abs(hSpeed) > 0 || Mathf.Abs(vSpeed) > 0))
                 {
                     // Dodge here
                     dodging = true;
                     currentStm -= 3;
-                    if (currentStm < 0)
-                    {
-                        currentStm = -1;
-                    }
                 }
-                else if (Input.GetKeyDown("j") && currentStm > 0)
+                else if (Input.GetKeyDown("j") && !crippled)
                 {
                     // Jump here
                     grounded = false;
                     currentStm -= 3;
-                    if (currentStm < 0)
-                    {
-                        currentStm = -1;
-                    }
                 }
                 else if (Input.GetKeyDown("i"))
                 {
                     // Use shortcut item here
                     if (quickItem != null)
                     {
-                        //quickItem.Use();
+                        switch (quickItem.type)
+                        {
+                            case "attack":
+                                currentAtk += quickItem.Use[0];
+                                inv.Remove(quickItem);
+                                quickItem = null;
+                                break;
+                            case "estus":
+                                if (quickItem.quantity > 0)
+                                {
+                                    currentHealth += quickItem.Use[0];
+                                    currentStm += quickItem.Use[1];
+                                    quickItem.quantity--;
+                                    break;
+                                }
+                                break;
+                            case "health":
+                                currentHealth += quickItem.Use[0];
+                                maxHealth += quickItem.Use[0];
+                                inv.Remove(quickItem);
+                                quickItem = null;
+                                break;
+                            case "speed":
+                                currentSpd += quickItem.Use[0];
+                                walkSpeed = currentSpd;
+                                runSpeed += 1.5f;
+                                inv.Remove(quickItem);
+                                quickItem = null;
+                                break;
+                            case "stamina":
+                                currentStm += quickItem.Use[0];
+                                maxStm += quickItem.Use[0];
+                                inv.Remove(quickItem);
+                                quickItem = null;
+                                break;
+                        }
                     }
                 }
             }
             else
             {
                 // Make player dodge or jump
-                DodgePlayer();
+                Dodge();
             }
+
+            CalculateStamina();
+            CheckStats();
         }
     }
 }
