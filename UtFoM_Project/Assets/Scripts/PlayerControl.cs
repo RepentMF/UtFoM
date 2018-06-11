@@ -5,25 +5,31 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    public bool crippled = false, dodging = false, grounded = true, moving = false, 
-        running = false;
+    public bool crippled = false, dodging = false, grounded = true, inVehicle = false,
+        moving = false, running = false;
     public int currentAtk, currentHealth, currentSpd, maxHealth, maxStm, weaponAtk;
     public float cripple, crippleTimer, crippleSpd, currentStm, deadzone, dodgeTime,
         dodgeTimer, dodgeSpeed, dodgeSpeedH, dodgeSpeedV, hSpeed, moveSpeed, restTimer,
         runSpeed, stickAngle, lastStickAngle, runTime, stickDir, stickX, stickY, vSpeed, walkSpeed;
     private string hori = "Horizontal", vert = "Vertical", respawnName;
+    public Vector2 position;
     public Animator animator;
     public Rigidbody2D body;
     public SpriteRenderer sprite;
     public Item quickItem;
     public List<Item> inv;
-    public GameObject interactable;
+    public GameObject interactable, interactableCollision;
 
 
     void MovePlayer()
     {
         // Checks to see if the player is running or not
-        if (running)
+        if (inVehicle)
+        {
+            moveSpeed = walkSpeed * 1.25f;
+            running = false;
+        }
+        else if (running)
         {
             moveSpeed = runSpeed;
         }
@@ -50,8 +56,8 @@ public class PlayerControl : MonoBehaviour
         hSpeed = (float)System.Math.Cos(stickDir) * moveSpeed * System.Math.Sign(Input.GetAxisRaw(hori));
         vSpeed = (float)System.Math.Sin(stickDir) * moveSpeed;
 
-        
-        
+
+
         // Set Vertical Speed's numerical sign
         if (Input.GetAxisRaw(hori) < 0 && Input.GetAxisRaw(vert) < 0)
         {
@@ -72,15 +78,22 @@ public class PlayerControl : MonoBehaviour
             moving = false;
         }
 
-        // Applies movement changes
-        if (System.Math.Abs(Input.GetAxisRaw(hori)) >= deadzone || System.Math.Abs(Input.GetAxisRaw(vert)) >= deadzone)
+        if (!inVehicle)
         {
-            //transform.Translate(new Vector2(hSpeed, vSpeed));
-            body.velocity = new Vector2(hSpeed, vSpeed);
+            // Applies movement changes
+            if (System.Math.Abs(Input.GetAxisRaw(hori)) >= deadzone || System.Math.Abs(Input.GetAxisRaw(vert)) >= deadzone)
+            {
+                //transform.Translate(new Vector2(hSpeed, vSpeed));
+                body.velocity = new Vector2(hSpeed, vSpeed);
+            }
+            else
+            {
+                //body.velocity = new Vector2(0f, 0f);
+                body.velocity = Vector2.zero;
+            }
         }
         else
         {
-            //body.velocity = new Vector2(0f, 0f);
             body.velocity = Vector2.zero;
         }
     }
@@ -129,7 +142,7 @@ public class PlayerControl : MonoBehaviour
             else
             {
                 // 0 or 360 Degrees
-                stickAngle = stickDir * 180 / (float) System.Math.PI;
+                stickAngle = stickDir * 180 / (float)System.Math.PI;
             }
             // Sets lastStickAngle to stickAngle, in case stickAngle changes but you need to use a previous 
             // frame's stickAngle
@@ -201,7 +214,7 @@ public class PlayerControl : MonoBehaviour
         {
             running = false;
             crippleTimer += Time.deltaTime;
-            
+
             if (crippleTimer >= runTime)
             {
                 crippled = false;
@@ -277,18 +290,124 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    void UseQuickItem()
+    {
+        if (quickItem != null)
+        {
+            switch (quickItem.type)
+            {
+                case "attack":
+                    currentAtk += quickItem.Use[0];
+                    inv.Remove(quickItem);
+                    quickItem = null;
+                    break;
+                case "estus":
+                    if (quickItem.quantity > 0)
+                    {
+                        currentHealth += quickItem.Use[0];
+                        currentStm += quickItem.Use[1];
+                        quickItem.quantity--;
+                        break;
+                    }
+                    break;
+                case "health":
+                    currentHealth += quickItem.Use[0];
+                    maxHealth += quickItem.Use[0];
+                    inv.Remove(quickItem);
+                    quickItem = null;
+                    break;
+                case "speed":
+                    currentSpd += quickItem.Use[0];
+                    walkSpeed = currentSpd;
+                    runSpeed += 1.5f;
+                    inv.Remove(quickItem);
+                    quickItem = null;
+                    break;
+                case "stamina":
+                    currentStm += quickItem.Use[0];
+                    maxStm += quickItem.Use[0];
+                    inv.Remove(quickItem);
+                    quickItem = null;
+                    break;
+            }
+        }
+    }
+
+    void Interact()
+    {
+        if (interactable.GetComponent<Item>() && interactable.GetComponent<Item>().type != "refill")
+        {
+            inv.Add(interactable.GetComponent<Item>());
+            // set item to shortcut item (temp)
+            quickItem = inv[0];
+            interactable.gameObject.SetActive(false);
+        }
+        else if (interactable.GetComponent<ItemContainer>() && stickAngle == interactable.GetComponent<ItemContainer>().face
+            && !interactable.GetComponent<ItemContainer>().open)
+        {
+            inv.Add(interactable.GetComponent<ItemContainer>().item);
+            quickItem = inv[0];
+            interactable.GetComponent<ItemContainer>().open = true;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+        //Debug.Break();
+        if (collision.gameObject.CompareTag("Vehicle"))
+        {
+            interactableCollision = collision.gameObject;
+            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
+        }
+    }
+
+    /*void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Vehicle"))
+        {
+            if (collision.gameObject == interactableCollision)
+            {
+                interactableCollision = null;
+            }
+        }
+    }*/
+
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // If colliding with an interactable, tell the game you are
-        if (collision.CompareTag("Interactable"))
+        if (!inVehicle)
         {
-            interactable = collision.gameObject;
-            if (quickItem != null)
+            // If colliding with an interactable, tell the game you are
+            if (collision.CompareTag("Interactable"))
             {
-                if (interactable.GetComponent<Item>().type == "refill" && quickItem.type == "estus")
+                interactable = collision.gameObject;
+                if (quickItem != null && interactable.GetComponent<Item>())
                 {
-                    quickItem.quantity++;
-                    interactable.SetActive(false);
+                    if (interactable.GetComponent<Item>().type == "refill" && quickItem.type == "estus")
+                    {
+                        quickItem.quantity++;
+                        interactable.SetActive(false);
+                    }
+                }
+            }
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!inVehicle)
+        {
+            // If colliding with an interactable, tell the game you are
+            if (collision.CompareTag("Interactable"))
+            {
+                interactable = collision.gameObject;
+                if (quickItem != null && interactable.GetComponent<Item>())
+                {
+                    if (interactable.GetComponent<Item>().type == "refill" && quickItem.type == "estus")
+                    {
+                        quickItem.quantity++;
+                        interactable.SetActive(false);
+                    }
                 }
             }
         }
@@ -304,12 +423,21 @@ public class PlayerControl : MonoBehaviour
                 interactable = null;
             }
         }
+
+        if (collision.CompareTag("Vehicle"))
+        {
+            if (collision.gameObject == interactableCollision)
+            {
+                interactableCollision = null;
+                Physics2D.IgnoreCollision(collision.gameObject.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>(), false);
+            }
+        }
     }
 
 
     // Use this for initialization
-    void Start() 
-	{
+    void Start()
+    {
         // Sets up the game
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
@@ -334,7 +462,7 @@ public class PlayerControl : MonoBehaviour
             runTime = 1.0f;
             restTimer = -4.0f;
         }
-	}
+    }
 
     // Update is called once per frame
     void Update()
@@ -352,85 +480,66 @@ public class PlayerControl : MonoBehaviour
                     running = true;
                 }
             }
+            if (Input.GetKeyDown("v") && interactableCollision != null && interactableCollision.GetComponent<VehicleControl>() != null)
+            {
+                // Remove player control here
+                if (inVehicle)
+                {
+                    inVehicle = false;
+                    interactableCollision.GetComponent<VehicleControl>().MoveVehicle(0f, 0f);
+                }
+                else
+                {
+                    inVehicle = true;
+                    position = interactableCollision.GetComponent<VehicleControl>().position - body.position;
+                }
+            }
 
             // Check if the player is not dodging
             if (!dodging && grounded)
             {
                 MovePlayer();
-                AnimatePlayer();
 
-                // Check if the player tries to interact with something
-                if (Input.GetKeyDown("e") && interactable != null)
+                if (!inVehicle)
                 {
-                    if (interactable.GetComponent<Item>() && interactable.GetComponent<Item>().type != "refill")
+                    AnimatePlayer();
+
+                    // Check if the player tries to interact with something
+                    if (Input.GetKeyDown("e") && interactable != null)
                     {
-                        inv.Add(interactable.GetComponent<Item>());
-                        // set item to shortcut item (temp)
-                        quickItem = inv[0];
-                        interactable.gameObject.SetActive(false);
+                        Interact();
                     }
-                }
-                // Then check if the player tries to dodge or jump
-                else if (Input.GetKeyDown("f") && !crippled && (Mathf.Abs(hSpeed) > 0 || Mathf.Abs(vSpeed) > 0))
-                {
-                    // Dodge here
-                    dodging = true;
-                    currentStm -= 3;
-                }
-                else if (Input.GetKeyDown("j") && !crippled)
-                {
-                    // Jump here
-                    grounded = false;
-                    currentStm -= 3;
-                }
-                else if (Input.GetKeyDown("i"))
-                {
-                    // Use shortcut item here
-                    if (quickItem != null)
+                    // Then check if the player tries to dodge or jump
+                    else if (Input.GetKeyDown("f") && !crippled && (Mathf.Abs(hSpeed) > 0 || Mathf.Abs(vSpeed) > 0))
                     {
-                        switch (quickItem.type)
-                        {
-                            case "attack":
-                                currentAtk += quickItem.Use[0];
-                                inv.Remove(quickItem);
-                                quickItem = null;
-                                break;
-                            case "estus":
-                                if (quickItem.quantity > 0)
-                                {
-                                    currentHealth += quickItem.Use[0];
-                                    currentStm += quickItem.Use[1];
-                                    quickItem.quantity--;
-                                    break;
-                                }
-                                break;
-                            case "health":
-                                currentHealth += quickItem.Use[0];
-                                maxHealth += quickItem.Use[0];
-                                inv.Remove(quickItem);
-                                quickItem = null;
-                                break;
-                            case "speed":
-                                currentSpd += quickItem.Use[0];
-                                walkSpeed = currentSpd;
-                                runSpeed += 1.5f;
-                                inv.Remove(quickItem);
-                                quickItem = null;
-                                break;
-                            case "stamina":
-                                currentStm += quickItem.Use[0];
-                                maxStm += quickItem.Use[0];
-                                inv.Remove(quickItem);
-                                quickItem = null;
-                                break;
-                        }
+                        // Dodge here
+                        dodging = true;
+                        currentStm -= 3;
+                    }
+                    else if (Input.GetKeyDown("j") && !crippled)
+                    {
+                        // Jump here
+                        grounded = false;
+                        currentStm -= 3;
+                    }
+                    else if (Input.GetKeyDown("i"))
+                    {
+                        // Use shortcut item here
+                        UseQuickItem();
                     }
                 }
             }
-            else
+            else if (dodging || !grounded)
             {
                 // Make player dodge or jump
                 Dodge();
+            }
+
+            if (inVehicle)
+            {
+                interactableCollision.GetComponent<VehicleControl>().MoveVehicle(hSpeed, vSpeed);
+                transform.position = new Vector3(interactableCollision.GetComponent<VehicleControl>().position.x - position.x,
+                    interactableCollision.GetComponent<VehicleControl>().position.y - position.y, 0);
             }
 
             CalculateStamina();
