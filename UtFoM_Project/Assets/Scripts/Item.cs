@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public int atkUp, healthRestore, healthUp, spdUp, quantity, stmRestore, 
-        stmUp;
+    public int atkUp, healthRestore, healthUp, keyID, quantity, spdUp, 
+        stmRestore, stmUp, torch;
     public int[] returnVal;
     public string type;
 
@@ -31,6 +31,12 @@ public class Item : MonoBehaviour
                 case "stamina":
                     returnVal[0] = stmUp;
                     break;
+                case "key":
+                    returnVal[0] = keyID;
+                    break;
+                case "torch":
+                    returnVal[0] = torch;
+                    break;
             }
 
             return returnVal;
@@ -38,13 +44,13 @@ public class Item : MonoBehaviour
     }
 
 	// Use this for initialization
-	void Start () 
+	void Start() 
 	{
         returnVal = new int[3];
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void Update() 
 	{
 		
 	}

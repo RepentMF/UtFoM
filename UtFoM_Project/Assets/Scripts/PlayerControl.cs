@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System;
 
 public class PlayerControl : MonoBehaviour
 {
-    public bool crippled = false, dodging = false, grounded = true, inVehicle = false,
+    public bool crippled = false, dodging = false, grounded = true, inVehicle = false, 
         moving = false, running = false;
+    public static bool exists = false;
     public int currentAtk, currentHealth, currentSpd, maxHealth, maxStm, weaponAtk;
     public float cripple, crippleTimer, crippleSpd, currentStm, deadzone, dodgeTime,
         dodgeTimer, dodgeSpeed, dodgeSpeedH, dodgeSpeedV, hSpeed, moveSpeed, restTimer,
@@ -329,6 +331,18 @@ public class PlayerControl : MonoBehaviour
                     inv.Remove(quickItem);
                     quickItem = null;
                     break;
+                case "torch":
+                    if (Convert.ToBoolean(quickItem.returnVal[0]) == true)
+                    {
+                        quickItem.returnVal[0] = 0;
+                        Debug.Log(quickItem.returnVal[0]);
+                    }
+                    else
+                    {
+                        quickItem.returnVal[0] = 1;
+                        Debug.Log(quickItem.returnVal[0]);
+                    }
+                    break;
             }
         }
     }
@@ -348,6 +362,29 @@ public class PlayerControl : MonoBehaviour
             inv.Add(interactable.GetComponent<ItemContainer>().item);
             quickItem = inv[0];
             interactable.GetComponent<ItemContainer>().open = true;
+        }
+        else if (interactable.GetComponent<Lever>())
+        {
+            if (interactable.GetComponent<Lever>().on)
+            {
+                interactable.GetComponent<Lever>().on = false;
+            }
+            else
+            {
+                interactable.GetComponent<Lever>().on = true;
+            }
+        }
+        else if (interactable.GetComponent<NPCControl>())
+        {
+            Debug.Log(interactable.GetComponent<NPCControl>().dialogue[interactable.GetComponent<NPCControl>().iterator]);
+            if (interactable.GetComponent<NPCControl>().iterator != interactable.GetComponent<NPCControl>().dialogue.Length - 1)
+            {
+                interactable.GetComponent<NPCControl>().iterator++;
+            }
+            else if (interactable.GetComponent<NPCControl>().iterator == interactable.GetComponent<NPCControl>().dialogue.Length - 1)
+            {
+                interactable.GetComponent<NPCControl>().iterator = 0;
+            }
         }
     }
 
@@ -438,6 +475,18 @@ public class PlayerControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        DontDestroyOnLoad(transform.gameObject);
+
+        if (!exists)
+        {
+            exists = true;
+            DontDestroyOnLoad(transform.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         // Sets up the game
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
@@ -467,8 +516,8 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Main")
-        {
+        //if (SceneManager.GetActiveScene().name == "Main")
+        //{
             if (/*(Input.GetAxis("RT") > 0) || */(Input.GetKeyDown("r")))
             {
                 if (running)
@@ -545,5 +594,5 @@ public class PlayerControl : MonoBehaviour
             CalculateStamina();
             CheckStats();
         }
-    }
+    //}
 }

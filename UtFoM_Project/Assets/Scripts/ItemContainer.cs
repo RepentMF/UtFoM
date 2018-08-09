@@ -9,14 +9,14 @@ public class ItemContainer : MonoBehaviour
     public Item item;
 
 	// Use this for initialization
-	void Start () 
+	void Start() 
 	{
         open = false;
         face = 90;
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void Update() 
 	{
 		
 	}
