@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dd5q0pik41su1"]
+
+[ext_resource type="Script" path="res://Scripts/Pushable.gd" id="1_07snp"]
+[ext_resource type="Texture2D" uid="uid://dkg1dx84uasyp" path="res://Sprites/Block.png" id="2_u43g4"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rxbd5"]
+friction = 100.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycjq1"]
+size = Vector2(16, 16)
+
+[node name="Block" type="RigidBody2D"]
+z_index = -1
+mass = 100.0
+physics_material_override = SubResource("PhysicsMaterial_rxbd5")
+gravity_scale = 0.0
+lock_rotation = true
+freeze_mode = 1
+contact_monitor = true
+max_contacts_reported = 8
+script = ExtResource("1_07snp")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(3.57628e-07, -5.68434e-14)
+texture = ExtResource("2_u43g4")
+region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
+
+[node name="PhysicalHitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ycjq1")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
