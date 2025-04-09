@@ -11,10 +11,10 @@
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true
-offset_left = 143.976
-offset_top = 59.8261
-offset_right = 300.976
-offset_bottom = 99.8261
+offset_left = 35.0
+offset_top = 98.0
+offset_right = 247.0
+offset_bottom = 215.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -2

@@ -36,7 +36,7 @@ var juggleDistanceY = 0.0
 
 func _physics_process(delta):
 	handle_states()
-	%RichTextLabel.text = str(temp, ", ", dashTimer)
+	%RichTextLabel.text = str(temp, ", ", dashTimer, "\nHP: ", get_node("StatsController").health, "\nMP: ", get_node("StatsController").mana, "\nSP: ", get_node("StatsController").stamina)
 
 func handle_states():
 	if currentState != state.roll && currentState != state.dash && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.burst:

@@ -1,13 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://rbec2tuumb8s"]
+[gd_scene load_steps=5 format=3 uid="uid://rbec2tuumb8s"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerActionController.gd" id="1_0puox"]
 [ext_resource type="Texture2D" uid="uid://dvvnvdgrsfhau" path="res://Sprites/UVRfY.png" id="2_iq586"]
+[ext_resource type="Script" path="res://Scripts/StatsController.gd" id="3_bj7ur"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0n22e"]
 size = Vector2(12, 8)
 
 [node name="PlayerCharacter" type="CharacterBody2D"]
 script = ExtResource("1_0puox")
+metadata/Health = 10
+metadata/Mana = 5
+metadata/Stamina = 5
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 position = Vector2(3.57628e-07, -5.68434e-14)
@@ -18,3 +22,6 @@ region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
 [node name="PlayerPhysicalHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_0n22e")
+
+[node name="StatsController" type="Node2D" parent="."]
+script = ExtResource("3_bj7ur")
