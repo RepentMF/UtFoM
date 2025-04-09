@@ -21,6 +21,8 @@ angular_damp_mode = 1
 script = ExtResource("1_10014")
 metadata/Speed = 0
 metadata/HitstunTimer = 0
+metadata/KnockUp = false
+metadata/KnockUpPower = 0
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_skuhd")
@@ -37,4 +39,5 @@ region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
 position = Vector2(0.015, 0.015)
 shape = SubResource("RectangleShape2D_ycjq1")
 
+[connection signal="area_entered" from="Area" to="." method="_on_area_area_entered"]
 [connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]

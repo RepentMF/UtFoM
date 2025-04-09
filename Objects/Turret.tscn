@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://3v3haqtkic8g"]
+[gd_scene load_steps=7 format=3 uid="uid://3v3haqtkic8g"]
 
 [ext_resource type="Script" path="res://Scripts/Pushable.gd" id="1_4bxlg"]
 [ext_resource type="Script" path="res://Scripts/Turret.gd" id="2_puvws"]
@@ -7,12 +7,14 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rxbd5"]
 friction = 100.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1lwfu"]
+size = Vector2(9, 16)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycjq1"]
 size = Vector2(16, 16)
 
 [node name="Turret" type="RigidBody2D"]
 z_index = -1
-rotation = 1.5708
 mass = 100.0
 physics_material_override = SubResource("PhysicsMaterial_rxbd5")
 gravity_scale = 0.0
@@ -22,9 +24,16 @@ contact_monitor = true
 max_contacts_reported = 8
 script = ExtResource("1_4bxlg")
 metadata/Bullet = ""
+metadata/Height = ""
+metadata/Rotation = 0.0
+metadata/Delay = 0
 
-[node name="TurretScript" type="Node2D" parent="."]
+[node name="TurretScript" type="Area2D" parent="."]
+position = Vector2(9, 0)
 script = ExtResource("2_puvws")
+
+[node name="MetaHitbox" type="CollisionShape2D" parent="TurretScript"]
+shape = SubResource("RectangleShape2D_1lwfu")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.125, 0.125)
@@ -34,5 +43,4 @@ metadata/Bullet = "res://Objects/Bullet.tscn"
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ycjq1")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+disabled = true

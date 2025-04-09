@@ -22,18 +22,28 @@ position = Vector2(0.526997, -6.57812)
 texture = ExtResource("1_ama53")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_qs71s")]
+unique_name_in_owner = true
+z_index = 5
+position = Vector2(-40, 49)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1.04364, -6.45123)
 zoom = Vector2(4.1, 4.1)
 
 [node name="Block" parent="." instance=ExtResource("3_ykd2a")]
-position = Vector2(-44.3947, 24.8381)
+position = Vector2(-14, 41)
 
 [node name="Block2" parent="." instance=ExtResource("3_ykd2a")]
-position = Vector2(-14.0535, 24.8381)
+position = Vector2(-14, 24)
 
 [node name="Turret" parent="." instance=ExtResource("4_8ptt3")]
-position = Vector2(-38.0831, -28.028)
-rotation = 4.71239
-metadata/Bullet = "res://Objects/NormalBullet.tscn"
+position = Vector2(-40, -25)
+metadata/Bullet = "JuggleBullet"
+metadata/Height = "grounded"
+metadata/Rotation = 90
+
+[node name="Turret2" parent="Turret" instance=ExtResource("4_8ptt3")]
+metadata/Bullet = "JuggleBullet"
+metadata/Height = "low"
+metadata/Rotation = 90
+metadata/Delay = 5

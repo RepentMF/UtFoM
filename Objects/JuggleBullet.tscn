@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dllphmgf3wvc8"]
+[gd_scene load_steps=5 format=3 uid="uid://cuuxn4kvyioqr"]
 
-[ext_resource type="Script" path="res://Scripts/Bullet.gd" id="1_5tmho"]
-[ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="2_7os2n"]
+[ext_resource type="Script" path="res://Scripts/Bullet.gd" id="1_bf743"]
+[ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="2_06hno"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_skuhd"]
 size = Vector2(1, 1)
@@ -18,11 +18,11 @@ lock_rotation = true
 freeze_mode = 1
 linear_damp_mode = 1
 angular_damp_mode = 1
-script = ExtResource("1_5tmho")
+script = ExtResource("1_bf743")
 metadata/Speed = 100
-metadata/HitstunTimer = 10
-metadata/KnockUp = false
-metadata/KnockUpPower = 0
+metadata/HitstunTimer = 3
+metadata/KnockUp = true
+metadata/KnockUpPower = -80
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_skuhd")
@@ -30,7 +30,7 @@ shape = SubResource("RectangleShape2D_skuhd")
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-1.19209e-07, 0)
 scale = Vector2(0.0234375, 0.0234375)
-texture = ExtResource("2_7os2n")
+texture = ExtResource("2_06hno")
 region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
 
 [node name="Area" type="Area2D" parent="."]

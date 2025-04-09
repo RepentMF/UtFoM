@@ -19,6 +19,7 @@ freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 8
 script = ExtResource("1_07snp")
+metadata/Height = ""
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(3.57628e-07, -5.68434e-14)
