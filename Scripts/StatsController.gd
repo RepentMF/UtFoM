@@ -1,46 +1,27 @@
 extends Node2D
 
-var health
-var mana
-var stamina
-
-var healthChange
-var healthTimer
-var healthFreq
-var manaChange
-var manaTimer
-var manaFreq
-var staminaChange
-var staminaTimer
-var staminaFreq
+var maxHealth
+var maxMana
+var maxStamina
+var currentHealth
+var currentMana
+var currentStamina
 
 func _ready():
-	health = get_parent().get_meta("Health")
-	mana = get_parent().get_meta("Mana")
-	stamina = get_parent().get_meta("Stamina")
+	maxHealth = get_parent().get_meta("MaxHealth")
+	maxMana = get_parent().get_meta("MaxMana")
+	maxStamina = get_parent().get_meta("MaxStamina")
+	currentHealth = get_parent().get_meta("Health")
+	currentMana = get_parent().get_meta("Mana")
+	currentStamina = get_parent().get_meta("Stamina")
 
-func _physics_process(_delta):
-	if healthTimer > 0:
-		if healthTimer % healthFreq == 0:
-			modify_current_stat("health", healthChange, 0, 0)
+func modify_stat(minStat, change, maxStat):
+	minStat = minStat + change
+	return check_stat(minStat, maxStat)
 
-func modify_current_stat(stat, change, freq, timer):
-	if stat == "health":
-		health = health + change
-		if timer > 0:
-			healthChange = change
-			healthTimer = timer
-			healthFreq = freq
-	elif stat == "mana":
-		mana = mana + change
-		if timer > 0:
-			manaChange = change
-			manaTimer = timer
-			manaFreq = freq
-	elif stat == "stamina":
-		stamina = stamina + change
-		if timer > 0:
-			staminaChange = change
-			staminaTimer = timer
-			staminaFreq = freq
-	#apply every frequency of time until timer is 0
+func check_stat(minStat, maxStat):
+	if minStat < 0:
+		minStat = 0
+	elif minStat > maxStat:
+		minStat = maxStat
+	return minStat

@@ -5,12 +5,13 @@ var bullet
 
 var ammo = 2
 var delay = 0
+var disabled = true
 var incrementTimerDefault = 50
 var incrementTimer
 var height
 
 func _ready():
-	bulletMeta = "res://Objects/" + get_parent().get_meta("Bullet") + ".tscn"
+	bulletMeta = "res://Attacks/Bullets/" + get_parent().get_meta("Bullet") + ".tscn"
 	bullet = load(bulletMeta)
 	
 	height = get_parent().get_meta("Height")
@@ -39,9 +40,10 @@ func _ready():
 		z_index = 1
 
 func _physics_process(_delta):
-	if incrementTimer <= 0:
-		incrementTimer = incrementTimerDefault
-		#ammo -= 1
-		add_child(bullet.instantiate())
-	else:
-		incrementTimer -= 1
+	if !disabled:
+		if incrementTimer <= 0:
+			incrementTimer = incrementTimerDefault
+			#ammo -= 1
+			add_child(bullet.instantiate())
+		else:
+			incrementTimer -= 1

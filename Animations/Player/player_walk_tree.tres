@@ -1,0 +1,44 @@
+[gd_resource type="AnimationNodeBlendSpace2D" load_steps=9 format=3 uid="uid://cptpnlshvcno7"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0ndeo"]
+animation = &"walk_8"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_slfrq"]
+animation = &"walk_6"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4ux6y"]
+animation = &"walk_2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fepam"]
+animation = &"walk_4"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qstvl"]
+animation = &"walk_7"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pfl6w"]
+animation = &"walk_1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t6tta"]
+animation = &"walk_3"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_df7rt"]
+animation = &"walk_9"
+
+[resource]
+blend_point_0/node = SubResource("AnimationNodeAnimation_0ndeo")
+blend_point_0/pos = Vector2(0, -1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_slfrq")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_4ux6y")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_fepam")
+blend_point_3/pos = Vector2(-1, 0)
+blend_point_4/node = SubResource("AnimationNodeAnimation_qstvl")
+blend_point_4/pos = Vector2(-1, -1)
+blend_point_5/node = SubResource("AnimationNodeAnimation_pfl6w")
+blend_point_5/pos = Vector2(-1, 1)
+blend_point_6/node = SubResource("AnimationNodeAnimation_t6tta")
+blend_point_6/pos = Vector2(1, 1)
+blend_point_7/node = SubResource("AnimationNodeAnimation_df7rt")
+blend_point_7/pos = Vector2(1, -1)
+blend_mode = 1

@@ -1,15 +1,23 @@
 extends CharacterBody2D
 
-enum state {idle, walk, run, roll, dash, jump, push, hitstun, juggle, burst}
+enum state {idle, walk, run, roll, dash, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, burst}
 var currentState
+var attackLight = "LightSword"
+var attackHeavy = "HeavyHammer"
+var attackJuggle = "JuggleHammer"
+var attack
 var height = "grounded"
 var direction = Vector2(0, 1)
+var lastDirection = Vector2(0, 1)
 var hitstunDirection = Vector2(0, 0)
 var groundedPosition = Vector2(0, 0)
 var gravity = 2
 var countJuggleDistance = false
-var dashEnabled = true
-var invincible = false
+var isAttacking = false
+var isDashEnabled = true
+var isExhausted = false
+var isInvincible = false
+var isStationary = false
 var temp
 
 var moveSpeed = 0
@@ -36,22 +44,30 @@ var juggleDistanceY = 0.0
 
 func _physics_process(delta):
 	handle_states()
-	%RichTextLabel.text = str(temp, ", ", dashTimer, "\nHP: ", get_node("StatsController").health, "\nMP: ", get_node("StatsController").mana, "\nSP: ", get_node("StatsController").stamina)
+	%RichTextLabel.text = str(z_index)
 
 func handle_states():
-	if currentState != state.roll && currentState != state.dash && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.burst:
+	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.burst:
 		check_move()
 	
 	if Input.is_action_just_pressed("action_burst"):
 		currentState = state.burst
+	elif Input.is_action_just_pressed("action_light_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.burst:
+		currentState = state.light_attack
+	elif Input.is_action_just_pressed("action_heavy_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.burst:
+		currentState = state.heavy_attack
+	elif Input.is_action_just_pressed("action_juggle_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.burst:
+		currentState = state.juggle_attack
 	
-	if (Input.is_action_just_pressed("action_dodge") && !dashEnabled) && currentState != state.roll && currentState != state.jump && currentState != state.hitstun && currentState != state.juggle:
-		currentState = state.roll
-	elif Input.is_action_just_pressed("action_jump") && currentState != state.roll && currentState != state.jump && currentState != state.hitstun && currentState != state.juggle && currentState != state.burst:
-		currentState = state.jump
+	if !is_player_locked():
+		if !isExhausted && (Input.is_action_just_pressed("action_dodge") && !isDashEnabled):
+			currentState = state.roll
+		elif !isExhausted && Input.is_action_just_pressed("action_jump"):
+			currentState = state.jump
 	
-	if (Input.is_action_just_pressed("action_dodge") && dashEnabled && is_direction_held()) && currentState != state.jump && currentState != state.hitstun && currentState != state.juggle:
-		currentState = state.dash
+	if currentState == state.walk || currentState == state.run || currentState == state.burst:
+		if !isExhausted && (Input.is_action_just_pressed("action_dodge") && isDashEnabled && is_direction_held()):
+			currentState = state.dash
 	
 	match currentState:
 		state.idle:
@@ -70,12 +86,27 @@ func handle_states():
 			temp = "roll"
 			roll()
 		state.dash:
-			if dashEnabled:
+			if isDashEnabled:
 				temp = "dash"
 				dash()
 		state.jump:
 			temp = "jump"
 			jump()
+		state.light_attack:
+			temp = "light_attack"
+			light_attack()
+			if !isStationary:
+				move()
+		state.heavy_attack:
+			temp = "heavy_attack"
+			heavy_attack()
+			if !isStationary:
+				move()
+		state.juggle_attack:
+			temp = "juggle_attack"
+			juggle_attack()
+			if !isStationary:
+				move()
 		state.push:
 			temp = "push"
 			move()
@@ -176,6 +207,27 @@ func jump():
 		jumpTimer -= 1
 		move_and_slide()
 
+func light_attack():
+	attack = load("res://Attacks/Player/" + attackLight + ".tscn")
+	if has_node(attackLight):
+		return
+	else:
+		add_child(attack.instantiate())
+
+func heavy_attack():
+	attack = load("res://Attacks/Player/" + attackHeavy + ".tscn")
+	if has_node(attackHeavy):
+		return
+	else:
+		add_child(attack.instantiate())
+
+func juggle_attack():
+	attack = load("res://Attacks/Player/" + attackJuggle + ".tscn")
+	if has_node(attackJuggle):
+		return
+	else:
+		add_child(attack.instantiate())
+
 func hitstun():
 	if hitstunTimer <= 0:
 		if !countJuggleDistance:
@@ -237,13 +289,13 @@ func return_to_juggle():
 	groundedPosition = Vector2(global_position.x, global_position.y - juggleDistanceY)
 	if global_position.x == groundedPosition.x:
 		juggleSpeed = 0
-	invincible = false
+	isInvincible = false
 	currentState = state.juggle
 
 func burst():
 	if burstTimer <= 0:
 		burstTimer = burstTimerDefault
-		invincible = false
+		isInvincible = false
 		replinish_movement_timers()
 		if !countJuggleDistance:
 			if is_direction_held():
@@ -253,14 +305,14 @@ func burst():
 		else:
 			return_to_juggle()
 	else:
-		if !invincible:
-			invincible = true
+		if !isInvincible:
+			isInvincible = true
 			velocity = Vector2(0, 0)
 		burstTimer -= 1
 
 func check_move():
 	if is_direction_held():
-		if Input.is_action_pressed("action_run"):
+		if Input.is_action_pressed("action_run") && !isExhausted:
 			currentState = state.run
 		else:
 			currentState = state.walk
@@ -269,6 +321,12 @@ func check_move():
 
 func is_direction_held():
 	if Input.is_action_pressed("move_left") || Input.is_action_pressed("move_right") || Input.is_action_pressed("move_up") || Input.is_action_pressed("move_down"):
+		return true
+	else:
+		return false
+
+func is_player_locked():
+	if currentState == state.roll || currentState == state.jump || currentState == state.light_attack || currentState == state.hitstun || currentState == state.juggle || currentState == state.burst:
 		return true
 	else:
 		return false
@@ -286,6 +344,8 @@ func determine_direction():
 		direction.y = 1
 	else:
 		direction.y = 0
+	if direction != Vector2(0, 0):
+		lastDirection = direction
 
 func determine_diagonal(speed):
 	if (abs(direction.x) + abs(direction.y)) > 1:

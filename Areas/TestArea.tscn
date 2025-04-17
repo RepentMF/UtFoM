@@ -1,11 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://ni8ovwd065o1"]
+[gd_scene load_steps=6 format=3 uid="uid://ni8ovwd065o1"]
 
 [ext_resource type="Texture2D" uid="uid://cmhojdde7yh5u" path="res://Sprites/Hero's Cave - The Legend of Zelda_ Oracle of Seasons (Lets Play Part 1) - YouTube - 0-16-0.png" id="1_ama53"]
-[ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://CharacterBodies/PlayerCharacter.tscn" id="1_qs71s"]
+[ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/PlayerCharacter.tscn" id="1_qs71s"]
+[ext_resource type="PackedScene" uid="uid://darddldculu84" path="res://Actors/BallCharacter.tscn" id="3_x1bnc"]
 [ext_resource type="PackedScene" uid="uid://dd5q0pik41su1" path="res://Objects/Block.tscn" id="3_ykd2a"]
 [ext_resource type="PackedScene" uid="uid://3v3haqtkic8g" path="res://Objects/Turret.tscn" id="4_8ptt3"]
 
 [node name="TestArea" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1.04364, -6.45123)
+zoom = Vector2(4.1, 4.1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -16,34 +21,33 @@ offset_top = 98.0
 offset_right = 247.0
 offset_bottom = 215.0
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Temp_Backdrop" type="Sprite2D" parent="."]
+modulate = Color(0.564706, 1, 0.694118, 1)
 z_index = -2
 position = Vector2(0.526997, -6.57812)
 texture = ExtResource("1_ama53")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_qs71s")]
 unique_name_in_owner = true
+modulate = Color(0.563984, 0.99828, 0.694974, 1)
 z_index = 5
-position = Vector2(-40, 49)
+y_sort_enabled = true
+position = Vector2(-24, 41)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(1.04364, -6.45123)
-zoom = Vector2(4.1, 4.1)
+[node name="BallCharacter" parent="." instance=ExtResource("3_x1bnc")]
+modulate = Color(0.564706, 1, 0.694118, 1)
+position = Vector2(-40, 41)
 
 [node name="Block" parent="." instance=ExtResource("3_ykd2a")]
-position = Vector2(-14, 41)
+modulate = Color(0.564706, 1, 0.694118, 1)
+position = Vector2(24, 41)
 
 [node name="Block2" parent="." instance=ExtResource("3_ykd2a")]
-position = Vector2(-14, 24)
+modulate = Color(0.564706, 1, 0.694118, 1)
+position = Vector2(24, 24)
 
 [node name="Turret" parent="." instance=ExtResource("4_8ptt3")]
 position = Vector2(-40, -25)
 metadata/Bullet = "JuggleBullet"
 metadata/Height = "grounded"
 metadata/Rotation = 90
-
-[node name="Turret2" parent="Turret" instance=ExtResource("4_8ptt3")]
-metadata/Bullet = "JuggleBullet"
-metadata/Height = "low"
-metadata/Rotation = 90
-metadata/Delay = 5

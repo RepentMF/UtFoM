@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://j5l48mqu5gil"]
+
+[ext_resource type="Script" path="res://Scripts/Attack.gd" id="1_irgch"]
+[ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="2_ixvj1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycjq1"]
+size = Vector2(2.99385, 3.02335)
+
+[node name="HeavyHammer" type="Node2D"]
+visible = false
+z_index = -1
+scale = Vector2(2, 7)
+script = ExtResource("1_irgch")
+metadata/Speed = 115
+metadata/HitstunTimer = 20
+metadata/KnockUp = false
+metadata/KnockUpPower = 0
+metadata/Status = ""
+metadata/StatusTimer = 0
+metadata/StatusFreq = 0
+metadata/StatusChange = 0
+metadata/AttackTimer = 40
+metadata/Damage = -15
+metadata/isStationary = true
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(-1.19209e-07, 0)
+scale = Vector2(0.0234375, 0.0234375)
+texture = ExtResource("2_ixvj1")
+region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
+
+[node name="Area" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+
+[node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
+position = Vector2(0.015, 0.015)
+shape = SubResource("RectangleShape2D_ycjq1")
+
+[connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]
