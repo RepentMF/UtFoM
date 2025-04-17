@@ -26,7 +26,7 @@ func _ready():
 func _physics_process(delta):
 	handle_states()
 	#%RichTextLabel.text = str(juggleDistanceY)
-	#%RichTextLabel.text = str(temp, ", ", "\nHP: ", get_node("StatsController").currentHealth, "/", get_node("StatsController").maxHealth, "\nMP: ", get_node("StatsController").currentMana, "\nSP: ", get_node("StatsController").currentStamina)
+	%RichTextLabel.text = str(temp, ", ", "\nHP: ", get_node("StatsController").currentHealth, "/", get_node("StatsController").maxHealth, "\nMP: ", get_node("StatsController").currentMana, "\nSP: ", get_node("StatsController").currentStamina)
 
 func handle_states():
 	match currentState:

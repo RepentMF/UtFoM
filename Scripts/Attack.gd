@@ -16,25 +16,24 @@ var statusTimer = 0
 var statusFreq = 0
 var statusChange = 0
 
+func _ready():
+	damage = get_meta("Damage")
+	attackTimerDefault = get_meta("AttackTimer")
+	attackTimer = attackTimerDefault
+	hitstunTimer = get_meta("HitstunTimer")
+	speed = get_meta("Speed")
+	knockUp = get_meta("KnockUp")
+	knockUpPower = get_meta("KnockUpPower")
+	statusName = get_meta("Status")
+	statusTimer = get_meta("StatusTimer")
+	statusFreq = get_meta("StatusFreq")
+	statusChange = get_meta("StatusChange")
+
 func _physics_process(_delta):
 	if attackTimerDefault == -1:
 		get_node("Area/PhysicalHitbox").disabled = true
-	if get_node("Area/PhysicalHitbox").disabled && !visible:
-		damage = get_meta("Damage")
-		attackTimerDefault = get_meta("AttackTimer")
-		attackTimer = attackTimerDefault
-		hitstunTimer = get_meta("HitstunTimer")
-		speed = get_meta("Speed")
-		knockUp = get_meta("KnockUp")
-		knockUpPower = get_meta("KnockUpPower")
-		statusName = get_meta("Status")
-		statusTimer = get_meta("StatusTimer")
-		statusFreq = get_meta("StatusFreq")
-		statusChange = get_meta("StatusChange")
-	
-	direction = user.lastDirection
-	determine_direction()
-	
+	if direction != Vector2(0, 0):
+		get_node("Area/PhysicalHitbox").disabled = false
 	if attacked && attackTimer > 0:
 		attackTimer -= 1
 	elif attackTimer <= 0 && attackTimer != -1:
@@ -59,6 +58,9 @@ func _on_area_body_entered(body):
 		else:
 			z_index = 4
 		user = body
+		direction = user.lastDirection
+		print(direction)
+		determine_direction()
 		user.isAttacking = true
 		user.isStationary = get_meta("isStationary")
 	if body is CharacterBody2D && body != user:
@@ -75,6 +77,7 @@ func _on_area_body_entered(body):
 					body.currentState = body.state.juggle
 				var targetStats = body.get_node("StatsController")
 				targetStats.currentHealth = targetStats.modify_stat(targetStats.currentHealth, damage, targetStats.maxHealth)
+			print(body.hitstunDirection)
 	pass # Replace with function body.
 
 func determine_direction():
@@ -111,7 +114,7 @@ func determine_direction():
 		global_position.x = user.global_position.x - 4
 		global_position.y = user.global_position.y + 4
 	
-	get_node("Area/PhysicalHitbox").disabled = false
+	print(direction)
 	visible = true
 
 func height_check(bodyHeight):

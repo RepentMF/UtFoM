@@ -44,7 +44,7 @@ var juggleDistanceY = 0.0
 
 func _physics_process(delta):
 	handle_states()
-	%RichTextLabel.text = str(z_index)
+	#%RichTextLabel.text = str(z_index)
 
 func handle_states():
 	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.burst:

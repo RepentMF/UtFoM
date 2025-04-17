@@ -32,7 +32,7 @@ unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 z_index = 5
 y_sort_enabled = true
-position = Vector2(-24, 41)
+position = Vector2(-2, 41)
 
 [node name="BallCharacter" parent="." instance=ExtResource("3_x1bnc")]
 modulate = Color(0.564706, 1, 0.694118, 1)
