@@ -25,8 +25,8 @@ func _ready():
 
 func _physics_process(delta):
 	handle_states()
-	#%RichTextLabel.text = str(juggleDistanceY)
-	%RichTextLabel.text = str(temp, ", ", "\nHP: ", get_node("StatsController").currentHealth, "/", get_node("StatsController").maxHealth, "\nMP: ", get_node("StatsController").currentMana, "\nSP: ", get_node("StatsController").currentStamina)
+	%RichTextLabel.text = str(name, ", ", z_index)
+	#%RichTextLabel.text = str(temp, ", ", "\nHP: ", get_node("StatsController").currentHealth, "/", get_node("StatsController").maxHealth, "\nMP: ", get_node("StatsController").currentMana, "\nSP: ", get_node("StatsController").currentStamina)
 
 func handle_states():
 	match currentState:
@@ -72,7 +72,8 @@ func hitstun():
 		else:
 			return_to_juggle()
 	else:
-		velocity = hitstunDirection * KBSpeed
+		if KBSpeed != 0:
+			velocity = hitstunDirection * KBSpeed
 		hitstunTimer -= 1
 		move_and_slide()
 

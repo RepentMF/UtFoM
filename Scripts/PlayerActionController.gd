@@ -17,7 +17,7 @@ var isAttacking = false
 var isDashEnabled = true
 var isExhausted = false
 var isInvincible = false
-var isStationary = false
+var isStationary
 var temp
 
 var moveSpeed = 0
@@ -33,7 +33,7 @@ var rollTimerDefault = 30
 var rollTimer = rollTimerDefault
 var dashTimerDefault = 10
 var dashTimer = dashTimerDefault
-var jumpTimerDefault = 30
+var jumpTimerDefault = 46
 var jumpTimer = jumpTimerDefault
 var hitstunTimerDefault = 0
 var hitstunTimer = hitstunTimerDefault
@@ -44,7 +44,7 @@ var juggleDistanceY = 0.0
 
 func _physics_process(delta):
 	handle_states()
-	#%RichTextLabel.text = str(z_index)
+	#%RichTextLabel.text = temp
 
 func handle_states():
 	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.burst:
@@ -95,18 +95,21 @@ func handle_states():
 		state.light_attack:
 			temp = "light_attack"
 			light_attack()
-			if !isStationary:
-				move()
+			if isStationary != null:
+				if !isStationary:
+					move()
 		state.heavy_attack:
 			temp = "heavy_attack"
 			heavy_attack()
-			if !isStationary:
-				move()
+			if isStationary != null:
+				if !isStationary:
+					move()
 		state.juggle_attack:
 			temp = "juggle_attack"
 			juggle_attack()
-			if !isStationary:
-				move()
+			if isStationary != null:
+				if !isStationary:
+					move()
 		state.push:
 			temp = "push"
 			move()
@@ -262,6 +265,7 @@ func juggle():
 			airCount = 0
 			countJuggleDistance = false
 			juggleDistanceY = 0
+			replinish_movement_timers()
 			if is_direction_held():
 				currentState = state.walk
 			else:
@@ -346,12 +350,15 @@ func determine_direction():
 		direction.y = 0
 	if direction != Vector2(0, 0):
 		lastDirection = direction
+	else:
+		direction = lastDirection
 
 func determine_diagonal(speed):
 	if (abs(direction.x) + abs(direction.y)) > 1:
-			var pyth = sqrt(2 * (speed * speed)) / 2
-			velocity.x = pyth * direction.x
-			velocity.y = pyth * direction.y
+		var pyth = sqrt(2 * (speed * speed)) / 2
+		#these are the lines of code that move player during attack
+		velocity.x = pyth * direction.x
+		velocity.y = pyth * direction.y
 
 func replinish_movement_timers():
 	rollTimer = rollTimerDefault
@@ -359,10 +366,16 @@ func replinish_movement_timers():
 	jumpTimer = jumpTimerDefault
 
 func collide():
-	for i in get_slide_collision_count():
-		var c = get_slide_collision(i)
-		if c.get_collider() is RigidBody2D:
-			if c.get_normal() == -1 * direction:
-				c.get_collider().player = self
-				c.get_collider().tempVelocity = Vector2(direction.x * moveSpeed, direction.y * moveSpeed)
-				currentState = state.push
+	if get_slide_collision_count() != 0:
+		for i in get_slide_collision_count():
+			var c = get_slide_collision(i)
+			if c.get_collider() is RigidBody2D:
+				if c.get_normal() == -1 * direction:
+					c.get_collider().player = self
+					c.get_collider().tempVelocity = Vector2(direction.x * moveSpeed, direction.y * moveSpeed)
+					currentState = state.push
+	else:
+		if is_direction_held():
+			currentState = state.walk
+		else:
+			currentState = state.idle
