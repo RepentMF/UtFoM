@@ -6,7 +6,7 @@ var attackTimer = 0
 var damage = 0
 var user
 var hitstunTimer = 0
-var direction = Vector2(0, 0)
+var direction
 var speed = 0
 var height = "grounded"
 var knockUp = false
@@ -15,8 +15,10 @@ var statusName = ""
 var statusTimer = 0
 var statusFreq = 0
 var statusChange = 0
+var userName
 
 func _ready():
+	visible = false
 	damage = get_meta("Damage")
 	attackTimerDefault = get_meta("AttackTimer")
 	attackTimer = attackTimerDefault
@@ -28,6 +30,7 @@ func _ready():
 	statusTimer = get_meta("StatusTimer")
 	statusFreq = get_meta("StatusFreq")
 	statusChange = get_meta("StatusChange")
+	userName = get_meta("UserName")
 
 func _physics_process(_delta):
 	if attackTimerDefault == -1:
@@ -40,13 +43,12 @@ func _physics_process(_delta):
 		user.isAttacking = false
 		if visible:
 			visible = false
+			user.isStationary = null
 			get_node("Area/PhysicalHitbox").disabled = true
-			user.isStationary = false
 			queue_free()
 	
 func _on_area_body_entered(body):
-	if body == get_parent():
-		body.name
+	if body.name == userName:
 		attacked = true
 		height = body.height
 		if height == "aerial":
@@ -59,11 +61,10 @@ func _on_area_body_entered(body):
 			z_index = 4
 		user = body
 		direction = user.lastDirection
-		print(direction)
 		determine_direction()
 		user.isAttacking = true
 		user.isStationary = get_meta("isStationary")
-	if body is CharacterBody2D && body != user:
+	if body is CharacterBody2D && body.name != userName:
 		if height_check(body.height):
 			if !body.isInvincible:
 				if statusName != "":
@@ -77,7 +78,6 @@ func _on_area_body_entered(body):
 					body.currentState = body.state.juggle
 				var targetStats = body.get_node("StatsController")
 				targetStats.currentHealth = targetStats.modify_stat(targetStats.currentHealth, damage, targetStats.maxHealth)
-			print(body.hitstunDirection)
 	pass # Replace with function body.
 
 func determine_direction():
@@ -113,8 +113,6 @@ func determine_direction():
 		rotation = snapped(PI / 4, 0.0001)
 		global_position.x = user.global_position.x - 4
 		global_position.y = user.global_position.y + 4
-	
-	print(direction)
 	visible = true
 
 func height_check(bodyHeight):
@@ -124,7 +122,7 @@ func height_check(bodyHeight):
 		else:
 			return false
 	if bodyHeight == "low":
-		if height == "low" || height == "mid":
+		if height == "grounded" || height == "low" || height == "mid":
 			return true
 		else:
 			return false

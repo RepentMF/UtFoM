@@ -7,14 +7,13 @@
 size = Vector2(2.99385, 3.02335)
 
 [node name="JuggleHammer" type="Node2D"]
-visible = false
 z_index = -1
 scale = Vector2(1, 5)
 script = ExtResource("1_sn1te")
 metadata/Speed = 115
-metadata/HitstunTimer = 20
-metadata/KnockUp = false
-metadata/KnockUpPower = 0
+metadata/HitstunTimer = 3
+metadata/KnockUp = true
+metadata/KnockUpPower = -80
 metadata/Status = ""
 metadata/StatusTimer = 0
 metadata/StatusFreq = 0
@@ -22,6 +21,7 @@ metadata/StatusChange = 0
 metadata/AttackTimer = 40
 metadata/Damage = -15
 metadata/isStationary = true
+metadata/UserName = "PlayerCharacter"
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-1.19209e-07, 0)

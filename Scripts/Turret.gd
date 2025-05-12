@@ -5,7 +5,7 @@ var bullet
 
 var ammo = 2
 var delay = 0
-var disabled = true
+var disabled = false
 var incrementTimerDefault = 50
 var incrementTimer
 var height
