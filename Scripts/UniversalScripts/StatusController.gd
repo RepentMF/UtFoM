@@ -7,7 +7,7 @@ var stats
 func _ready():
 	if get_parent().name == "PlayerCharacter":
 		actions = get_parent()
-	elif get_parent().get_script() == load("res://Scripts/EnemyActionController.gd"):
+	elif get_parent().get_script() == load("res://Scripts/EnemyScripts/EnemyActionController.gd"):
 		actions = get_parent()
 	stats = get_parent().get_node("StatsController")
 

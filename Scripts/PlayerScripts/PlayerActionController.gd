@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
-enum state {idle, walk, run, roll, dash, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, burst}
+enum state {idle, walk, run, roll, dash, hop, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, burst, lag}
 var currentState
-var attackLight = "LightSword"
+var attackLight = "LightKnife"
 var attackHeavy = "HeavyHammer"
 var attackJuggle = "JuggleHammer"
+var attackRoll = "BluntRoll"
 var attack
 var height = "grounded"
 var direction = Vector2(0, 1)
@@ -14,7 +15,6 @@ var groundedPosition = Vector2(0, 0)
 var gravity = 2
 var countJuggleDistance = false
 var isAttacking = false
-var isDashEnabled = true
 var isExhausted = false
 var isInvincible = false
 var isStationary
@@ -31,67 +31,145 @@ var juggleSpeed = 0
 
 var rollTimerDefault = 30
 var rollTimer = rollTimerDefault
-var dashTimerDefault = 10
+var rollDirection = Vector2(0, 0)
+var dashTimerDefault = 12
 var dashTimer = dashTimerDefault
+var dashInvMargin = 4
+var hopTimerDefault = 30
+var hopTimer = hopTimerDefault
 var jumpTimerDefault = 46
 var jumpTimer = jumpTimerDefault
 var hitstunTimerDefault = 0
 var hitstunTimer = hitstunTimerDefault
 var burstTimerDefault = 30
 var burstTimer = burstTimerDefault
+var lagTimerDefault = 10
+var lagTimer = lagTimerDefault
 var airCount = 0
 var juggleDistanceY = 0.0
+
+var dashStaminaCost = 3
+
+var canBunnyHop = false
+var isDashEnabled = true
+var isJumpEnabled = false
+var isRubyEnabled = false
+var isCinnabarEnabled = false
+var isRhodoniteEnabled = false
+var isEmeraldEnabled = false
+var isPeridotEnabled = false
+var isMalachiteEnabled = false
+var isSapphireEnabled = true
+var isKyaniteEnabled = false
+var isTanzaniteEnabled = false
+var isTurquoiseEnabled = false
+var isAquamarineEnabled = false
+var isHemimorphiteEnabled = false
+var isMorganiteEnabled = false
+var isKunziteEnabled = false
+var isAmetrineEnabled = false
+var isCitrineEnabled = false
+var isTopazEnabled = false
+var isSunstoneEnabled = false
+var isSeleniteEnabled = false
+var isGosheniteEnabled = false
+var isMoonstoneEnabled = false
+var isPearlEnabled = false
+var isOpalEnabled = false
+var isAmmoliteEnabled = false
+var isJetEnabled = false
+var isNuummiteEnabled = false
+var isObsidianEnabled = false
 
 func _physics_process(delta):
 	handle_states()
 	#%RichTextLabel.text = temp
+	#%RichTextLabel.text = str(get_node("StatsController").currentHealth, " / ", get_node("StatsController").maxHealth) + "\n" + str(get_node("StatsController").currentMana, " / ", get_node("StatsController").maxMana) + "\n" + str(get_node("StatsController").currentStamina, " / ", get_node("StatsController").maxStamina)
 
 func handle_states():
-	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.burst:
+	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.burst && currentState != state.lag:
 		check_move()
 	
 	if Input.is_action_just_pressed("action_burst"):
 		currentState = state.burst
-	elif Input.is_action_just_pressed("action_light_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.burst:
+	elif Input.is_action_just_pressed("action_light_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst:
 		currentState = state.light_attack
-	elif Input.is_action_just_pressed("action_heavy_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.burst:
+	elif Input.is_action_just_pressed("action_heavy_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst:
 		currentState = state.heavy_attack
-	elif Input.is_action_just_pressed("action_juggle_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.burst:
+	elif Input.is_action_just_pressed("action_juggle_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst:
 		currentState = state.juggle_attack
 	
 	if !is_player_locked():
 		if !isExhausted && (Input.is_action_just_pressed("action_dodge") && !isDashEnabled):
 			currentState = state.roll
-		elif !isExhausted && Input.is_action_just_pressed("action_jump"):
+		elif !isExhausted && Input.is_action_just_pressed("action_jump") && !isAttacking:
 			currentState = state.jump
+			if !isJumpEnabled:
+				currentState = state.hop
 	
 	if currentState == state.walk || currentState == state.run || currentState == state.burst:
-		if !isExhausted && (Input.is_action_just_pressed("action_dodge") && isDashEnabled && is_direction_held()):
-			currentState = state.dash
+		if !isExhausted && (Input.is_action_just_pressed("action_dodge") && isDashEnabled && is_direction_held()) && (!isAttacking || isHemimorphiteEnabled):
+				if isCitrineEnabled && (dashStaminaCost / 3) <= get_node("StatsController").currentStamina && (dashStaminaCost / 3) <= get_node("StatsController").currentHealth && (dashStaminaCost / 3) <= get_node("StatsController").currentMana:
+					get_node("StatsController").currentStamina -= (dashStaminaCost / 3)
+					get_node("StatsController").currentHealth -= (dashStaminaCost / 3)
+					get_node("StatsController").currentMana -= (dashStaminaCost / 3)
+					currentState = state.dash
+				elif !isCitrineEnabled && dashStaminaCost <= get_node("StatsController").currentStamina:
+					get_node("StatsController").currentStamina -= dashStaminaCost
+					currentState = state.dash
+	if canBunnyHop && Input.is_action_just_pressed("action_jump"):
+		if !isJumpEnabled:
+			currentState = state.hop
+		else:
+			moveSpeed = 0
+	
+	if currentState == state.dash && isHemimorphiteEnabled && Input.is_action_just_pressed("action_light_attack"):
+		light_attack()
 	
 	match currentState:
 		state.idle:
 			temp = "idle"
+			moveSpeed = 0
 			idle()
 		state.walk:
-			moveSpeed = walkSpeed
+			if isRhodoniteEnabled && moveSpeed > walkSpeed && rollDirection == direction:
+				moveSpeed = moveSpeed - 1
+				if !canBunnyHop:
+					canBunnyHop = true
+			else:
+				moveSpeed = walkSpeed
+				if canBunnyHop:
+					canBunnyHop = false
 			temp = "walk"
 			move()
 			collide()
 		state.run:
-			moveSpeed = runSpeed
+			if isRhodoniteEnabled && moveSpeed > runSpeed && rollDirection == direction:
+				moveSpeed = moveSpeed - 1
+				if canBunnyHop:
+					canBunnyHop = false
+			else:
+				moveSpeed = runSpeed
 			temp = "run"
 			move()
 		state.roll:
 			temp = "roll"
+			if isRubyEnabled:
+				roll_attack()
 			roll()
 		state.dash:
 			if isDashEnabled:
 				temp = "dash"
 				dash()
+		state.hop:
+			temp = "hop"
+			hop()
 		state.jump:
-			temp = "jump"
-			jump()
+			if isJumpEnabled:
+				if Input.is_action_just_pressed("action_heavy_attack") && isCinnabarEnabled:
+					heavy_attack()
+				temp = "jump"
+				jump()
 		state.light_attack:
 			temp = "light_attack"
 			light_attack()
@@ -120,7 +198,6 @@ func handle_states():
 		state.juggle:
 			temp = "juggle"
 			juggle()
-			
 			if juggleDistanceY < 0:
 				if juggleDistanceY < -26:
 					height = "aerial"
@@ -134,6 +211,9 @@ func handle_states():
 				elif juggleDistanceY >= -1.5:
 					height = "grounded"
 					z_index = 5
+		state.lag:
+			temp = "lag"
+			lag()
 		state.burst:
 			temp = "burst"
 			burst()
@@ -166,15 +246,34 @@ func roll():
 		rollTimer = rollTimerDefault
 		if is_direction_held():
 			currentState = state.walk
+			if isRhodoniteEnabled:
+				moveSpeed = rollSpeed * 1.3
+				rollDirection = direction
 		else:
 			currentState = state.idle
 	else:
 		velocity = direction * rollSpeed
 		determine_diagonal(rollSpeed)
+		if isRhodoniteEnabled && velocity != direction * rollSpeed * 1.3:
+			velocity = velocity * 1.3
+			determine_diagonal(rollSpeed * 1.3)
 		rollTimer -= 1
 		move_and_slide()
 
 func dash():
+	# aquamarine is dash length of 10 and dashinvmargin of x - 2
+	if isAquamarineEnabled && dashInvMargin != 1:
+		dashInvMargin = 1
+	# standard dash length of 12 and dashinvmargin of x = 3
+	elif !isAquamarineEnabled && dashInvMargin != 3:
+		dashInvMargin = 3
+	
+	# hemimorphite is dash length of 12 and dashinvmargin of x + 2
+	if isHemimorphiteEnabled && dashInvMargin != 5:
+		dashInvMargin = 5
+	elif !isHemimorphiteEnabled && dashInvMargin != 3:
+		dashInvMargin = 3
+	
 	if dashTimer <= 0:
 		dashTimer = dashTimerDefault
 		if countJuggleDistance:
@@ -185,10 +284,37 @@ func dash():
 			else:
 				currentState = state.idle
 	else:
-		determine_direction()
+		if isTurquoiseEnabled:
+			determine_direction()
 		velocity = direction * dashSpeed
 		determine_diagonal(dashSpeed)
 		dashTimer -= 1
+		move_and_slide()
+	
+	if dashTimer >= dashInvMargin && dashTimer < dashTimerDefault - dashInvMargin:
+		if !isInvincible:
+			isInvincible = true
+	else:
+		if isInvincible:
+			isInvincible = false
+
+func hop():
+	if hopTimer <= 0:
+		height = "grounded"
+		z_index = 5
+		hopTimer = hopTimerDefault
+		if !isAttacking:
+			if is_direction_held():
+				currentState = state.walk
+			else:
+				currentState = state.idle
+		else:
+			currentState = state.lag
+	else:
+		if height != "low":
+			height = "low"
+			z_index = 6
+		hopTimer -= 1
 		move_and_slide()
 
 func jump():
@@ -196,10 +322,13 @@ func jump():
 		height = "grounded"
 		z_index = 5
 		jumpTimer = jumpTimerDefault
-		if is_direction_held():
-			currentState = state.walk
+		if !isAttacking:
+			if is_direction_held():
+				currentState = state.walk
+			else:
+				currentState = state.idle
 		else:
-			currentState = state.idle
+			currentState = state.lag
 	else:
 		if height != "low":
 			height = "low"
@@ -231,6 +360,13 @@ func juggle_attack():
 	else:
 		add_child(attack.instantiate())
 
+func roll_attack():
+	attack = load("res://Attacks/Player/" + attackRoll + ".tscn")
+	if has_node(attackRoll):
+		return
+	else:
+		add_child(attack.instantiate())
+
 func hitstun():
 	if hitstunTimer <= 0:
 		if !countJuggleDistance:
@@ -240,7 +376,7 @@ func hitstun():
 			hitstunTimer = hitstunTimerDefault
 			hitstunDirection = Vector2(0, 0)
 			KBSpeed = 0
-			replinish_movement_timers()
+			replenish_movement_timers()
 			if height != "grounded":
 				height = "grounded"
 			if is_direction_held():
@@ -265,7 +401,7 @@ func juggle():
 			airCount = 0
 			countJuggleDistance = false
 			juggleDistanceY = 0
-			replinish_movement_timers()
+			replenish_movement_timers()
 			if is_direction_held():
 				currentState = state.walk
 			else:
@@ -285,6 +421,16 @@ func juggle():
 		hitstunTimer -= 1
 		move_and_slide()
 
+func lag():
+	if lagTimer <= 0:
+		lagTimer = lagTimerDefault
+		if is_direction_held():
+			currentState = state.walk
+		else:
+			currentState = state.idle
+	else:
+		lagTimer = lagTimer - 1
+
 func return_to_juggle():
 	airCount = 0
 	hitstunTimer = hitstunTimerDefault
@@ -300,7 +446,7 @@ func burst():
 	if burstTimer <= 0:
 		burstTimer = burstTimerDefault
 		isInvincible = false
-		replinish_movement_timers()
+		replenish_movement_timers()
 		if !countJuggleDistance:
 			if is_direction_held():
 				currentState = state.walk
@@ -360,7 +506,7 @@ func determine_diagonal(speed):
 		velocity.x = pyth * direction.x
 		velocity.y = pyth * direction.y
 
-func replinish_movement_timers():
+func replenish_movement_timers():
 	rollTimer = rollTimerDefault
 	dashTimer = dashTimerDefault
 	jumpTimer = jumpTimerDefault

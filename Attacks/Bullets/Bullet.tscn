@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b1ou5fo5yo4nf"]
 
-[ext_resource type="Script" path="res://Scripts/Bullet.gd" id="1_krj3o"]
+[ext_resource type="Script" path="res://Scripts/UniversalScripts/Bullet.gd" id="1_krj3o"]
 [ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="2_mcij2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_skuhd"]
@@ -27,6 +27,7 @@ metadata/Status = ""
 metadata/StatusTimer = 0
 metadata/StatusFreq = 0
 metadata/StatusChange = 0
+metadata/Damage = 0
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_skuhd")

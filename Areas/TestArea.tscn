@@ -33,12 +33,12 @@ unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 z_index = 5
 y_sort_enabled = true
-position = Vector2(-2, 41)
+position = Vector2(-40, 32)
 
 [node name="BallCharacter" parent="." instance=ExtResource("3_x1bnc")]
 modulate = Color(0.564706, 1, 0.694118, 1)
 y_sort_enabled = true
-position = Vector2(-40, 31)
+position = Vector2(-83, 14)
 
 [node name="Block" parent="." instance=ExtResource("3_ykd2a")]
 modulate = Color(0.564706, 1, 0.694118, 1)
@@ -51,5 +51,5 @@ position = Vector2(24, 24)
 [node name="Turret" parent="." instance=ExtResource("4_8ptt3")]
 position = Vector2(-40, -25)
 metadata/Bullet = "JuggleBullet"
-metadata/Height = "mid"
+metadata/Height = "grounded"
 metadata/Rotation = 90

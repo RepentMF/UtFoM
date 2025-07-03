@@ -20,5 +20,8 @@ func _physics_process(_delta):
 		actor.state.jump:
 			set("parameters/player_jump_tree/blend_position", actor.lastDirection)
 			self["parameters/playback"].travel("player_jump_tree")
+		actor.state.hop:
+			set("parameters/player_hop_tree/blend_position", actor.lastDirection)
+			self["parameters/playback"].travel("player_hop_tree")
 	#run, roll, dash, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, burst
 	pass

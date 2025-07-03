@@ -3,7 +3,8 @@ extends Node2D
 var attacked = false
 var attackTimerDefault = -1
 var attackTimer = 0
-var damage = 0
+var baseDamage = 0
+var finalDamage = 0
 var user
 var hitstunTimer = 0
 var direction
@@ -19,7 +20,7 @@ var userName
 
 func _ready():
 	visible = false
-	damage = get_meta("Damage")
+	baseDamage = get_meta("Damage")
 	attackTimerDefault = get_meta("AttackTimer")
 	attackTimer = attackTimerDefault
 	hitstunTimer = get_meta("HitstunTimer")
@@ -68,7 +69,7 @@ func _on_area_body_entered(body):
 		if height_check(body.height):
 			if !body.isInvincible:
 				if statusName != "":
-					apply_status_effect(body)
+					apply_status_effect(body, "", "", "", "")
 				body.hitstunTimer = hitstunTimer
 				body.hitstunDirection = direction
 				body.KBSpeed = speed
@@ -76,8 +77,7 @@ func _on_area_body_entered(body):
 				if knockUp:
 					body.juggleSpeed = knockUpPower
 					body.currentState = body.state.juggle
-				var targetStats = body.get_node("StatsController")
-				targetStats.currentHealth = targetStats.modify_stat(targetStats.currentHealth, damage, targetStats.maxHealth)
+				body.get_node("StatsController").currentHealth -= finalDamage
 	pass # Replace with function body.
 
 func determine_direction():
@@ -137,16 +137,35 @@ func height_check(bodyHeight):
 		else:
 			return false
 
-func apply_status_effect(body):
-	var NewStatus = load("res://Scripts/Status.gd")
+func apply_status_effect(body, sName, change, timer, freq):
+	var NewStatus = load("res://Scripts/UniversalScripts/Status.gd")
 	var status_instantiator = NewStatus.new()
 	if body.get_node("StatusController").statusList.size() != 0:
 		for status in body.get_node("StatusController").statusList:
 			if status.name == statusName && (status.name == "poison"):
 				return
-	status_instantiator.name = statusName
-	status_instantiator.change = statusChange
-	status_instantiator.timer = statusTimer
-	status_instantiator.freq = statusFreq
-	status_instantiator.timerDefault = statusTimer
+	if statusName != "":
+		status_instantiator.name = statusName
+		status_instantiator.change = statusChange
+		status_instantiator.timer = statusTimer
+		status_instantiator.freq = statusFreq
+		status_instantiator.timerDefault = statusTimer
+	else:
+		status_instantiator.name = sName
+		status_instantiator.change = change
+		status_instantiator.timer = timer
+		status_instantiator.freq = freq
+		status_instantiator.timerDefault = timer
 	body.get_node("StatusController").statusList.push_front(status_instantiator)
+
+func apply_player_changes(body):
+	if body.isMorganiteEnabled:
+		finalDamage = baseDamage * 3
+	if body.isSunstoneEnabled:
+		finalDamage = finalDamage / 2
+		#mana damage / 2
+
+func apply_enemy_changes(body):
+	if hitstunTimer == 0 && !knockUp && speed == 0 && user.isSapphireEnabled:
+		#inflict bleed
+		apply_status_effect(body, "bleed", 10, 100, 5)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cuuxn4kvyioqr"]
 
-[ext_resource type="Script" path="res://Scripts/Bullet.gd" id="1_bf743"]
+[ext_resource type="Script" path="res://Scripts/UniversalScripts/Bullet.gd" id="1_bf743"]
 [ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="2_06hno"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_skuhd"]
@@ -23,10 +23,11 @@ metadata/Speed = 100
 metadata/HitstunTimer = 3
 metadata/KnockUp = true
 metadata/KnockUpPower = -80
-metadata/Status = "imbibe"
+metadata/Status = ""
 metadata/StatusTimer = 300
 metadata/StatusFreq = 30
 metadata/StatusChange = -1
+metadata/Damage = 2
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_skuhd")

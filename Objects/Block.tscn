@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dd5q0pik41su1"]
 
-[ext_resource type="Script" path="res://Scripts/Pushable.gd" id="1_07snp"]
+[ext_resource type="Script" path="res://Scripts/UniversalScripts/Pushable.gd" id="1_07snp"]
 [ext_resource type="Texture2D" uid="uid://dkg1dx84uasyp" path="res://Sprites/Block.png" id="2_u43g4"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rxbd5"]

@@ -10,7 +10,7 @@ func _ready():
 	if get_meta("Height") != "":
 		height = get_meta("Height")
 	
-	if get_parent().get_script() == load("res://Scripts/Pushable.gd"):
+	if get_parent().get_script() == load("res://Scripts/UniversalScripts/Pushable.gd"):
 		get_node("PhysicalHitbox").disabled = true
 		noncontact = true
 		z_index = %PlayerCharacter.z_index + 1
