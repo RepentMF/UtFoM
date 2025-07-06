@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhqprgxsmgngg"]
+
+[ext_resource type="Script" path="res://Scripts/UniversalScripts/GemsController.gd" id="1_12ayc"]
+
+[node name="GemsController" type="Node2D"]
+script = ExtResource("1_12ayc")

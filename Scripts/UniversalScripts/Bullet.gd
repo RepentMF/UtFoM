@@ -8,7 +8,8 @@ var height = "grounded"
 var knockUp = false
 var knockUpPower = 0
 var baseDamage = 0
-var finalDamage = 0
+var manaCost = 0
+var manaDamage = 0
 var user
 var statusName = ""
 var statusTimer = 0
@@ -34,12 +35,8 @@ func _on_area_body_entered(body):
 	if body is CharacterBody2D:
 		if height_check(body.height):
 			if !body.isInvincible:
-				if body.name == "PlayerCharacter":
-					apply_player_changes(body)
-				else:
-					apply_enemy_changes(body)
 				if statusName != "":
-					apply_status_effect(body, "", "", "", "")
+					new_status_effect("", "", "", "")
 				body.hitstunTimer = hitstunTimer
 				body.hitstunDirection = direction
 				body.KBSpeed = speed
@@ -47,7 +44,6 @@ func _on_area_body_entered(body):
 				if knockUp:
 					body.juggleSpeed = knockUpPower
 					body.currentState = body.state.juggle
-				body.get_node("StatsController").currentHealth -= finalDamage
 				queue_free()
 	pass # Replace with function body.
 
@@ -96,13 +92,9 @@ func _on_area_area_entered(area):
 			direction = Vector2(0, -1)
 	pass # Replace with function body.
 
-func apply_status_effect(body, sName, change, timer, freq):
+func new_status_effect(sName, change, timer, freq):
 	var NewStatus = load("res://Scripts/UniversalScripts/Status.gd")
 	var status_instantiator = NewStatus.new()
-	if body.get_node("StatusController").statusList.size() != 0:
-		for status in body.get_node("StatusController").statusList:
-			if status.name == statusName && (status.name == "poison"):
-				return
 	if statusName != "":
 		status_instantiator.name = statusName
 		status_instantiator.change = statusChange
@@ -115,16 +107,4 @@ func apply_status_effect(body, sName, change, timer, freq):
 		status_instantiator.timer = timer
 		status_instantiator.freq = freq
 		status_instantiator.timerDefault = timer
-	body.get_node("StatusController").statusList.push_front(status_instantiator)
-
-func apply_player_changes(body):
-	if body.isMorganiteEnabled:
-		finalDamage = baseDamage * 3
-	if body.isSunstoneEnabled:
-		finalDamage = finalDamage / 2
-		#mana damage / 2
-
-func apply_enemy_changes(body):
-	if hitstunTimer == 0 && !knockUp && speed == 0 && user.isSapphireEnabled:
-		#inflict bleed
-		apply_status_effect(body, "bleed", 10, 100, 5)
+	return status_instantiator
