@@ -1,11 +1,14 @@
 extends Node2D
 
+var statusList = []
 var attacked = false
 var attackTimerDefault = -1
 var attackTimer = 0
 var baseDamage = 0
 var manaCost = 0
 var manaDamage = 0
+var staminaCost = 0
+var staminaDamage = 0
 var user
 var hitstunTimer = 0
 var direction
@@ -22,6 +25,8 @@ var userName
 func _ready():
 	visible = false
 	baseDamage = get_meta("Damage")
+	manaCost = get_meta("ManaCost")
+	staminaCost = get_meta("StaminaCost")
 	attackTimerDefault = get_meta("AttackTimer")
 	attackTimer = attackTimerDefault
 	hitstunTimer = get_meta("HitstunTimer")
@@ -33,6 +38,8 @@ func _ready():
 	statusFreq = get_meta("StatusFreq")
 	statusChange = get_meta("StatusChange")
 	userName = get_meta("UserName")
+	if statusName != "":
+			statusList.push_front(new_status_effect(statusName, statusChange, statusTimer, statusFreq))
 
 func _physics_process(_delta):
 	if attackTimerDefault == -1:
@@ -66,11 +73,26 @@ func _on_area_body_entered(body):
 		determine_direction()
 		user.isAttacking = true
 		user.isStationary = get_meta("isStationary")
+		user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, manaCost, user.stats.maxMana)
+		if userName.contains("PlayerCharacter"):
+			if user.isTopazEnabled:
+				user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, -manaCost, user.stats.maxMana)
+				user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, int(roundf(float(manaCost) / 2)), user.stats.maxMana)
+				user.stats.currentHealth = user.stats.modify_stat(user.stats.currentHealth, int(roundf(float(manaCost) / 2)), user.stats.maxHealth)
 	if body is CharacterBody2D && body.name != userName:
 		if height_check(body.height):
 			if !body.isInvincible:
-				if statusName != "":
-					apply_status_effect(body, "", "", "", "")
+				get_tree().current_scene.get_node("GemsController").gem_function_checker(self)
+				for status in statusList:
+					if !body.get_node("StatusController").statusList.is_empty():
+						for ctlStatus in body.get_node("StatusController").statusList:
+							if status.name == ctlStatus.name:
+								if status.timerDefault > ctlStatus.timerDefault || status.change > ctlStatus.change:
+									body.get_node("StatusController").statusList.push_front(status)
+							else:
+								body.get_node("StatusController").statusList.push_front(status)
+					else:
+						body.get_node("StatusController").statusList.push_front(status)
 				body.hitstunTimer = hitstunTimer
 				body.hitstunDirection = direction
 				body.KBSpeed = speed
@@ -78,6 +100,7 @@ func _on_area_body_entered(body):
 				if knockUp:
 					body.juggleSpeed = knockUpPower
 					body.currentState = body.state.juggle
+				run_damage_calc(body)
 	pass # Replace with function body.
 
 func determine_direction():
@@ -137,23 +160,25 @@ func height_check(bodyHeight):
 		else:
 			return false
 
-func apply_status_effect(body, sName, change, timer, freq):
+func new_status_effect(sName, change, timer, freq):
 	var NewStatus = load("res://Scripts/UniversalScripts/Status.gd")
 	var status_instantiator = NewStatus.new()
-	if body.get_node("StatusController").statusList.size() != 0:
-		for status in body.get_node("StatusController").statusList:
-			if status.name == statusName && (status.name == "poison"):
-				return
 	if statusName != "":
-		status_instantiator.name = statusName
-		status_instantiator.change = statusChange
-		status_instantiator.timer = statusTimer
-		status_instantiator.freq = statusFreq
-		status_instantiator.timerDefault = statusTimer
-	else:
 		status_instantiator.name = sName
 		status_instantiator.change = change
 		status_instantiator.timer = timer
 		status_instantiator.freq = freq
 		status_instantiator.timerDefault = timer
-	body.get_node("StatusController").statusList.push_front(status_instantiator)
+	return status_instantiator
+
+func run_damage_calc(body):
+	var stats = body.get_node("StatsController")
+	var curHP = stats.currentHealth
+	var maxHP = stats.maxHealth
+	var curMP = stats.currentMana
+	var maxMP = stats.maxMana
+	var curSP = stats.currentStamina
+	var maxSP = stats.maxStamina
+	stats.currentHealth = stats.modify_stat(curHP, baseDamage, maxHP)
+	stats.currentMana = stats.modify_stat(curMP, manaDamage, maxMP)
+	stats.currentStamina = stats.modify_stat(curSP, staminaDamage, maxSP)

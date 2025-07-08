@@ -32,7 +32,7 @@ func _physics_process(_delta):
 		
 		if get_colliding_bodies().size() > contactList.size():
 			for collision in get_colliding_bodies():
-				if collision is RigidBody2D && collision.get_script() == load("res://Scripts/Pushable.gd"):
+				if collision is RigidBody2D && collision.get_script() == load("res://Scripts/UniversalScripts/Pushable.gd"):
 					var holder = abs(global_position - collision.global_position)
 					if abs(abs(holder.x) - abs(holder.y)) < 1.25 && tempVelocity == Vector2(0, 0):
 						get_node("PhysicalHitbox").disabled = true

@@ -1,7 +1,11 @@
 extends CharacterBody2D
 
-enum state {idle, walk, run, roll, dash, hop, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, burst, lag}
+var rng = RandomNumberGenerator.new()
+
+enum state {idle, walk, run, roll, dash, hop, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, heal, burst, lag}
 var currentState
+var inventory
+var currentWeapon
 var attackLight = "LightKnife"
 var attackHeavy = "HeavyHammer"
 var attackJuggle = "JuggleHammer"
@@ -19,6 +23,7 @@ var isExhausted = false
 var isInvincible = false
 var isStationary
 var temp
+var done = false
 
 var moveSpeed = 0
 var walkSpeed = 45
@@ -41,6 +46,8 @@ var jumpTimerDefault = 46
 var jumpTimer = jumpTimerDefault
 var hitstunTimerDefault = 0
 var hitstunTimer = hitstunTimerDefault
+var healTimerDefault = 60
+var healTimer = healTimerDefault
 var burstTimerDefault = 30
 var burstTimer = burstTimerDefault
 var lagTimerDefault = 10
@@ -48,30 +55,71 @@ var lagTimer = lagTimerDefault
 var airCount = 0
 var juggleDistanceY = 0.0
 
-var dashStaminaCost = 3
+var stats
+var healAmount = 3
+var dashStaminaCost = -3
+var burstManaCost = -5
 
 var canBunnyHop = false
 var isDashEnabled = true
 var isJumpEnabled = false
+var isBurstUnlocked = true
 var isAquamarineEnabled = false
 var isCinnabarEnabled = false
 var isCitrineEnabled = false
+var isTopazEnabled = false
 var isHemimorphiteEnabled = false
 var isRhodoniteEnabled = false
 var isRubyEnabled = false
 var isTurquoiseEnabled = false
+var isGosheniteEnabled = false
+var isMoonStoneEnabled = false
+var isPearlEnabled = false
 
 func _physics_process(delta):
+	handle_setup()
 	handle_states()
+	#%RichTextLabel.text = str(height, ", ", airCount, ", ", countJuggleDistance, ", ", KBSpeed, ", ", juggleDistanceY)
 	#%RichTextLabel.text = temp
-	#%RichTextLabel.text = str(get_node("StatsController").currentHealth, " / ", get_node("StatsController").maxHealth) + "\n" + str(get_node("StatsController").currentMana, " / ", get_node("StatsController").maxMana) + "\n" + str(get_node("StatsController").currentStamina, " / ", get_node("StatsController").maxStamina)
+	%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name
+
+func handle_setup():
+	if !done:
+		stats = get_node("StatsController")
+		inventory = get_tree().current_scene.get_node("InventoryController")
+		currentWeapon = inventory.currentWeapon
+		attackLight = currentWeapon.light
+		attackHeavy = currentWeapon.heavy
+		attackJuggle = currentWeapon.juggle
+		rng.randomize()
+		done = true
 
 func handle_states():
-	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.burst && currentState != state.lag:
+	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.lag:
 		check_move()
 	
-	if Input.is_action_just_pressed("action_burst"):
-		currentState = state.burst
+	if Input.is_action_just_pressed("action_burst") && isBurstUnlocked:
+		if isTopazEnabled:
+			if stats.check_current_stat(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana, true) && stats.check_current_stat(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth, true):
+				stats.currentMana = stats.modify_stat(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana)
+				stats.currentHealth = stats.modify_stat(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth)
+				if isPearlEnabled:
+					if rng.randi() % 4 == 0:
+						stats.currentMana = stats.modify_stat(stats.currentMana, -int(roundf(float(burstManaCost) / 2)), stats.maxMana)
+						stats.currentHealth = stats.modify_stat(stats.currentHealth, -int(roundf(float(burstManaCost) / 2)), stats.maxHealth)
+				currentState = state.burst
+		else:
+			if stats.check_current_stat(stats.currentMana, burstManaCost, stats.maxMana, true):
+				stats.currentMana = stats.modify_stat(stats.currentMana, burstManaCost, stats.maxMana)
+				if isPearlEnabled:
+					if rng.randi() % 4 == 0:
+						stats.currentMana = stats.modify_stat(stats.currentMana, -burstManaCost, stats.maxMana)
+				currentState = state.burst
+	elif Input.is_action_just_pressed("action_heal") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && height == "grounded":
+		if !isGosheniteEnabled:
+			currentState = state.heal
+		else:
+			print("cannot heal")
 	elif Input.is_action_just_pressed("action_light_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst:
 		currentState = state.light_attack
 	elif Input.is_action_just_pressed("action_heavy_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst:
@@ -80,23 +128,35 @@ func handle_states():
 		currentState = state.juggle_attack
 	
 	if !is_player_locked():
-		if !isExhausted && (Input.is_action_just_pressed("action_dodge") && !isDashEnabled):
-			currentState = state.roll
-		elif !isExhausted && Input.is_action_just_pressed("action_jump") && !isAttacking:
-			currentState = state.jump
-			if !isJumpEnabled:
-				currentState = state.hop
+			if !isExhausted && (Input.is_action_just_pressed("action_dodge") && !isDashEnabled):
+				if !isMoonStoneEnabled:
+					currentState = state.roll
+				else:
+					print("cannot use SP")
+			elif !isExhausted && Input.is_action_just_pressed("action_jump") && !isAttacking:
+				if !isMoonStoneEnabled:
+					currentState = state.jump
+					if !isJumpEnabled:
+						currentState = state.hop
+				else:
+					print("cannot use SP")
 	
 	if currentState == state.walk || currentState == state.run || currentState == state.burst:
 		if !isExhausted && (Input.is_action_just_pressed("action_dodge") && isDashEnabled && is_direction_held()) && (!isAttacking || isHemimorphiteEnabled):
-				if isCitrineEnabled && (dashStaminaCost / 3) <= get_node("StatsController").currentStamina && (dashStaminaCost / 3) <= get_node("StatsController").currentHealth && (dashStaminaCost / 3) <= get_node("StatsController").currentMana:
-					get_node("StatsController").currentStamina -= (dashStaminaCost / 3)
-					get_node("StatsController").currentHealth -= (dashStaminaCost / 3)
-					get_node("StatsController").currentMana -= (dashStaminaCost / 3)
-					currentState = state.dash
-				elif !isCitrineEnabled && dashStaminaCost <= get_node("StatsController").currentStamina:
-					get_node("StatsController").currentStamina -= dashStaminaCost
-					currentState = state.dash
+				if !isMoonStoneEnabled:
+					if isCitrineEnabled && stats.check_current_stat(stats.currentStamina, int(roundf(float(dashStaminaCost) / 3)), stats.maxStamina, true) && stats.check_current_stat(stats.currentHealth, int(roundf(float(dashStaminaCost) / 3)), stats.maxHealth, true) && stats.check_current_stat(stats.currentMana, int(roundf(float(dashStaminaCost) / 3)), stats.maxMana, true):
+						stats.currentStamina = stats.modify_stat(stats.currentStamina, int(roundf(float(dashStaminaCost) / 3)), stats.maxStamina)
+						stats.currentHealth = stats.modify_stat(stats.currentHealth, int(roundf(float(dashStaminaCost) / 3)), stats.maxHealth)
+						stats.currentMana = stats.modify_stat(stats.currentMana, int(roundf(float(dashStaminaCost) / 3)), stats.maxMana)
+						if isPearlEnabled:
+							if rng.randi() % 4 == 0:
+								stats.currentMana = stats.modify_stat(stats.currentMana, -int(roundf(float(dashStaminaCost) / 3)), stats.maxMana)
+						currentState = state.dash
+					elif !isCitrineEnabled && stats.check_current_stat(stats.currentStamina, dashStaminaCost, stats.maxStamina, true):
+						stats.currentStamina = stats.modify_stat(stats.currentStamina, dashStaminaCost, stats.maxStamina)
+						currentState = state.dash
+				else:
+					print("cannot use SP")
 	if canBunnyHop && Input.is_action_just_pressed("action_jump"):
 		if !isJumpEnabled:
 			currentState = state.hop
@@ -110,6 +170,7 @@ func handle_states():
 		state.idle:
 			temp = "idle"
 			moveSpeed = 0
+			height = "grounded"
 			idle()
 		state.walk:
 			if isRhodoniteEnabled && moveSpeed > walkSpeed && rollDirection == direction:
@@ -191,12 +252,15 @@ func handle_states():
 				elif juggleDistanceY >= -1.5:
 					height = "grounded"
 					z_index = 5
-		state.lag:
-			temp = "lag"
-			lag()
+		state.heal:
+			temp = "heal"
+			heal()
 		state.burst:
 			temp = "burst"
 			burst()
+		state.lag:
+			temp = "lag"
+			lag()
 
 func idle():
 	velocity = Vector2(0, 0)
@@ -401,6 +465,36 @@ func juggle():
 		hitstunTimer -= 1
 		move_and_slide()
 
+func heal():
+	if healTimer <= 0:
+		healTimer = healTimerDefault
+		replenish_movement_timers()
+		get_node("StatsController").currentHealth = get_node("StatsController").modify_stat(get_node("StatsController").currentHealth, healAmount, get_node("StatsController").maxHealth)
+		if is_direction_held():
+			currentState = state.walk
+		else:
+			currentState = state.idle
+	else:
+		healTimer -= 1
+
+func burst():
+	if burstTimer <= 0:
+		burstTimer = burstTimerDefault
+		isInvincible = false
+		replenish_movement_timers()
+		if !countJuggleDistance:
+			if is_direction_held():
+				currentState = state.walk
+			else:
+				currentState = state.idle
+		else:
+			return_to_juggle()
+	else:
+		if !isInvincible:
+			isInvincible = true
+			velocity = Vector2(0, 0)
+		burstTimer -= 1
+
 func lag():
 	if lagTimer <= 0:
 		lagTimer = lagTimerDefault
@@ -421,24 +515,6 @@ func return_to_juggle():
 		juggleSpeed = 0
 	isInvincible = false
 	currentState = state.juggle
-
-func burst():
-	if burstTimer <= 0:
-		burstTimer = burstTimerDefault
-		isInvincible = false
-		replenish_movement_timers()
-		if !countJuggleDistance:
-			if is_direction_held():
-				currentState = state.walk
-			else:
-				currentState = state.idle
-		else:
-			return_to_juggle()
-	else:
-		if !isInvincible:
-			isInvincible = true
-			velocity = Vector2(0, 0)
-		burstTimer -= 1
 
 func check_move():
 	if is_direction_held():

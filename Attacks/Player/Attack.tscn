@@ -31,6 +31,8 @@ metadata/StatusChange = 0
 metadata/isStationary = false
 metadata/Damage = 0
 metadata/UserName = ""
+metadata/ManaCost = 0
+metadata/StaminaCost = 0
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_skuhd")

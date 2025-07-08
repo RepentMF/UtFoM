@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dllphmgf3wvc8"]
+[gd_scene load_steps=5 format=3 uid="uid://cuuxn4kvyioqr"]
 
-[ext_resource type="Script" path="res://Scripts/UniversalScripts/Bullet.gd" id="1_5tmho"]
-[ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="2_7os2n"]
+[ext_resource type="Script" path="res://Scripts/UniversalScripts/Bullet.gd" id="1_bf743"]
+[ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="2_06hno"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_skuhd"]
 size = Vector2(1, 1)
@@ -11,26 +11,24 @@ size = Vector2(2.99385, 3.02335)
 
 [node name="Bullet" type="RigidBody2D"]
 z_index = -1
-collision_layer = 132
-collision_mask = 132
+collision_layer = 4
+collision_mask = 4
 gravity_scale = 0.0
 lock_rotation = true
 freeze_mode = 1
 linear_damp_mode = 1
 angular_damp_mode = 1
-script = ExtResource("1_5tmho")
+script = ExtResource("1_bf743")
 metadata/Speed = 100
-metadata/HitstunTimer = 10
-metadata/KnockUp = false
-metadata/KnockUpPower = 0
-metadata/Status = ""
-metadata/StatusTimer = 0
-metadata/StatusFreq = 0
-metadata/StatusChange = 0
-metadata/Damage = -2
+metadata/HitstunTimer = 3
+metadata/KnockUp = true
+metadata/KnockUpPower = -80
+metadata/Status = "exhaust"
+metadata/StatusTimer = 300
+metadata/StatusFreq = 30
+metadata/StatusChange = -1
+metadata/Damage = 2
 metadata/UserName = ""
-metadata/ManaCost = 0
-metadata/StaminaCost = 0
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_skuhd")
@@ -38,10 +36,12 @@ shape = SubResource("RectangleShape2D_skuhd")
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-1.19209e-07, 0)
 scale = Vector2(0.0234375, 0.0234375)
-texture = ExtResource("2_7os2n")
+texture = ExtResource("2_06hno")
 region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
 
 [node name="Area" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
 position = Vector2(0.015, 0.015)

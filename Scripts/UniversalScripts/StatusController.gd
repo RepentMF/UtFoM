@@ -25,7 +25,7 @@ func _physics_process(_delta):
 				if status.timer == status.timerDefault:
 					status.statDefault = stats.maxHealth
 					stats.maxHealth = stats.modify_stat(stats.maxHealth, -stats.maxHealth / status.change, stats.maxHealth)
-					stats.currentHealth = stats.check_stat(stats.currentHealth, stats.maxHealth)
+					stats.currentHealth = stats.check_min_max(stats.currentHealth, stats.maxHealth)
 				elif status.timer <= 0:
 					stats.maxHealth = status.statDefault
 					statusList.erase(status)

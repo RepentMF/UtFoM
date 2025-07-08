@@ -16,12 +16,24 @@ func _ready():
 	currentStamina = get_parent().get_meta("Stamina")
 
 func modify_stat(minStat, change, maxStat):
-	minStat = minStat + change
-	return check_stat(minStat, maxStat)
+	var newMinStat = minStat + change
+	return check_min_max(newMinStat, maxStat)
 
-func check_stat(minStat, maxStat):
-	if minStat < 0:
+func check_current_stat(curStat, change, maxStat, zeroStat):
+	if zeroStat:
+		if curStat + change >= 0:
+			return true
+		else:
+			return false
+	else:
+		if curStat + change <= maxStat:
+			return true
+		else:
+			return false
+
+func check_min_max(minStat, maxStat):
+	if minStat <= 0:
 		minStat = 0
-	elif minStat > maxStat:
+	elif minStat >= maxStat:
 		minStat = maxStat
 	return minStat

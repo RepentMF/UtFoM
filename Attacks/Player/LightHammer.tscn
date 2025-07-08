@@ -21,6 +21,8 @@ metadata/StatusChange = 0
 metadata/AttackTimer = 45
 metadata/Damage = -10
 metadata/isStationary = true
+metadata/ManaCost = 0
+metadata/StaminaCost = 0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-1.19209e-07, 0)

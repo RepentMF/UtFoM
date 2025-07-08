@@ -23,6 +23,8 @@ metadata/AttackTimer = 3
 metadata/Damage = -5
 metadata/isStationary = false
 metadata/UserName = "PlayerCharacter"
+metadata/ManaCost = 0
+metadata/StaminaCost = 0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-1.19209e-07, 0)
