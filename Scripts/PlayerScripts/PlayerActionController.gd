@@ -66,25 +66,27 @@ var isJumpEnabled = false
 var isBurstUnlocked = true
 var isAquamarineEnabled = false
 var isCinnabarEnabled = false
+var isAmetrineEnabled = true
 var isCitrineEnabled = false
 var isTopazEnabled = false
 var isHemimorphiteEnabled = false
 var isRhodoniteEnabled = false
 var isRubyEnabled = false
 var isTurquoiseEnabled = false
+var isSeleniteEnabled = false
 var isGosheniteEnabled = false
 var isMoonStoneEnabled = false
 var isPearlEnabled = false
 
 func _physics_process(delta):
-	handle_setup()
+	if !done:
+		handle_setup()
 	handle_states()
 	#%RichTextLabel.text = str(height, ", ", airCount, ", ", countJuggleDistance, ", ", KBSpeed, ", ", juggleDistanceY)
 	#%RichTextLabel.text = temp
-	%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name
+	%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
 
 func handle_setup():
-	if !done:
 		stats = get_node("StatsController")
 		inventory = get_tree().current_scene.get_node("InventoryController")
 		currentWeapon = inventory.currentWeapon
@@ -95,6 +97,34 @@ func handle_setup():
 		done = true
 
 func handle_states():
+	if isSeleniteEnabled && currentWeapon.name != "fists":
+		inventory.currentWeapon = inventory.inventory[0]
+		currentWeapon = inventory.currentWeapon
+		attackLight = currentWeapon.light
+		attackHeavy = currentWeapon.heavy
+		attackJuggle = currentWeapon.juggle
+	elif !isSeleniteEnabled:
+		if currentState != state.hop && currentState != state.jump && currentState != state.hitstun && currentState != state.juggle && currentState != state.lag:
+			if ((!isAmetrineEnabled && !isAttacking) || isAmetrineEnabled):
+				var index = inventory.inventory.find(inventory.currentWeapon)
+				if Input.is_action_just_pressed("menu_prev_weapon"):
+					if index - 1 == -1:
+						index = inventory.inventory.size()
+					inventory.currentWeapon = inventory.inventory[index - 1]
+					currentWeapon = inventory.currentWeapon
+					attackLight = currentWeapon.light
+					attackHeavy = currentWeapon.heavy
+					attackJuggle = currentWeapon.juggle
+					print("weapon change!")
+				elif Input.is_action_just_pressed("menu_next_weapon"):
+					if index + 1 == inventory.inventory.size():
+						index = -1
+					inventory.currentWeapon = inventory.inventory[index + 1]
+					currentWeapon = inventory.currentWeapon
+					attackLight = currentWeapon.light
+					attackHeavy = currentWeapon.heavy
+					attackJuggle = currentWeapon.juggle
+					print("weapon change!")
 	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.lag:
 		check_move()
 	

@@ -4,9 +4,10 @@ var inventory = []
 var currentWeapon
 
 func _ready():
-	inventory.push_front(new_weapon_add("knife", "it's a knife", "LightKnife", "", ""))
-	inventory.push_front(new_weapon_add("hammer", "hammer c:", "LightHammer", "HeavyHammer", "JuggleHammer"))
-	inventory.push_front(new_weapon_add("sword", "swoosh", "LightSword", "HeavySword", ""))
+	inventory.push_back(new_weapon_add("fists", "put 'em up", "LightPunch", "HeavyPunch", "JugglePunch"))
+	inventory.push_back(new_weapon_add("knife", "it's a knife", "LightKnife", "", ""))
+	inventory.push_back(new_weapon_add("hammer", "hammer c:", "LightHammer", "HeavyHammer", "JuggleHammer"))
+	inventory.push_back(new_weapon_add("sword", "swoosh", "LightSword", "HeavySword", ""))
 	currentWeapon = inventory[1]
 
 func new_weapon_add(iName, description, light, heavy, juggle):
