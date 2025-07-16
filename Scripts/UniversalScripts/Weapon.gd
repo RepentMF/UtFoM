@@ -1,4 +1,4 @@
-class_name Status
+class_name Weapon
 
 var name
 var description

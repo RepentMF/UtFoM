@@ -1,5 +1,6 @@
 extends Node2D
 
+var offset
 var statusList = []
 var attacked = false
 var attackTimerDefault = -1
@@ -23,6 +24,8 @@ var statusChange = 0
 var userName
 
 func _ready():
+	if get_meta("Offset") != null:
+		offset = get_meta("Offset")
 	visible = false
 	baseDamage = get_meta("Damage")
 	manaCost = get_meta("ManaCost")
@@ -80,6 +83,7 @@ func _on_area_body_entered(body):
 				user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, int(roundf(float(manaCost) / 2)), user.stats.maxMana)
 				user.stats.currentHealth = user.stats.modify_stat(user.stats.currentHealth, int(roundf(float(manaCost) / 2)), user.stats.maxHealth)
 	if body is CharacterBody2D && body.name != userName:
+		print(body.name)
 		if height_check(body.height):
 			if !body.isInvincible:
 				get_tree().current_scene.get_node("GemsController").gem_function_checker(self)
@@ -107,35 +111,51 @@ func determine_direction():
 	if direction == Vector2(1, 0):
 		rotation = snapped(PI / 2, 0.0001)
 		global_position.x = user.global_position.x + 8
+		if offset != null:
+			global_position.x = global_position.x - offset
 		global_position.y = user.global_position.y
 	elif direction == Vector2(0, 1):
 		rotation = 0
 		global_position.x = user.global_position.x
 		global_position.y = user.global_position.y + 8
+		if offset != null:
+			global_position.y = global_position.y - offset
 	elif direction == Vector2(-1, 0):
 		rotation = snapped(-1 * PI / 2, 0.0001)
 		global_position.x = user.global_position.x - 8
+		if offset != null:
+			global_position.x = global_position.x + offset
 		global_position.y = user.global_position.y
 	elif direction == Vector2(0, -1):
 		rotation = snapped(PI, 0.0001)
 		global_position.x = user.global_position.x
 		global_position.y = user.global_position.y - 8
+		if offset != null:
+			global_position.y = global_position.y + offset
 	elif direction == Vector2(1, 1):
 		rotation = snapped(-1 * PI / 4, 0.0001)
 		global_position.x = user.global_position.x + 4
 		global_position.y = user.global_position.y + 4
+		if offset != null:
+			global_position -= Vector2(offset, offset)
 	elif direction == Vector2(1, -1):
 		rotation = snapped(PI / 4, 0.0001)
 		global_position.x = user.global_position.x + 4
 		global_position.y = user.global_position.y - 4
+		if offset != null:
+			global_position += Vector2(-offset, offset)
 	elif direction == Vector2(-1, -1):
 		rotation = snapped(-1 * PI / 4, 0.0001)
 		global_position.x = user.global_position.x - 4
 		global_position.y = user.global_position.y - 4
+		if offset != null:
+			global_position += Vector2(offset, offset)
 	elif direction == Vector2(-1, 1):
 		rotation = snapped(PI / 4, 0.0001)
 		global_position.x = user.global_position.x - 4
 		global_position.y = user.global_position.y + 4
+		if offset != null:
+			global_position += Vector2(offset, -offset)
 	visible = true
 
 func height_check(bodyHeight):

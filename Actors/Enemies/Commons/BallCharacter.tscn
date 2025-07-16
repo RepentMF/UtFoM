@@ -19,9 +19,11 @@ metadata/Stamina = 5
 metadata/MaxHealth = 1000
 metadata/MaxMana = 5
 metadata/MaxStamina = 5
+metadata/Name = "ball"
 
 [node name="EnemySprite" type="Sprite2D" parent="."]
 y_sort_enabled = true
+texture_filter = 1
 position = Vector2(3.57628e-07, -5.68434e-14)
 texture = ExtResource("2_rfdv1")
 offset = Vector2(0, 3)

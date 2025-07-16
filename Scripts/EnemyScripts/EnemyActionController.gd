@@ -1,27 +1,43 @@
 extends CharacterBody2D
 
-enum state {idle, hitstun, juggle}
+var enemyName
+var enemyAttacks
+enum state {idle, light_attack, heavy_attack, juggle_attack, hitstun, juggle, lag}
 var currentState
 var height = "grounded"
 var direction = Vector2(0, 1)
+var lastDirection = Vector2(0, 1)
 var hitstunDirection = Vector2(0, 0)
 var groundedPosition = Vector2(0, 0)
+var targetDirection
 var gravity = 2
 var countJuggleDistance = false
+var isAttacking = false
+var isStationary = true
 var isExhausted = false
 var isInvincible = false
 var temp
+
+var stats
+
+var encounterTarget
+var encounterDistance
 
 var KBSpeed = 0
 var juggleSpeed = 0
 
 var hitstunTimerDefault = 0
 var hitstunTimer = hitstunTimerDefault
+var lagTimerDefault = 30
+var lagTimer = lagTimerDefault
 var airCount = 0
 var juggleDistanceY = 0.0
 
 func _ready():
+	stats = get_node("StatsController")
 	currentState = state.idle
+	enemyName = get_meta("Name")
+	enemyAttacks = get_node(enemyName + "AttacksController")
 
 func _physics_process(delta):
 	handle_states()
@@ -33,14 +49,18 @@ func handle_states():
 	match currentState:
 		state.idle:
 			temp = "idle"
+			determine_direction()
 			idle()
+		state.heavy_attack:
+			temp = "heavy_attack"
+			if enemyAttacks.heavy_attack(self, direction):
+				move_and_slide()
 		state.hitstun:
 			temp = "hitstun"
 			hitstun()
 		state.juggle:
 			temp = "juggle"
 			juggle()
-			
 			if juggleDistanceY < 0:
 				if juggleDistanceY < -26:
 					height = "aerial"
@@ -54,9 +74,14 @@ func handle_states():
 				elif juggleDistanceY >= -1.5:
 					height = "grounded"
 					z_index = 5
+		state.lag:
+			temp = "lag"
+			lag()
 
 func idle():
 	velocity = Vector2(0, 0)
+	if encounterTarget != null:
+		enemyAttacks.decide_action(self, encounterDistance)
 
 func hitstun():
 	if hitstunTimer <= 0:
@@ -69,6 +94,7 @@ func hitstun():
 			KBSpeed = 0
 			if height != "grounded":
 				height = "grounded"
+			enemyAttacks.replenish_attack_timers()
 			currentState = state.idle
 		else:
 			return_to_juggle()
@@ -89,7 +115,8 @@ func juggle():
 			airCount = 0
 			countJuggleDistance = false
 			juggleDistanceY = 0
-			currentState = state.idle
+			currentState = state.lag
+			enemyAttacks.replenish_attack_timers()
 		else:
 			if airCount == 0 && groundedPosition == Vector2(0, 0) && (height == "grounded" || height == "low"):
 				groundedPosition = global_position
@@ -105,6 +132,13 @@ func juggle():
 		hitstunTimer -= 1
 		move_and_slide()
 
+func lag():
+	if lagTimer <= 0:
+		lagTimer = lagTimerDefault
+		currentState = state.idle
+	else:
+		lagTimer = lagTimer - 1
+
 func return_to_juggle():
 	airCount = 0
 	hitstunTimer = hitstunTimerDefault
@@ -115,3 +149,43 @@ func return_to_juggle():
 		juggleSpeed = 0
 	isInvincible = false
 	currentState = state.juggle
+
+func determine_direction():
+	if encounterTarget != null:
+		targetDirection = (position - encounterTarget.position).normalized()
+		encounterDistance = int(position.distance_to(encounterTarget.position))
+		if (targetDirection.x <= 0.3 && targetDirection.x >= -0.3) && (targetDirection.y >= -1.0 && targetDirection.y < -0.3):
+			direction = Vector2(0, 1)
+		elif (targetDirection.x > 0.3 && targetDirection.x <= 1.0) && (targetDirection.y >= -1.0 && targetDirection.y < -0.3):
+			direction = Vector2(-1, 1)
+		elif (targetDirection.x > 0.3 && targetDirection.x <= 1.0) && (targetDirection.y <= 0.3 && targetDirection.y >= -0.3):
+			direction = Vector2(-1, 0)
+		elif (targetDirection.x > 0.3 && targetDirection.x <= 1.0) && (targetDirection.y <= 1.0 && targetDirection.y > 0.3):
+			direction = Vector2(-1, -1)
+		elif (targetDirection.x <= 0.3 && targetDirection.x >= -0.3) && (targetDirection.y <= 1.0 && targetDirection.y > 0.3):
+			direction = Vector2(0, -1)
+		elif (targetDirection.x < -0.3 && targetDirection.x >= -1.0) && (targetDirection.y <= 1.0 && targetDirection.y > 0.3):
+			direction = Vector2(1, -1)
+		elif (targetDirection.x < -0.3 && targetDirection.x >= -1.0) && (targetDirection.y <= 0.3 && targetDirection.y >= -0.3):
+			direction = Vector2(1, 0)
+		elif (targetDirection.x < -0.3 && targetDirection.x >= -1.0) && (targetDirection.y >= -1.0 && targetDirection.y < -0.3):
+			direction = Vector2(1, 1)
+		if direction != Vector2(0, 0):
+			lastDirection = direction
+		else:
+			direction = lastDirection
+	else:
+		targetDirection = null
+
+func _on_area_2d_body_entered(body):
+	if body.name.contains("PlayerCharacter"):
+		#grab player's location permanently
+		encounterTarget = body
+		determine_direction()
+	pass # Replace with function body.
+
+func _on_area_2d_body_exited(body):
+	if encounterTarget != null:
+		if body.name == encounterTarget.name:
+			encounterTarget = null
+	pass # Replace with function body.
