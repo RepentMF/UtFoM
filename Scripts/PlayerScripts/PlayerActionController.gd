@@ -66,14 +66,14 @@ var isJumpEnabled = false
 var isBurstUnlocked = true
 var isAquamarineEnabled = false
 var isCinnabarEnabled = false
-var isAmetrineEnabled = true
+var isAmetrineEnabled = false
 var isCitrineEnabled = false
 var isTopazEnabled = false
 var isHemimorphiteEnabled = false
 var isRhodoniteEnabled = false
 var isRubyEnabled = false
 var isTurquoiseEnabled = false
-var isSeleniteEnabled = false
+var isSeleniteEnabled = true
 var isGosheniteEnabled = false
 var isMoonStoneEnabled = false
 var isPearlEnabled = false
@@ -84,7 +84,7 @@ func _physics_process(delta):
 	handle_states()
 	#%RichTextLabel.text = str(height, ", ", airCount, ", ", countJuggleDistance, ", ", KBSpeed, ", ", juggleDistanceY)
 	#%RichTextLabel.text = temp
-	%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
+	#%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
 
 func handle_setup():
 		stats = get_node("StatsController")

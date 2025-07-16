@@ -58,7 +58,14 @@ func _physics_process(_delta):
 			user.isStationary = null
 			get_node("Area/PhysicalHitbox").disabled = true
 			queue_free()
-	
+	if user != null:
+		if user.currentState == user.state.hitstun || user.currentState == user.state.juggle:
+			user.isAttacking = false
+			if visible:
+				visible = false
+				user.isStationary = null
+				get_node("Area/PhysicalHitbox").disabled = true
+				queue_free()
 func _on_area_body_entered(body):
 	if body.name == userName:
 		attacked = true
