@@ -1,8 +1,10 @@
 extends CharacterBody2D
 
+var rng = RandomNumberGenerator.new()
+
 var enemyName
 var enemyAttacks
-enum state {idle, light_attack, heavy_attack, juggle_attack, hitstun, juggle, lag}
+enum state {idle, walk, light_attack, heavy_attack, juggle_attack, hitstun, juggle, lag}
 var currentState
 var height = "grounded"
 var direction = Vector2(0, 1)
@@ -23,9 +25,14 @@ var stats
 var encounterTarget
 var encounterDistance
 
+var walkSpeed = 15
 var KBSpeed = 0
 var juggleSpeed = 0
 
+var idleTimerDefault = 60
+var idleTimer = idleTimerDefault
+var walkTimerDefault = 35
+var walkTimer = walkTimerDefault
 var hitstunTimerDefault = 0
 var hitstunTimer = hitstunTimerDefault
 var lagTimerDefault = 30
@@ -41,6 +48,8 @@ func _ready():
 
 func _physics_process(delta):
 	handle_states()
+	print(temp)
+	#%RichTextLabel.text = temp
 	#%RichTextLabel.text = str(hitstunTimer)
 	#%RichTextLabel.text = str(name, ", ", z_index)
 	%RichTextLabel.text = str(temp, ", ", "\nHP: ", get_node("StatsController").currentHealth, "/", get_node("StatsController").maxHealth, "\nMP: ", get_node("StatsController").currentMana, "\nSP: ", get_node("StatsController").currentStamina)
@@ -51,10 +60,14 @@ func handle_states():
 			temp = "idle"
 			determine_direction()
 			idle()
+		state.walk:
+			temp = "walk"
+			walk()
 		state.heavy_attack:
 			temp = "heavy_attack"
 			if enemyAttacks.heavy_attack(self, direction):
 				move_and_slide()
+			idleTimer = idleTimerDefault
 		state.hitstun:
 			temp = "hitstun"
 			hitstun()
@@ -79,9 +92,43 @@ func handle_states():
 			lag()
 
 func idle():
+	rng.randomize()
+	var random = rng.randi_range(0,7)
+	idleTimer -= 1
 	velocity = Vector2(0, 0)
-	if encounterTarget != null:
-		enemyAttacks.decide_action(self, encounterDistance)
+	if idleTimer <= 0:
+		if encounterTarget != null:
+			enemyAttacks.decide_action(self, encounterDistance)
+		else:
+			if random == 8:
+				direction = Vector2(0, 1)
+			elif random == 7:
+				direction = Vector2(-1, 1)
+			elif random == 6:
+				direction = Vector2(-1, 0)
+			elif random == 5:
+				direction = Vector2(-1, -1)
+			elif random == 4:
+				direction = Vector2(0, -1)
+			elif random == 3:
+				direction = Vector2(1, -1)
+			elif random == 2:
+				direction = Vector2(1, 0)
+			elif random == 1:
+				direction = Vector2(1, 1)
+			lastDirection = direction
+			idleTimer = idleTimerDefault
+			currentState = state.walk
+
+func walk():
+	if walkTimer <= 0:
+		walkTimer = walkTimerDefault
+		currentState = state.idle
+	else:
+		if walkTimer == walkTimerDefault:
+			velocity = walkSpeed * direction
+		walkTimer -= 1
+	move_and_slide()
 
 func hitstun():
 	if hitstunTimer <= 0:
