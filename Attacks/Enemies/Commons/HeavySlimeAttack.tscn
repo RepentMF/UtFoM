@@ -6,8 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycjq1"]
 size = Vector2(2.99385, 3.02335)
 
-[node name="HeavySlime" type="Node2D"]
-visible = false
+[node name="Slime_Heavy_Attack" type="Node2D"]
 z_index = -1
 position = Vector2(0, -1)
 scale = Vector2(2, 1)
@@ -20,7 +19,7 @@ metadata/Status = ""
 metadata/StatusTimer = 0
 metadata/StatusFreq = 0
 metadata/StatusChange = 0
-metadata/AttackTimer = 30
+metadata/AttackTimer = 25
 metadata/Damage = -2
 metadata/isStationary = false
 metadata/UserName = "SlimeCharacter"

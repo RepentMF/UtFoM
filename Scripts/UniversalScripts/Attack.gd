@@ -1,5 +1,7 @@
 extends Node2D
 
+var animation_tree
+
 var offset
 var statusList = []
 var attacked = false
@@ -41,49 +43,45 @@ func _ready():
 	statusFreq = get_meta("StatusFreq")
 	statusChange = get_meta("StatusChange")
 	userName = get_meta("UserName")
+	animation_tree = get_node("AnimationTree")
 	if statusName != "":
-			statusList.push_front(new_status_effect(statusName, statusChange, statusTimer, statusFreq))
+		statusList.push_front(new_status_effect(statusName, statusChange, statusTimer, statusFreq))
 
 func _physics_process(_delta):
-	if attackTimerDefault == -1:
-		get_node("Area/PhysicalHitbox").disabled = true
-	if direction != Vector2(0, 0):
-		get_node("Area/PhysicalHitbox").disabled = false
-	if attacked && attackTimer > 0:
+	if user == null:
+		user = get_tree().root.get_node("TestArea/" + userName)
+	attacked = true
+	height = user.height
+	if height == "aerial":
+		z_index = 7
+	elif height == "mid":
+		z_index = 6
+	elif height == "low":
+		z_index = 5
+	else:
+		z_index = 4
+	direction = user.lastDirection
+	determine_direction()
+	user.isAttacking = true
+	user.isStationary = get_meta("isStationary")
+	user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, manaCost, user.stats.maxMana)
+	if userName.contains("PlayerCharacter"):
+		if user.isTopazEnabled:
+			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, -manaCost, user.stats.maxMana)
+			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, int(roundf(float(manaCost) / 2)), user.stats.maxMana)
+			user.stats.currentHealth = user.stats.modify_stat(user.stats.currentHealth, int(roundf(float(manaCost) / 2)), user.stats.maxHealth)
+	if animation_tree != null:
+		animation_tree.set("parameters/" + name.to_lower() + "_tree/blend_position", direction)
+		animation_tree["parameters/playback"].travel(name.to_lower() + "_tree")
+	if attackTimerDefault != 0:
 		attackTimer -= 1
-	elif attackTimer <= 0 && attackTimer != -1:
-		user.isAttacking = false
-		if visible:
-			visible = false
-			user.isStationary = null
-			get_node("Area/PhysicalHitbox").disabled = true
+		if attackTimer <= 0:
+			user.isAttacking = false
 			queue_free()
 	
 func _on_area_body_entered(body):
-	if body.name == userName:
-		attacked = true
-		height = body.height
-		if height == "aerial":
-			z_index = 7
-		elif height == "mid":
-			z_index = 6
-		elif height == "low":
-			z_index = 5
-		else:
-			z_index = 4
-		user = body
-		direction = user.lastDirection
-		determine_direction()
-		user.isAttacking = true
-		user.isStationary = get_meta("isStationary")
-		user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, manaCost, user.stats.maxMana)
-		if userName.contains("PlayerCharacter"):
-			if user.isTopazEnabled:
-				user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, -manaCost, user.stats.maxMana)
-				user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, int(roundf(float(manaCost) / 2)), user.stats.maxMana)
-				user.stats.currentHealth = user.stats.modify_stat(user.stats.currentHealth, int(roundf(float(manaCost) / 2)), user.stats.maxHealth)
 	if body is CharacterBody2D && body.name != userName:
-		print(body.name)
+		print(name)
 		if height_check(body.height):
 			if !body.isInvincible:
 				get_tree().current_scene.get_node("GemsController").gem_function_checker(self)
@@ -109,53 +107,61 @@ func _on_area_body_entered(body):
 
 func determine_direction():
 	if direction == Vector2(1, 0):
-		rotation = snapped(PI / 2, 0.0001)
-		global_position.x = user.global_position.x + 8
-		if offset != null:
-			global_position.x = global_position.x - offset
-		global_position.y = user.global_position.y
+		if userName != "PlayerCharacter":
+			rotation = snapped(PI / 2, 0.0001)
+			global_position.x = user.global_position.x + 8
+			if offset != null:
+				global_position.x = global_position.x - offset
+			global_position.y = user.global_position.y
 	elif direction == Vector2(0, 1):
-		rotation = 0
-		global_position.x = user.global_position.x
-		global_position.y = user.global_position.y + 8
-		if offset != null:
-			global_position.y = global_position.y - offset
+		if userName != "PlayerCharacter":
+			rotation = 0
+			global_position.x = user.global_position.x
+			global_position.y = user.global_position.y + 8
+			if offset != null:
+				global_position.y = global_position.y - offset
 	elif direction == Vector2(-1, 0):
-		rotation = snapped(-1 * PI / 2, 0.0001)
-		global_position.x = user.global_position.x - 8
-		if offset != null:
-			global_position.x = global_position.x + offset
-		global_position.y = user.global_position.y
+		if userName != "PlayerCharacter":
+			rotation = snapped(-1 * PI / 2, 0.0001)
+			global_position.x = user.global_position.x - 8
+			if offset != null:
+				global_position.x = global_position.x + offset
+			global_position.y = user.global_position.y
 	elif direction == Vector2(0, -1):
-		rotation = snapped(PI, 0.0001)
-		global_position.x = user.global_position.x
-		global_position.y = user.global_position.y - 8
-		if offset != null:
-			global_position.y = global_position.y + offset
+		if userName != "PlayerCharacter":
+			rotation = snapped(PI, 0.0001)
+			global_position.x = user.global_position.x
+			global_position.y = user.global_position.y - 8
+			if offset != null:
+				global_position.y = global_position.y + offset
 	elif direction == Vector2(1, 1):
-		rotation = snapped(-1 * PI / 4, 0.0001)
-		global_position.x = user.global_position.x + 4
-		global_position.y = user.global_position.y + 4
-		if offset != null:
-			global_position -= Vector2(offset, offset)
+		if userName != "PlayerCharacter":
+			rotation = snapped(-1 * PI / 4, 0.0001)
+			global_position.x = user.global_position.x + 4
+			global_position.y = user.global_position.y + 4
+			if offset != null:
+				global_position -= Vector2(offset, offset)
 	elif direction == Vector2(1, -1):
-		rotation = snapped(PI / 4, 0.0001)
-		global_position.x = user.global_position.x + 4
-		global_position.y = user.global_position.y - 4
-		if offset != null:
-			global_position += Vector2(-offset, offset)
+		if userName != "PlayerCharacter":
+			rotation = snapped(PI / 4, 0.0001)
+			global_position.x = user.global_position.x + 4
+			global_position.y = user.global_position.y - 4
+			if offset != null:
+				global_position += Vector2(-offset, offset)
 	elif direction == Vector2(-1, -1):
-		rotation = snapped(-1 * PI / 4, 0.0001)
-		global_position.x = user.global_position.x - 4
-		global_position.y = user.global_position.y - 4
-		if offset != null:
-			global_position += Vector2(offset, offset)
+		if userName != "PlayerCharacter":
+			rotation = snapped(-1 * PI / 4, 0.0001)
+			global_position.x = user.global_position.x - 4
+			global_position.y = user.global_position.y - 4
+			if offset != null:
+				global_position += Vector2(offset, offset)
 	elif direction == Vector2(-1, 1):
-		rotation = snapped(PI / 4, 0.0001)
-		global_position.x = user.global_position.x - 4
-		global_position.y = user.global_position.y + 4
-		if offset != null:
-			global_position += Vector2(offset, -offset)
+		if userName != "PlayerCharacter":
+			rotation = snapped(PI / 4, 0.0001)
+			global_position.x = user.global_position.x - 4
+			global_position.y = user.global_position.y + 4
+			if offset != null:
+				global_position += Vector2(offset, -offset)
 	visible = true
 
 func height_check(bodyHeight):
@@ -202,3 +208,9 @@ func run_damage_calc(body):
 	stats.currentHealth = stats.modify_stat(curHP, baseDamage, maxHP)
 	stats.currentMana = stats.modify_stat(curMP, manaDamage, maxMP)
 	stats.currentStamina = stats.modify_stat(curSP, staminaDamage, maxSP)
+
+
+func _on_animation_finished(anim_name):
+	user.isAttacking = false
+	queue_free()
+	pass # Replace with function body.
