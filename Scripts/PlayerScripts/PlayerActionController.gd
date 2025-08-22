@@ -73,7 +73,7 @@ var isHemimorphiteEnabled = false
 var isRhodoniteEnabled = false
 var isRubyEnabled = false
 var isTurquoiseEnabled = false
-var isSeleniteEnabled = true
+var isSeleniteEnabled = false
 var isGosheniteEnabled = false
 var isMoonStoneEnabled = false
 var isPearlEnabled = false
@@ -151,11 +151,14 @@ func handle_states():
 		else:
 			print("cannot heal")
 	elif Input.is_action_just_pressed("action_light_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst:
-		currentState = state.light_attack
+		if (attackLight != ""):
+			currentState = state.light_attack
 	elif Input.is_action_just_pressed("action_heavy_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst:
-		currentState = state.heavy_attack
+		if (attackHeavy != ""):
+			currentState = state.heavy_attack
 	elif Input.is_action_just_pressed("action_juggle_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst:
-		currentState = state.juggle_attack
+		if (attackJuggle  != ""):
+			currentState = state.juggle_attack
 	
 	if !is_player_locked():
 			if !isExhausted && (Input.is_action_just_pressed("action_dodge") && !isDashEnabled):

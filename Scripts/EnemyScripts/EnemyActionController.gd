@@ -48,7 +48,6 @@ func _ready():
 
 func _physics_process(delta):
 	handle_states()
-	print(temp)
 	#%RichTextLabel.text = temp
 	#%RichTextLabel.text = str(hitstunTimer)
 	#%RichTextLabel.text = str(name, ", ", z_index)
