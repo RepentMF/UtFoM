@@ -21,7 +21,7 @@ var countJuggleDistance = false
 var isAttacking = false
 var isExhausted = false
 var isInvincible = false
-var isStationary
+var isStationary = false
 var temp
 var done = false
 
@@ -83,7 +83,7 @@ func _physics_process(delta):
 		handle_setup()
 	handle_states()
 	#%RichTextLabel.text = str(height, ", ", airCount, ", ", countJuggleDistance, ", ", KBSpeed, ", ", juggleDistanceY)
-	#%RichTextLabel.text = temp
+	%RichTextLabel.text = str(temp, ", ", isStationary, ", ", isAttacking)
 	#%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
 
 func handle_setup():
@@ -215,7 +215,10 @@ func handle_states():
 				if canBunnyHop:
 					canBunnyHop = false
 			temp = "walk"
-			move()
+			if !isStationary:
+				move()
+			else:
+				currentState = state.idle
 			collide()
 		state.run:
 			if isRhodoniteEnabled && moveSpeed > runSpeed && rollDirection == direction:

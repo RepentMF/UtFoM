@@ -705,6 +705,7 @@ metadata/isStationary = false
 metadata/UserName = "PlayerCharacter"
 metadata/ManaCost = 0
 metadata/StaminaCost = 0
+metadata/Offset = 0
 
 [node name="AttackingSprite" type="Sprite2D" parent="."]
 visible = false

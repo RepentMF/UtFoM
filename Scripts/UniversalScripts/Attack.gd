@@ -26,7 +26,7 @@ var statusChange = 0
 var userName
 
 func _ready():
-	if get_meta("Offset") != null:
+	if get_meta("Offset") != 0:
 		offset = get_meta("Offset")
 	visible = false
 	baseDamage = get_meta("Damage")
@@ -86,6 +86,7 @@ func _physics_process(_delta):
 				user.isStationary = null
 				get_node("Area/PhysicalHitbox").disabled = true
 				queue_free()
+
 func _on_area_body_entered(body):
 	if body is CharacterBody2D && body.name != userName:
 		print(name)
@@ -216,8 +217,8 @@ func run_damage_calc(body):
 	stats.currentMana = stats.modify_stat(curMP, manaDamage, maxMP)
 	stats.currentStamina = stats.modify_stat(curSP, staminaDamage, maxSP)
 
-
 func _on_animation_finished(anim_name):
 	user.isAttacking = false
+	user.isStationary = false
 	queue_free()
 	pass # Replace with function body.
