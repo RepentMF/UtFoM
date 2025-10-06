@@ -24,6 +24,8 @@ var statusTimer = 0
 var statusFreq = 0
 var statusChange = 0
 var userName
+var allowCombo = false
+var firstAttack = true
 
 func _ready():
 	if get_meta("Offset") != 0:
@@ -64,15 +66,16 @@ func _physics_process(_delta):
 	determine_direction()
 	user.isAttacking = true
 	user.isStationary = get_meta("isStationary")
+	if firstAttack && animation_tree != null:
+		animation_tree["parameters/playback"].travel(name.to_lower() + "_tree")
+		animation_tree.set("parameters/" + name.to_lower() + "_tree/blend_position", direction)
+		firstAttack = false
 	user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, manaCost, user.stats.maxMana)
 	if userName.contains("PlayerCharacter"):
 		if user.isTopazEnabled:
 			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, -manaCost, user.stats.maxMana)
 			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, int(roundf(float(manaCost) / 2)), user.stats.maxMana)
 			user.stats.currentHealth = user.stats.modify_stat(user.stats.currentHealth, int(roundf(float(manaCost) / 2)), user.stats.maxHealth)
-	if animation_tree != null:
-		animation_tree.set("parameters/" + name.to_lower() + "_tree/blend_position", direction)
-		animation_tree["parameters/playback"].travel(name.to_lower() + "_tree")
 	if attackTimerDefault != 0:
 		attackTimer -= 1
 		if attackTimer <= 0:
@@ -89,7 +92,6 @@ func _physics_process(_delta):
 
 func _on_area_body_entered(body):
 	if body is CharacterBody2D && body.name != userName:
-		print(name)
 		if height_check(body.height):
 			if !body.isInvincible:
 				get_tree().current_scene.get_node("GemsController").gem_function_checker(self)
@@ -217,8 +219,25 @@ func run_damage_calc(body):
 	stats.currentMana = stats.modify_stat(curMP, manaDamage, maxMP)
 	stats.currentStamina = stats.modify_stat(curSP, staminaDamage, maxSP)
 
+func can_cancel():
+	allowCombo = true
+	user.canCombo = true
+	pass
+
+func next_attack(next):
+	if next != name:
+		user.attack = load("res://Attacks/Player/" + next + ".tscn")
+		user.add_child(user.attack.instantiate())
+		user.canCombo = false
+		user.isStationary = false
+		queue_free()
+	else:
+		animation_tree["parameters/playback"].travel(next.to_lower() + "_2_tree")
+		animation_tree.set("parameters/" + next.to_lower() + "_2_tree/blend_position", direction)
+
 func _on_animation_finished(anim_name):
 	user.isAttacking = false
 	user.isStationary = false
+	user.canCombo = false
 	queue_free()
 	pass # Replace with function body.

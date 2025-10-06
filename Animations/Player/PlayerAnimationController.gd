@@ -11,17 +11,17 @@ func _physics_process(_delta):
 	set("parameters/player_" + actor.temp + "_tree/blend_position", actor.lastDirection)
 	match actor.currentState:
 		actor.state.idle:
-			set("parameters/player_idle_tree/blend_position", actor.lastDirection)
 			self["parameters/playback"].travel("player_idle_tree")
+			set("parameters/player_idle_tree/blend_position", actor.lastDirection)
 		actor.state.walk:
 			self["parameters/playback"].travel("player_walk_tree")
 		actor.state.run:
 			self["parameters/playback"].travel("player_run_tree")
 		actor.state.jump:
-			set("parameters/player_jump_tree/blend_position", actor.lastDirection)
 			self["parameters/playback"].travel("player_jump_tree")
+			set("parameters/player_jump_tree/blend_position", actor.lastDirection)
 		actor.state.hop:
-			set("parameters/player_hop_tree/blend_position", actor.lastDirection)
 			self["parameters/playback"].travel("player_hop_tree")
+			set("parameters/player_hop_tree/blend_position", actor.lastDirection)
 	#run, roll, dash, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, burst
 	pass

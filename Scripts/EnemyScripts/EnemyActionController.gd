@@ -48,7 +48,7 @@ func _ready():
 
 func _physics_process(delta):
 	handle_states()
-	#%RichTextLabel.text = temp
+	%RichTextLabel.text = temp
 	#%RichTextLabel.text = str(hitstunTimer)
 	#%RichTextLabel.text = str(name, ", ", z_index)
 	#%RichTextLabel.text = str(temp, ", ", "\nHP: ", get_node("StatsController").currentHealth, "/", get_node("StatsController").maxHealth, "\nMP: ", get_node("StatsController").currentMana, "\nSP: ", get_node("StatsController").currentStamina)
@@ -148,6 +148,8 @@ func hitstun():
 	else:
 		if KBSpeed != 0:
 			velocity = hitstunDirection * KBSpeed
+		else:
+			velocity = Vector2.ZERO
 		hitstunTimer -= 1
 		move_and_slide()
 

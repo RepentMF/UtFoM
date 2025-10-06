@@ -18,6 +18,7 @@ var hitstunDirection = Vector2(0, 0)
 var groundedPosition = Vector2(0, 0)
 var gravity = 2
 var countJuggleDistance = false
+var canCombo = false
 var isAttacking = false
 var isExhausted = false
 var isInvincible = false
@@ -82,9 +83,11 @@ func _physics_process(delta):
 	if !done:
 		handle_setup()
 	handle_states()
+	translate_states()
 	#%RichTextLabel.text = str(height, ", ", airCount, ", ", countJuggleDistance, ", ", KBSpeed, ", ", juggleDistanceY)
-	%RichTextLabel.text = str(temp, ", ", isStationary, ", ", isAttacking)
+	#%RichTextLabel.text = str(temp, ", ", isAttacking, ", ", isStationary)
 	#%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
+	
 
 func handle_setup():
 		stats = get_node("StatsController")
@@ -150,13 +153,13 @@ func handle_states():
 			currentState = state.heal
 		else:
 			print("cannot heal")
-	elif Input.is_action_just_pressed("action_light_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst:
+	elif Input.is_action_just_pressed("action_light_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst:
 		if (attackLight != ""):
 			currentState = state.light_attack
-	elif Input.is_action_just_pressed("action_heavy_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst:
+	elif Input.is_action_just_pressed("action_heavy_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst:
 		if (attackHeavy != ""):
 			currentState = state.heavy_attack
-	elif Input.is_action_just_pressed("action_juggle_attack") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst:
+	elif Input.is_action_just_pressed("action_juggle_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst:
 		if (attackJuggle  != ""):
 			currentState = state.juggle_attack
 	
@@ -201,7 +204,6 @@ func handle_states():
 	
 	match currentState:
 		state.idle:
-			temp = "idle"
 			moveSpeed = 0
 			height = "grounded"
 			idle()
@@ -214,11 +216,10 @@ func handle_states():
 				moveSpeed = walkSpeed
 				if canBunnyHop:
 					canBunnyHop = false
-			temp = "walk"
-			if !isStationary:
-				move()
-			else:
+			if isStationary:
 				currentState = state.idle
+			else:
+				move()
 			collide()
 		state.run:
 			if isRhodoniteEnabled && moveSpeed > runSpeed && rollDirection == direction:
@@ -227,10 +228,12 @@ func handle_states():
 					canBunnyHop = false
 			else:
 				moveSpeed = runSpeed
-			temp = "run"
-			move()
+			if isStationary:
+				currentState = state.idle
+			else:
+				move()
+			collide()
 		state.roll:
-			temp = "roll"
 			if isRubyEnabled:
 				roll_attack()
 			roll()
@@ -239,7 +242,6 @@ func handle_states():
 				temp = "dash"
 				dash()
 		state.hop:
-			temp = "hop"
 			hop()
 		state.jump:
 			if isJumpEnabled:
@@ -248,32 +250,26 @@ func handle_states():
 				temp = "jump"
 				jump()
 		state.light_attack:
-			temp = "light_attack"
 			light_attack()
 			if isStationary != null:
 				if !isStationary:
 					move()
 		state.heavy_attack:
-			temp = "heavy_attack"
 			heavy_attack()
 			if isStationary != null:
 				if !isStationary:
 					move()
 		state.juggle_attack:
-			temp = "juggle_attack"
 			juggle_attack()
 			if isStationary != null:
 				if !isStationary:
 					move()
 		state.push:
-			temp = "push"
 			move()
 			collide()
 		state.hitstun:
-			temp = "hitstun"
 			hitstun()
 		state.juggle:
-			temp = "juggle"
 			juggle()
 			if juggleDistanceY < 0:
 				if juggleDistanceY < -26:
@@ -289,14 +285,46 @@ func handle_states():
 					height = "grounded"
 					z_index = 5
 		state.heal:
-			temp = "heal"
 			heal()
 		state.burst:
-			temp = "burst"
-			burst()
+			burst() 
 		state.lag:
-			temp = "lag"
 			lag()
+
+func translate_states():
+	match currentState:
+		0:
+			temp = "idle"
+		1:
+			temp = "walk"
+		2:
+			temp = "run"
+		3:
+			temp = "roll"
+		4:
+			temp = "dash"
+		5:
+			temp = "hop"
+		6:
+			temp = "jump"
+		7:
+			temp = "light_attack"
+		8:
+			temp = "heavy_attack"
+		9:
+			temp = "juggle_attack"
+		10:
+			temp = "push"
+		11:
+			temp = "hitstun"
+		12:
+			temp = "juggle"
+		13:
+			temp = "heal"
+		14:
+			temp = "burst"
+		15:
+			temp = "lag"
 
 func idle():
 	velocity = Vector2(0, 0)
@@ -359,10 +387,7 @@ func dash():
 		if countJuggleDistance:
 			return_to_juggle()
 		else:
-			if is_direction_held():
-				currentState = state.walk
-			else:
-				currentState = state.idle
+			check_move()
 	else:
 		if isTurquoiseEnabled:
 			determine_direction()
@@ -420,24 +445,24 @@ func jump():
 		move_and_slide()
 
 func light_attack():
-	attack = load("res://Attacks/Player/" + attackLight + ".tscn")
-	if has_node(attackLight):
-		return
-	else:
+	if has_node(attackLight) || has_node(attackHeavy) || has_node(attackJuggle):
+		start_combo(attackLight)
+	elif !has_node(attackLight):
+		attack = load("res://Attacks/Player/" + attackLight + ".tscn")
 		add_child(attack.instantiate())
 
 func heavy_attack():
-	attack = load("res://Attacks/Player/" + attackHeavy + ".tscn")
-	if has_node(attackHeavy):
-		return
-	else:
+	if has_node(attackLight) || has_node(attackHeavy) || has_node(attackJuggle):
+		start_combo(attackHeavy)
+	elif !has_node(attackHeavy):
+		attack = load("res://Attacks/Player/" + attackHeavy + ".tscn")
 		add_child(attack.instantiate())
 
 func juggle_attack():
-	attack = load("res://Attacks/Player/" + attackJuggle + ".tscn")
-	if has_node(attackJuggle):
-		return
-	else:
+	if has_node(attackLight) || has_node(attackHeavy) || has_node(attackJuggle):
+		start_combo(attackJuggle)
+	elif !has_node(attackJuggle):
+		attack = load("res://Attacks/Player/" + attackJuggle + ".tscn")
 		add_child(attack.instantiate())
 
 func roll_attack():
@@ -603,6 +628,16 @@ func replenish_movement_timers():
 	dashTimer = dashTimerDefault
 	jumpTimer = jumpTimerDefault
 
+func start_combo(next):
+	if canCombo:
+		if get_node(attackLight).allowCombo:
+			get_node(attackLight).next_attack(next)
+		elif get_node(attackHeavy).allowCombo:
+			get_node(attackHeavy).next_attack(next)
+		elif get_node(attackJuggle).allowCombo:
+			get_node(attackJuggle).next_attack(next)
+		currentState = state.idle
+
 func collide():
 	if get_slide_collision_count() != 0:
 		for i in get_slide_collision_count():
@@ -613,7 +648,4 @@ func collide():
 					c.get_collider().tempVelocity = Vector2(direction.x * moveSpeed, direction.y * moveSpeed)
 					currentState = state.push
 	else:
-		if is_direction_held():
-			currentState = state.walk
-		else:
-			currentState = state.idle
+		check_move()
