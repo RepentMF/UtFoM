@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://cc0qrgsisvf5h"]
 
-[ext_resource type="Script" path="res://Scripts/UniversalScripts/Attack.gd" id="1_51pqc"]
+[ext_resource type="Script" uid="uid://d1psx0prnx2o" path="res://Scripts/UniversalScripts/Attack.gd" id="1_51pqc"]
 [ext_resource type="Texture2D" uid="uid://va5j73ho1p76" path="res://Sprites/GroundedKnife_PCAttacks.png" id="3_6xws4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycjq1"]
@@ -677,15 +677,15 @@ tracks/5/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rk44w"]
 _data = {
-"RESET": SubResource("Animation_jcxwu"),
-"lightknife_1": SubResource("Animation_yby8a"),
-"lightknife_2": SubResource("Animation_6cd2r"),
-"lightknife_3": SubResource("Animation_pyfgl"),
-"lightknife_4": SubResource("Animation_7elv0"),
-"lightknife_6": SubResource("Animation_xgfg3"),
-"lightknife_7": SubResource("Animation_si3tt"),
-"lightknife_8": SubResource("Animation_kl1y7"),
-"lightknife_9": SubResource("Animation_oy1gk")
+&"RESET": SubResource("Animation_jcxwu"),
+&"lightknife_1": SubResource("Animation_yby8a"),
+&"lightknife_2": SubResource("Animation_6cd2r"),
+&"lightknife_3": SubResource("Animation_pyfgl"),
+&"lightknife_4": SubResource("Animation_7elv0"),
+&"lightknife_6": SubResource("Animation_xgfg3"),
+&"lightknife_7": SubResource("Animation_si3tt"),
+&"lightknife_8": SubResource("Animation_kl1y7"),
+&"lightknife_9": SubResource("Animation_oy1gk")
 }
 
 [node name="LightKnife" type="Node2D"]
@@ -730,7 +730,7 @@ parameters/lightknife_tree/blend_position = Vector2(0.211604, -0.0851064)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_rk44w")
+&"": SubResource("AnimationLibrary_rk44w")
 }
 
 [connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]

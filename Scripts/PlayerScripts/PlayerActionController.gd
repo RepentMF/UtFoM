@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+# Declaring and initializing all necessary permanent variables used for PlayerActionController 
 var rng = RandomNumberGenerator.new()
 
 enum state {idle, walk, run, roll, dash, hop, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, heal, burst, lag}
@@ -80,6 +81,7 @@ var isMoonStoneEnabled = false
 var isPearlEnabled = false
 
 func _physics_process(delta):
+	# Bool "done" is false until "handle_setup()" is complete
 	if !done:
 		handle_setup()
 	handle_states()
@@ -87,19 +89,23 @@ func _physics_process(delta):
 	%RichTextLabel.text = str(height, ", ", airCount, ", ", countJuggleDistance, ", ", KBSpeed, ", ", juggleDistanceY)
 	#%RichTextLabel.text = str(temp, ", ", isAttacking, ", ", isStationary)
 	#%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
-	
 
 func handle_setup():
-		stats = get_node("StatsController")
-		inventory = get_tree().current_scene.get_node("InventoryController")
-		currentWeapon = inventory.currentWeapon
-		attackLight = currentWeapon.light
-		attackHeavy = currentWeapon.heavy
-		attackJuggle = currentWeapon.juggle
-		rng.randomize()
-		done = true
+	# Calling needed nodes and values to be used in the rest of PlayerActionController
+	stats = get_node("StatsController")
+	inventory = get_tree().current_scene.get_node("InventoryController")
+	currentWeapon = inventory.currentWeapon
+	attackLight = currentWeapon.light
+	attackHeavy = currentWeapon.heavy
+	attackJuggle = currentWeapon.juggle
+	rng.randomize()
+	done = true
 
 func handle_states():
+	# Assessing every frame what needs to be done for proper State Machine assignment as well as
+	# proper Gem assignment/usage
+	
+	# Selenite is a challenge Gem that causes the player to use no other weapons except "fists"
 	if isSeleniteEnabled && currentWeapon.name != "fists":
 		inventory.currentWeapon = inventory.inventory[0]
 		currentWeapon = inventory.currentWeapon
@@ -108,6 +114,9 @@ func handle_states():
 		attackJuggle = currentWeapon.juggle
 	elif !isSeleniteEnabled:
 		if currentState != state.hop && currentState != state.jump && currentState != state.hitstun && currentState != state.juggle && currentState != state.lag:
+			# Ametrine is a support Gem that allows the player to switch weapons mid-attack
+			# The following blocks enable the player to switch weapons and makes the proper assignments
+			# to variables to reflect the changes
 			if ((!isAmetrineEnabled && !isAttacking) || isAmetrineEnabled):
 				var index = inventory.inventory.find(inventory.currentWeapon)
 				if Input.is_action_just_pressed("menu_prev_weapon"):
@@ -118,7 +127,7 @@ func handle_states():
 					attackLight = currentWeapon.light
 					attackHeavy = currentWeapon.heavy
 					attackJuggle = currentWeapon.juggle
-					print("weapon change!")
+					print("Switched to " + currentWeapon.name + "!")
 				elif Input.is_action_just_pressed("menu_next_weapon"):
 					if index + 1 == inventory.inventory.size():
 						index = -1
@@ -127,7 +136,7 @@ func handle_states():
 					attackLight = currentWeapon.light
 					attackHeavy = currentWeapon.heavy
 					attackJuggle = currentWeapon.juggle
-					print("weapon change!")
+					print("Switched to " + currentWeapon.name + "!")
 	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.lag:
 		check_move()
 	
