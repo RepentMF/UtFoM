@@ -112,11 +112,12 @@ func handle_states():
 		attackLight = currentWeapon.light
 		attackHeavy = currentWeapon.heavy
 		attackJuggle = currentWeapon.juggle
+	# If Selenite is not enabled, the player may switch weapons without opening a menu
 	elif !isSeleniteEnabled:
 		if currentState != state.hop && currentState != state.jump && currentState != state.hitstun && currentState != state.juggle && currentState != state.lag:
-			# Ametrine is a support Gem that allows the player to switch weapons mid-attack
-			# The following blocks enable the player to switch weapons and makes the proper assignments
-			# to variables to reflect the changes
+	# Ametrine is an actualization Gem that allows the player to switch weapons mid-attack
+	# The following blocks enable the player to switch weapons and makes the proper assignments
+	# to variables to reflect the changes
 			if ((!isAmetrineEnabled && !isAttacking) || isAmetrineEnabled):
 				var index = inventory.inventory.find(inventory.currentWeapon)
 				if Input.is_action_just_pressed("menu_prev_weapon"):
@@ -137,14 +138,24 @@ func handle_states():
 					attackHeavy = currentWeapon.heavy
 					attackJuggle = currentWeapon.juggle
 					print("Switched to " + currentWeapon.name + "!")
+	# Check if the player is allowed to control their x/y velocity using the control stick
+	# (If they are not: rolling, dashing, hopping, jumping, pushing, healing, using magic,
+	# in hitstun, being juggled, or marked as stationary by a stationary attack)
 	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.lag:
 		check_move()
 	
+	# Check for what action the player is doing this frame and makes the proper assignment to variables
+	# in order to reflect that action choice
+	# We check with a priority order- spells are checked first, then healing, then attacks, then movement abilities- 
+	# whatever action the player chooses, we assign their StateMachine accordingly so long as the conditional passes true
 	if Input.is_action_just_pressed("action_burst") && isBurstUnlocked:
+	# Topaz is a dilemma Gem that allows the plyaer to cast spells for less mana cost at the difference
+	# being dealt to their health
 		if isTopazEnabled:
 			if stats.check_current_stat(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana, true) && stats.check_current_stat(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth, true):
 				stats.currentMana = stats.modify_stat(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana)
 				stats.currentHealth = stats.modify_stat(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth)
+	# Pearl is a chance Gem that returns mana spent on a spell to the player if the player successfully hits a target
 				if isPearlEnabled:
 					if rng.randi() % 4 == 0:
 						stats.currentMana = stats.modify_stat(stats.currentMana, -int(roundf(float(burstManaCost) / 2)), stats.maxMana)
@@ -153,11 +164,13 @@ func handle_states():
 		else:
 			if stats.check_current_stat(stats.currentMana, burstManaCost, stats.maxMana, true):
 				stats.currentMana = stats.modify_stat(stats.currentMana, burstManaCost, stats.maxMana)
+	# Pearl is a chance Gem that returns mana spent on a spell to the player if the player successfully hits a target
 				if isPearlEnabled:
 					if rng.randi() % 4 == 0:
 						stats.currentMana = stats.modify_stat(stats.currentMana, -burstManaCost, stats.maxMana)
 				currentState = state.burst
 	elif Input.is_action_just_pressed("action_heal") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && height == "grounded":
+	# Goshenite is a challenge Gem that prevents the player from healing
 		if !isGosheniteEnabled:
 			currentState = state.heal
 		else:
@@ -173,26 +186,32 @@ func handle_states():
 			currentState = state.juggle_attack
 	
 	if !is_player_locked():
-			if !isExhausted && (Input.is_action_just_pressed("action_dodge") && !isDashEnabled):
-				if !isMoonStoneEnabled:
-					currentState = state.roll
-				else:
-					print("cannot use SP")
-			elif !isExhausted && Input.is_action_just_pressed("action_jump") && !isAttacking:
-				if !isMoonStoneEnabled:
-					currentState = state.jump
-					if !isJumpEnabled:
-						currentState = state.hop
-				else:
-					print("cannot use SP")
+		if !isExhausted && (Input.is_action_just_pressed("action_dodge") && !isDashEnabled):
+	# Moonstone is a challenge Gem that prevents the player from using stamina
+			if !isMoonStoneEnabled:
+				currentState = state.roll
+			else:
+				print("cannot use SP")
+		elif !isExhausted && Input.is_action_just_pressed("action_jump") && !isAttacking:
+	# Moonstone is a challenge Gem that prevents the player from using stamina
+			if !isMoonStoneEnabled:
+				currentState = state.jump
+				if !isJumpEnabled:
+					currentState = state.hop
+			else:
+				print("cannot use SP")
 	
 	if currentState == state.walk || currentState == state.run || currentState == state.burst:
 		if !isExhausted && (Input.is_action_just_pressed("action_dodge") && isDashEnabled && is_direction_held()) && (!isAttacking || isHemimorphiteEnabled):
+	# Moonstone is a challenge Gem that prevents the player from using stamina
 				if !isMoonStoneEnabled:
+	# Citrine is a dilemma Gem that allows the player to use less stamina per movement ability in exchange
+	# for it dealing the difference to their health and mana in equal parts
 					if isCitrineEnabled && stats.check_current_stat(stats.currentStamina, int(roundf(float(dashStaminaCost) / 3)), stats.maxStamina, true) && stats.check_current_stat(stats.currentHealth, int(roundf(float(dashStaminaCost) / 3)), stats.maxHealth, true) && stats.check_current_stat(stats.currentMana, int(roundf(float(dashStaminaCost) / 3)), stats.maxMana, true):
 						stats.currentStamina = stats.modify_stat(stats.currentStamina, int(roundf(float(dashStaminaCost) / 3)), stats.maxStamina)
 						stats.currentHealth = stats.modify_stat(stats.currentHealth, int(roundf(float(dashStaminaCost) / 3)), stats.maxHealth)
 						stats.currentMana = stats.modify_stat(stats.currentMana, int(roundf(float(dashStaminaCost) / 3)), stats.maxMana)
+	# Pearl is a chance Gem that returns mana spent on a spell to the player if the player successfully hits a target
 						if isPearlEnabled:
 							if rng.randi() % 4 == 0:
 								stats.currentMana = stats.modify_stat(stats.currentMana, -int(roundf(float(dashStaminaCost) / 3)), stats.maxMana)
@@ -202,21 +221,27 @@ func handle_states():
 						currentState = state.dash
 				else:
 					print("cannot use SP")
+	# Handles Bunny Hopping- technique implemented by Rhodonite. Checks if player can bunny hop and if they pressed "jump"
+	# then if "hop" is enabled and "jump" isn't, puts player back into hopping State
 	if canBunnyHop && Input.is_action_just_pressed("action_jump"):
 		if !isJumpEnabled:
 			currentState = state.hop
 		else:
 			moveSpeed = 0
 	
+	# Hemimorphite is a dash Gem that allows the player to use light attacks while dashing
 	if currentState == state.dash && isHemimorphiteEnabled && Input.is_action_just_pressed("action_light_attack"):
 		light_attack()
 	
+	# State Machine Code Block
 	match currentState:
 		state.idle:
 			moveSpeed = 0
 			height = "grounded"
 			idle()
 		state.walk:
+	# Rhodonite is a physical Gem that allows the player to "Bunny Hop." This is done by rolling and then
+	# hopping before the roll ends
 			if isRhodoniteEnabled && moveSpeed > walkSpeed && rollDirection == direction:
 				moveSpeed = moveSpeed - 1
 				if !canBunnyHop:
@@ -231,6 +256,8 @@ func handle_states():
 				move()
 			collide()
 		state.run:
+	# Rhodonite is a physical Gem that allows the player to "Bunny Hop." This is done by rolling and then
+	# hopping before the roll ends
 			if isRhodoniteEnabled && moveSpeed > runSpeed && rollDirection == direction:
 				moveSpeed = moveSpeed - 1
 				if canBunnyHop:
@@ -243,6 +270,7 @@ func handle_states():
 				move()
 			collide()
 		state.roll:
+	# Ruby is a physical Gem that adds a hitbox to the player's roll
 			if isRubyEnabled:
 				roll_attack()
 			roll()
@@ -278,6 +306,8 @@ func handle_states():
 			collide()
 		state.hitstun:
 			hitstun()
+	# When the player is being juggled, we change their "height" and "z_index" based on how long they've
+	# been in the air (their "juggleDistanceY")
 		state.juggle:
 			juggle()
 			if juggleDistanceY < 0:
