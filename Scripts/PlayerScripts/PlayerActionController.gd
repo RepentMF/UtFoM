@@ -368,7 +368,10 @@ func translate_states():
 func idle():
 	velocity = Vector2(0, 0)
 
+
 func move():
+	# Update the player's velocity x and velocity y to be in line with their directional
+	# inputs
 	if Input.is_action_pressed("move_left"):
 		velocity.x = -moveSpeed
 	elif Input.is_action_pressed("move_right"):
@@ -389,10 +392,13 @@ func move():
 	move_and_slide()
 
 func roll():
+	# Rolling is based on a timer system and changes States accordingly 
 	if rollTimer <= 0:
 		rollTimer = rollTimerDefault
 		if is_direction_held():
 			currentState = state.walk
+	# Rhodonite is a physical Gem that allows the player to "Bunny Hop." This is done by rolling and then
+	# hopping before the roll ends
 			if isRhodoniteEnabled:
 				moveSpeed = rollSpeed * 1.3
 				rollDirection = direction
@@ -401,6 +407,8 @@ func roll():
 	else:
 		velocity = direction * rollSpeed
 		determine_diagonal(rollSpeed)
+	# Rhodonite is a physical Gem that allows the player to "Bunny Hop." This is done by rolling and then
+	# hopping before the roll ends
 		if isRhodoniteEnabled && velocity != direction * rollSpeed * 1.3:
 			velocity = velocity * 1.3
 			determine_diagonal(rollSpeed * 1.3)
@@ -408,14 +416,15 @@ func roll():
 		move_and_slide()
 
 func dash():
-	# aquamarine is dash length of 10 and dashinvmargin of x - 2
+	# Dashing is based on a timer system and changes States accordingly 
+	# Aquamarine has a dash length of 10 and a dash invincibility margin of x - 2
 	if isAquamarineEnabled && dashInvMargin != 1:
 		dashInvMargin = 1
-	# standard dash length of 12 and dashinvmargin of x = 3
+	# Standard dashing has a dash length of 12 and a dash invincibility margin of x = 3
 	elif !isAquamarineEnabled && dashInvMargin != 3:
 		dashInvMargin = 3
 	
-	# hemimorphite is dash length of 12 and dashinvmargin of x + 2
+	# Hemimorphite has a dash length of 10 and a dash invincibility margin of x + 2
 	if isHemimorphiteEnabled && dashInvMargin != 5:
 		dashInvMargin = 5
 	elif !isHemimorphiteEnabled && dashInvMargin != 3:
@@ -443,6 +452,7 @@ func dash():
 			isInvincible = false
 
 func hop():
+	# Hopping is based on a timer system and changes States and variables accordingly 
 	if hopTimer <= 0:
 		height = "grounded"
 		z_index = 5
@@ -462,6 +472,7 @@ func hop():
 		move_and_slide()
 
 func jump():
+	# Jumping is based on a timer system and changes States and variables accordingly 
 	if jumpTimer <= 0:
 		height = "grounded"
 		z_index = 5
@@ -484,6 +495,9 @@ func jump():
 		move_and_slide()
 
 func light_attack():
+	# If the player is already attacking, the if block will check if they can start
+	# a combo. If the player is not already attacking and can attack, the else block
+	# will instantiate the attack
 	if has_node(attackLight) || has_node(attackHeavy) || has_node(attackJuggle):
 		start_combo(attackLight)
 	elif !has_node(attackLight):
@@ -491,6 +505,9 @@ func light_attack():
 		add_child(attack.instantiate())
 
 func heavy_attack():
+	# If the player is already attacking, the if block will check if they can start
+	# a combo. If the player is not already attacking and can attack, the else block
+	# will instantiate the attack
 	if has_node(attackLight) || has_node(attackHeavy) || has_node(attackJuggle):
 		start_combo(attackHeavy)
 	elif !has_node(attackHeavy):
@@ -498,6 +515,9 @@ func heavy_attack():
 		add_child(attack.instantiate())
 
 func juggle_attack():
+	# If the player is already attacking, the if block will check if they can start
+	# a combo. If the player is not already attacking and can attack, the else block
+	# will instantiate the attack
 	if has_node(attackLight) || has_node(attackHeavy) || has_node(attackJuggle):
 		start_combo(attackJuggle)
 	elif !has_node(attackJuggle):
@@ -512,6 +532,8 @@ func roll_attack():
 		add_child(attack.instantiate())
 
 func hitstun():
+	# Being in hitstun is based on a timer system and changes States and variables 
+	# accordingly 
 	if hitstunTimer <= 0:
 		if !countJuggleDistance:
 			airCount = 0
@@ -535,6 +557,8 @@ func hitstun():
 		move_and_slide()
 
 func juggle():
+	# Being juggled is based on a timer system and changes States and variables 
+	# accordingly 
 	if hitstunTimer <= 0:
 		if airCount > 5 && juggleDistanceY >= 0:
 			juggleSpeed = 0
@@ -566,6 +590,7 @@ func juggle():
 		move_and_slide()
 
 func heal():
+	# Heacling is based on a timer system and changes States and variables accordingly 
 	if healTimer <= 0:
 		healTimer = healTimerDefault
 		replenish_movement_timers()
@@ -578,6 +603,7 @@ func heal():
 		healTimer -= 1
 
 func burst():
+	# Bursting is based on a timer system and changes States and variables accordingly 
 	if burstTimer <= 0:
 		burstTimer = burstTimerDefault
 		isInvincible = false
@@ -606,6 +632,9 @@ func lag():
 		lagTimer = lagTimer - 1
 
 func return_to_juggle():
+	# Actors can be hit while in the "juggle" state which sends them into hitstun
+	# and we need a way for Actors to return to being juggled after "hitstun" is over.
+	# This block is how we accomplish that.
 	airCount = 0
 	hitstunTimer = hitstunTimerDefault
 	hitstunDirection = Vector2(0, 0)
@@ -638,6 +667,7 @@ func is_player_locked():
 		return false
 
 func determine_direction():
+	# Determines and holds the last direction taken from the player's inputs
 	if Input.is_action_pressed("move_left"):
 		direction.x = -1
 	elif Input.is_action_pressed("move_right"):
@@ -658,7 +688,6 @@ func determine_direction():
 func determine_diagonal(speed):
 	if (abs(direction.x) + abs(direction.y)) > 1:
 		var pyth = sqrt(2 * (speed * speed)) / 2
-		#these are the lines of code that move player during attack
 		velocity.x = pyth * direction.x
 		velocity.y = pyth * direction.y
 
