@@ -73,7 +73,7 @@ func _physics_process(_delta):
 	user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, manaCost, user.stats.maxMana)
 	if userName.contains("PlayerCharacter"):
 		if user.isTopazEnabled:
-			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, -manaCost, user.stats.maxMana)
+			user.stats.currentMana = user.stats.modify_stat(user.Fstats.currentMana, -manaCost, user.stats.maxMana)
 			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, int(roundf(float(manaCost) / 2)), user.stats.maxMana)
 			user.stats.currentHealth = user.stats.modify_stat(user.stats.currentHealth, int(roundf(float(manaCost) / 2)), user.stats.maxHealth)
 	if attackTimerDefault != 0:
