@@ -230,14 +230,21 @@ func next_attack(next):
 		user.add_child(user.attack.instantiate())
 		user.canCombo = false
 		user.isStationary = false
+		user.secondAttack = false
 		queue_free()
-	else:
-		animation_tree["parameters/playback"].travel(next.to_lower() + "_2_tree")
-		animation_tree.set("parameters/" + next.to_lower() + "_2_tree/blend_position", direction)
+	elif next == name:
+		if !user.secondAttack:
+			animation_tree["parameters/playback"].travel(next.to_lower() + "_2_tree")
+			animation_tree.set("parameters/" + next.to_lower() + "_2_tree/blend_position", direction)
+			user.secondAttack = true
+		else:
+			animation_tree["parameters/playback"].travel(next.to_lower() + "_3_tree")
+			animation_tree.set("parameters/" + next.to_lower() + "_3_tree/blend_position", direction)
 
 func _on_animation_finished(anim_name):
 	user.isAttacking = false
 	user.isStationary = false
 	user.canCombo = false
+	user.secondAttack = false
 	queue_free()
 	pass # Replace with function body.

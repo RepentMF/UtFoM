@@ -20,6 +20,7 @@ var groundedPosition = Vector2(0, 0)
 var gravity = 2
 var countJuggleDistance = false
 var canCombo = false
+var secondAttack = false
 var isAttacking = false
 var isExhausted = false
 var isInvincible = false
