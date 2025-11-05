@@ -28,8 +28,8 @@ var allowCombo = false
 var firstAttack = true
 
 func _ready():
-	if get_meta("Offset") != 0:
-		offset = get_meta("Offset")
+	#if get_meta("Offset"):
+	#	offset = get_meta("Offset")
 	visible = false
 	baseDamage = get_meta("Damage")
 	manaCost = get_meta("ManaCost")
