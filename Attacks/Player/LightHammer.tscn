@@ -1,34 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://j5l48mqu5gil"]
+[gd_scene load_steps=4 format=3 uid="uid://dd3w87drsga1r"]
 
-[ext_resource type="Script" path="res://Scripts/UniversalScripts/Attack.gd" id="1_irgch"]
-[ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="2_ixvj1"]
+[ext_resource type="Script" path="res://Scripts/UniversalScripts/Attack.gd" id="1_bpfl7"]
+[ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="2_ojc58"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycjq1"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_174e4"]
 size = Vector2(2.99385, 3.02335)
 
-[node name="HeavyHammer" type="Node2D"]
+[node name="LightHammer" type="Node2D"]
 z_index = -1
-scale = Vector2(2, 7)
-script = ExtResource("1_irgch")
-metadata/Speed = 115
-metadata/HitstunTimer = 20
+scale = Vector2(5, 3)
+script = ExtResource("1_bpfl7")
+metadata/Speed = 0
+metadata/HitstunTimer = 40
 metadata/KnockUp = false
 metadata/KnockUpPower = 0
 metadata/Status = ""
 metadata/StatusTimer = 0
 metadata/StatusFreq = 0
 metadata/StatusChange = 0
-metadata/AttackTimer = 40
-metadata/Damage = -15
+metadata/AttackTimer = 45
+metadata/Damage = -10
 metadata/isStationary = true
-metadata/UserName = "PlayerCharacter"
 metadata/ManaCost = 0
 metadata/StaminaCost = 0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-1.19209e-07, 0)
 scale = Vector2(0.0234375, 0.0234375)
-texture = ExtResource("2_ixvj1")
+texture = ExtResource("2_ojc58")
 region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
 
 [node name="Area" type="Area2D" parent="."]
@@ -37,6 +36,6 @@ collision_mask = 129
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
 position = Vector2(0.015, 0.015)
-shape = SubResource("RectangleShape2D_ycjq1")
+shape = SubResource("RectangleShape2D_174e4")
 
 [connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]
