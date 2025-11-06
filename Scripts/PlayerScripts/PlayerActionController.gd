@@ -20,6 +20,7 @@ var groundedPosition = Vector2(0, 0)
 var gravity = 2
 var countJuggleDistance = false
 var canCombo = false
+var secondAttack = false
 var isAttacking = false
 var isExhausted = false
 var isInvincible = false
@@ -148,7 +149,7 @@ func handle_states():
 	# in order to reflect that action choice
 	# We check with a priority order- spells are checked first, then healing, then attacks, then movement abilities- 
 	# whatever action the player chooses, we assign their StateMachine accordingly so long as the conditional passes true
-	if Input.is_action_just_pressed("action_burst") && isBurstUnlocked:
+	if Input.is_action_just_pressed("action_spell") && isBurstUnlocked:
 	# Topaz is a dilemma Gem that allows the plyaer to cast spells for less mana cost at the difference
 	# being dealt to their health
 		if isTopazEnabled:
@@ -698,12 +699,15 @@ func replenish_movement_timers():
 
 func start_combo(next):
 	if canCombo:
-		if get_node(attackLight).allowCombo:
-			get_node(attackLight).next_attack(next)
-		elif get_node(attackHeavy).allowCombo:
-			get_node(attackHeavy).next_attack(next)
-		elif get_node(attackJuggle).allowCombo:
-			get_node(attackJuggle).next_attack(next)
+		if get_node(attackLight):
+			if get_node(attackLight).allowCombo:
+				get_node(attackLight).next_attack(next)
+		elif get_node(attackHeavy):
+			if get_node(attackHeavy).allowCombo:
+				get_node(attackHeavy).next_attack(next)
+		elif get_node(attackJuggle):
+			if get_node(attackJuggle).allowCombo:
+				get_node(attackJuggle).next_attack(next)
 		currentState = state.idle
 
 func collide():
