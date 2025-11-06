@@ -1,11 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://pg5v6yfdaxmf"]
+[gd_scene load_steps=18 format=3 uid="uid://pg5v6yfdaxmf"]
 
-[ext_resource type="Script" path="res://Scripts/UniversalScripts/Attack.gd" id="1_p5gc0"]
+[ext_resource type="Script" uid="uid://d1psx0prnx2o" path="res://Scripts/UniversalScripts/Attack.gd" id="1_p5gc0"]
 [ext_resource type="Texture2D" uid="uid://brcsxct28qxua" path="res://Sprites/GroundedSword_PCAttacks.png" id="2_rm47m"]
 [ext_resource type="AnimationLibrary" uid="uid://blp5r60pdkc8x" path="res://Animations/Player/HeavySword/HeavySword.res" id="3_qv0ii"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4n66p"]
-size = Vector2(3, 7)
 
 [sub_resource type="Animation" id="Animation_cttqp"]
 length = 0.001
@@ -24,7 +21,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sxq73"]
 _data = {
-"RESET": SubResource("Animation_cttqp")
+&"RESET": SubResource("Animation_cttqp")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_seni5"]
@@ -91,15 +88,15 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b71rv"]
 _data = {
-"RESET": SubResource("Animation_0j3wi")
+&"RESET": SubResource("Animation_0j3wi")
 }
 
 [node name="HeavySword" type="Node2D"]
 z_index = -1
 position = Vector2(0.5, 0)
 script = ExtResource("1_p5gc0")
-metadata/Speed = 0
-metadata/HitstunTimer = 0
+metadata/Speed = 75
+metadata/HitstunTimer = 15
 metadata/KnockUp = false
 metadata/KnockUpPower = 0
 metadata/Status = ""
@@ -115,11 +112,11 @@ metadata/StaminaCost = 0
 metadata/Offset = 0
 
 [node name="AttackingSprite" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-1.19209e-07, 0)
 texture = ExtResource("2_rm47m")
 hframes = 14
 vframes = 8
-frame = 66
 region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
 
 [node name="Area" type="Area2D" parent="."]
@@ -127,21 +124,19 @@ collision_layer = 129
 collision_mask = 129
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
-position = Vector2(-0.5, -11.5)
-shape = SubResource("RectangleShape2D_4n66p")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_sxq73"),
-"HeavySword": ExtResource("3_qv0ii")
+&"": SubResource("AnimationLibrary_sxq73"),
+&"HeavySword": ExtResource("3_qv0ii")
 }
 tree_root = SubResource("AnimationNodeStateMachine_eyeyi")
 parameters/heavysword_tree/blend_position = Vector2(-0.98983, 1.01064)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_b71rv"),
-"HeavySword": ExtResource("3_qv0ii")
+&"": SubResource("AnimationLibrary_b71rv"),
+&"HeavySword": ExtResource("3_qv0ii")
 }
 
 [connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]
