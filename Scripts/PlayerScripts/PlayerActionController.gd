@@ -3,7 +3,8 @@ extends CharacterBody2D
 # Declaring and initializing all necessary permanent variables used for PlayerActionController 
 var rng = RandomNumberGenerator.new()
 
-enum state {idle, walk, run, roll, dash, hop, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, heal, burst, lag}
+# Game engine
+enum state {idle, walk, run, roll, dash, hop, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, heal, burst, lag, spark}
 var currentState
 var inventory
 var currentWeapon
@@ -26,7 +27,10 @@ var isInvincible = false
 var isStationary = false
 var temp
 var done = false
+var bulletMeta
+var bullet
 
+# Physics Speeds
 var moveSpeed = 0
 var walkSpeed = 45
 var rollSpeed = 80
@@ -36,6 +40,7 @@ var runSpeed = 65
 var KBSpeed = 0
 var juggleSpeed = 0
 
+# Timer block
 var rollTimerDefault = 30
 var rollTimer = rollTimerDefault
 var rollDirection = Vector2(0, 0)
@@ -52,16 +57,20 @@ var healTimerDefault = 60
 var healTimer = healTimerDefault
 var burstTimerDefault = 30
 var burstTimer = burstTimerDefault
+var sparkTimerDefault = 15
+var sparkTimer = sparkTimerDefault
 var lagTimerDefault = 10
 var lagTimer = lagTimerDefault
 var airCount = 0
 var juggleDistanceY = 0.0
 
+# Costs
 var stats
 var healAmount = 3
 var dashStaminaCost = -3
 var burstManaCost = -5
 
+# Gem instatiators
 var canBunnyHop = false
 var isDashEnabled = true
 var isJumpEnabled = false
@@ -80,7 +89,7 @@ var isGosheniteEnabled = false
 var isMoonStoneEnabled = false
 var isPearlEnabled = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	# Bool "done" is false until "handle_setup()" is complete
 	if !done:
 		handle_setup()
@@ -141,7 +150,7 @@ func handle_states():
 	# Check if the player is allowed to control their x/y velocity using the control stick
 	# (If they are not: rolling, dashing, hopping, jumping, pushing, healing, using magic,
 	# in hitstun, being juggled, or marked as stationary by a stationary attack)
-	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.lag:
+	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.spark && currentState != state.lag:
 		check_move()
 	
 	# Check for what action the player is doing this frame and makes the proper assignment to variables
@@ -175,15 +184,17 @@ func handle_states():
 			currentState = state.heal
 		else:
 			print("cannot heal")
-	elif Input.is_action_just_pressed("action_light_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst:
+	elif Input.is_action_just_pressed("action_light_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && currentState != state.spark :
 		if (attackLight != ""):
 			currentState = state.light_attack
-	elif Input.is_action_just_pressed("action_heavy_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst:
+	elif Input.is_action_just_pressed("action_heavy_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark :
 		if (attackHeavy != ""):
 			currentState = state.heavy_attack
-	elif Input.is_action_just_pressed("action_juggle_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst:
+	elif Input.is_action_just_pressed("action_juggle_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark :
 		if (attackJuggle  != ""):
 			currentState = state.juggle_attack
+	elif Input.is_action_just_pressed("action_spark"):
+		currentState = state.spark
 	
 	if !is_player_locked():
 		if !isExhausted && (Input.is_action_just_pressed("action_dodge") && !isDashEnabled):
@@ -201,7 +212,7 @@ func handle_states():
 			else:
 				print("cannot use SP")
 	
-	if currentState == state.walk || currentState == state.run || currentState == state.burst:
+	if currentState == state.walk || currentState == state.run || currentState == state.burst || currentState == state.spark:
 		if !isExhausted && (Input.is_action_just_pressed("action_dodge") && isDashEnabled && is_direction_held()) && (!isAttacking || isHemimorphiteEnabled):
 	# Moonstone is a challenge Gem that prevents the player from using stamina
 				if !isMoonStoneEnabled:
@@ -327,6 +338,8 @@ func handle_states():
 			heal()
 		state.burst:
 			burst() 
+		state.spark:
+			spark()
 		state.lag:
 			lag()
 
@@ -364,6 +377,8 @@ func translate_states():
 			temp = "burst"
 		15:
 			temp = "lag"
+		16:
+			temp = "spark"
 
 func idle():
 	velocity = Vector2(0, 0)
@@ -620,6 +635,27 @@ func burst():
 			isInvincible = true
 			velocity = Vector2(0, 0)
 		burstTimer -= 1
+
+func spark():
+	if sparkTimer <= 0:
+		sparkTimer = sparkTimerDefault
+		#create spark bullet
+		bulletMeta = "res://Attacks/Bullets/" + get_meta("Bullet") + ".tscn"
+		bullet = load(bulletMeta)
+		add_child(bullet.instantiate())
+		get_node("Bullet").shot = true
+		get_node("Bullet").direction = direction
+		get_node("Bullet").userName = "PlayerCharacter"
+		bullet.set_as_toplevel(true)
+		#remove_child(get_node("Bullet"))
+		replenish_movement_timers()
+		if is_direction_held():
+			currentState = state.walk
+		else:
+			currentState = state.idle
+	else:
+		sparkTimer -= 1
+		print(sparkTimer)
 
 func lag():
 	if lagTimer <= 0:

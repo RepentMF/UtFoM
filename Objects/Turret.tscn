@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://3v3haqtkic8g"]
 
-[ext_resource type="Script" path="res://Scripts/UniversalScripts/Pushable.gd" id="1_4bxlg"]
-[ext_resource type="Script" path="res://Scripts/UniversalScripts/Turret.gd" id="2_puvws"]
+[ext_resource type="Script" uid="uid://c53qro4bum3sp" path="res://Scripts/UniversalScripts/Pushable.gd" id="1_4bxlg"]
+[ext_resource type="Script" uid="uid://ce5r2yc3yfia0" path="res://Scripts/UniversalScripts/Turret.gd" id="2_puvws"]
 [ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="3_u1xaq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rxbd5"]
@@ -23,10 +23,10 @@ freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 8
 script = ExtResource("1_4bxlg")
-metadata/Bullet = ""
 metadata/Height = ""
 metadata/Rotation = 0.0
 metadata/Delay = 0
+metadata/Bullet = ""
 
 [node name="TurretScript" type="Area2D" parent="."]
 position = Vector2(9, 0)

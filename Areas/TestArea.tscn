@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ni8ovwd065o1"]
+[gd_scene load_steps=7 format=3 uid="uid://ni8ovwd065o1"]
 
 [ext_resource type="Texture2D" uid="uid://cmhojdde7yh5u" path="res://Sprites/Hero's Cave - The Legend of Zelda_ Oracle of Seasons (Lets Play Part 1) - YouTube - 0-16-0.png" id="1_ama53"]
 [ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="1_qs71s"]
 [ext_resource type="PackedScene" uid="uid://dd5q0pik41su1" path="res://Objects/Block.tscn" id="3_ykd2a"]
-[ext_resource type="PackedScene" uid="uid://3v3haqtkic8g" path="res://Objects/Turret.tscn" id="4_8ptt3"]
 [ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="6_3djan"]
 [ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="7_i1qoj"]
 [ext_resource type="PackedScene" uid="uid://nbf1tkcmqgtp" path="res://Actors/Enemies/Commons/SlimeCharacter.tscn" id="8_1ltbh"]
@@ -25,6 +24,7 @@ offset_right = 247.0
 offset_bottom = 215.0
 
 [node name="Temp_Backdrop" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0.564706, 1, 0.694118, 1)
 z_index = -2
 position = Vector2(0.526997, -6.57812)
@@ -39,7 +39,7 @@ position = Vector2(52, -5)
 
 [node name="SlimeCharacter" parent="." instance=ExtResource("8_1ltbh")]
 modulate = Color(0.564706, 1, 0.694118, 1)
-position = Vector2(-56, -2)
+position = Vector2(206, -57)
 
 [node name="Block" parent="." instance=ExtResource("3_ykd2a")]
 modulate = Color(0.564706, 1, 0.694118, 1)
@@ -48,12 +48,6 @@ position = Vector2(206, -5)
 [node name="Block2" parent="." instance=ExtResource("3_ykd2a")]
 modulate = Color(0.564706, 1, 0.694118, 1)
 position = Vector2(206, -22)
-
-[node name="Turret" parent="." instance=ExtResource("4_8ptt3")]
-position = Vector2(148, -43)
-metadata/Bullet = "JuggleBullet"
-metadata/Height = "grounded"
-metadata/Rotation = 0
 
 [node name="GemsController" parent="." instance=ExtResource("6_3djan")]
 

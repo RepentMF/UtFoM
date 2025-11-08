@@ -20,6 +20,7 @@ var statusFreq = 0
 var statusChange = 0
 var userName = ""
 
+
 func _physics_process(_delta):
 	if shot && linear_velocity == Vector2(0, 0):
 		hitstunTimer = get_meta("HitstunTimer")
@@ -35,11 +36,13 @@ func _physics_process(_delta):
 		staminaCost = get_meta("StaminaCost")
 		userName = get_meta("UserName")
 		linear_velocity = direction * speed
+		#print(direction, speed)
 		if statusName != "":
 			statusList.push_front(new_status_effect(statusName, statusChange, statusTimer, statusFreq))
 
 func _on_area_body_entered(body):
-	if body is CharacterBody2D:
+	print(body)
+	if body is CharacterBody2D && body.name != userName:
 		if height_check(body.height):
 			if !body.isInvincible:
 				get_tree().current_scene.get_node("GemsController").gem_function_checker(self)

@@ -1326,6 +1326,7 @@ metadata/Stamina = 5
 metadata/MaxHealth = 10
 metadata/MaxMana = 5
 metadata/MaxStamina = 5
+metadata/Bullet = "JuggleBullet"
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 y_sort_enabled = true
@@ -1390,6 +1391,7 @@ script = ExtResource("5_1vsy1")
 script = ExtResource("7_y6huj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
