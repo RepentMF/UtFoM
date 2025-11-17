@@ -90,7 +90,6 @@ var isGosheniteEnabled = false
 var isMoonStoneEnabled = false
 var isPearlEnabled = false
 
-func _physics_process(_delta):
 func _physics_process(delta):
 	# Bool "done" is false until "handle_setup()" is complete
 	if !done:
@@ -154,7 +153,6 @@ func handle_states():
 	# Check if the player is allowed to control their x/y velocity using the control stick
 	# (If they are not: rolling, dashing, hopping, jumping, pushing, healing, using magic,
 	# in hitstun, being juggled, or marked as stationary by a stationary attack)
-	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.spark && currentState != state.lag:
 	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.lag:
 		check_move()
 	
@@ -162,7 +160,6 @@ func handle_states():
 	# in order to reflect that action choice
 	# We check with a priority order- spells are checked first, then healing, then attacks, then movement abilities- 
 	# whatever action the player chooses, we assign their StateMachine accordingly so long as the conditional passes true
-	if Input.is_action_just_pressed("action_burst") && isBurstUnlocked:
 	if Input.is_action_just_pressed("action_spell") && isBurstUnlocked:
 	# Topaz is a dilemma Gem that allows the plyaer to cast spells for less mana cost at the difference
 	# being dealt to their health
