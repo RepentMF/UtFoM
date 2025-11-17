@@ -28,8 +28,8 @@ var allowCombo = false
 var firstAttack = true
 
 func _ready():
-	if get_meta("Offset") != 0:
-		offset = get_meta("Offset")
+	#if get_meta("Offset"):
+	#	offset = get_meta("Offset")
 	visible = false
 	baseDamage = get_meta("Damage")
 	manaCost = get_meta("ManaCost")
@@ -73,7 +73,7 @@ func _physics_process(_delta):
 	user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, manaCost, user.stats.maxMana)
 	if userName.contains("PlayerCharacter"):
 		if user.isTopazEnabled:
-			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, -manaCost, user.stats.maxMana)
+			user.stats.currentMana = user.stats.modify_stat(user.Fstats.currentMana, -manaCost, user.stats.maxMana)
 			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, int(roundf(float(manaCost) / 2)), user.stats.maxMana)
 			user.stats.currentHealth = user.stats.modify_stat(user.stats.currentHealth, int(roundf(float(manaCost) / 2)), user.stats.maxHealth)
 	if attackTimerDefault != 0:
@@ -230,14 +230,21 @@ func next_attack(next):
 		user.add_child(user.attack.instantiate())
 		user.canCombo = false
 		user.isStationary = false
+		user.secondAttack = false
 		queue_free()
-	else:
-		animation_tree["parameters/playback"].travel(next.to_lower() + "_2_tree")
-		animation_tree.set("parameters/" + next.to_lower() + "_2_tree/blend_position", direction)
+	elif next == name:
+		if !user.secondAttack:
+			animation_tree["parameters/playback"].travel(next.to_lower() + "_2_tree")
+			animation_tree.set("parameters/" + next.to_lower() + "_2_tree/blend_position", direction)
+			user.secondAttack = true
+		else:
+			animation_tree["parameters/playback"].travel(next.to_lower() + "_3_tree")
+			animation_tree.set("parameters/" + next.to_lower() + "_3_tree/blend_position", direction)
 
 func _on_animation_finished(anim_name):
 	user.isAttacking = false
 	user.isStationary = false
 	user.canCombo = false
+	user.secondAttack = false
 	queue_free()
 	pass # Replace with function body.

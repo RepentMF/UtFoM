@@ -21,6 +21,7 @@ var groundedPosition = Vector2(0, 0)
 var gravity = 2
 var countJuggleDistance = false
 var canCombo = false
+var secondAttack = false
 var isAttacking = false
 var isExhausted = false
 var isInvincible = false
@@ -90,6 +91,7 @@ var isMoonStoneEnabled = false
 var isPearlEnabled = false
 
 func _physics_process(_delta):
+func _physics_process(delta):
 	# Bool "done" is false until "handle_setup()" is complete
 	if !done:
 		handle_setup()
@@ -98,6 +100,8 @@ func _physics_process(_delta):
 	#%RichTextLabel.text = str(height, ", ", airCount, ", ", countJuggleDistance, ", ", KBSpeed, ", ", juggleDistanceY)
 	#%RichTextLabel.text = str(temp, ", ", isAttacking, ", ", isStationary)
 	%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
+	%RichTextLabel.text = str(temp, ", ", isAttacking, ", ", isStationary)
+	#%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
 
 func handle_setup():
 	# Calling needed nodes and values to be used in the rest of PlayerActionController
@@ -151,6 +155,7 @@ func handle_states():
 	# (If they are not: rolling, dashing, hopping, jumping, pushing, healing, using magic,
 	# in hitstun, being juggled, or marked as stationary by a stationary attack)
 	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.spark && currentState != state.lag:
+	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.lag:
 		check_move()
 	
 	# Check for what action the player is doing this frame and makes the proper assignment to variables
@@ -158,6 +163,7 @@ func handle_states():
 	# We check with a priority order- spells are checked first, then healing, then attacks, then movement abilities- 
 	# whatever action the player chooses, we assign their StateMachine accordingly so long as the conditional passes true
 	if Input.is_action_just_pressed("action_burst") && isBurstUnlocked:
+	if Input.is_action_just_pressed("action_spell") && isBurstUnlocked:
 	# Topaz is a dilemma Gem that allows the plyaer to cast spells for less mana cost at the difference
 	# being dealt to their health
 		if isTopazEnabled:
@@ -734,12 +740,15 @@ func replenish_movement_timers():
 
 func start_combo(next):
 	if canCombo:
-		if get_node(attackLight).allowCombo:
-			get_node(attackLight).next_attack(next)
-		elif get_node(attackHeavy).allowCombo:
-			get_node(attackHeavy).next_attack(next)
-		elif get_node(attackJuggle).allowCombo:
-			get_node(attackJuggle).next_attack(next)
+		if get_node(attackLight):
+			if get_node(attackLight).allowCombo:
+				get_node(attackLight).next_attack(next)
+		elif get_node(attackHeavy):
+			if get_node(attackHeavy).allowCombo:
+				get_node(attackHeavy).next_attack(next)
+		elif get_node(attackJuggle):
+			if get_node(attackJuggle).allowCombo:
+				get_node(attackJuggle).next_attack(next)
 		currentState = state.idle
 
 func collide():
