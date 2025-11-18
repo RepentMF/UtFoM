@@ -8,7 +8,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
-	set("parameters/" + actor.enemyName + "_" + actor.temp + "_tree/blend_position", actor.lastDirection)
 	match actor.currentState:
 		actor.state.idle:
 			set("parameters/" + actor.enemyName + "_idle_tree/blend_position", actor.lastDirection)

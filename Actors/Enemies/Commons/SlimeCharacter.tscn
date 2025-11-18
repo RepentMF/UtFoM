@@ -1,6 +1,6 @@
 [gd_scene load_steps=82 format=3 uid="uid://nbf1tkcmqgtp"]
 
-[ext_resource type="Script" uid="uid://b86iwwx2vm74o" path="res://Scripts/EnemyScripts/EnemyActionController.gd" id="1_f3nq7"]
+[ext_resource type="Script" uid="uid://bpe5w8rpsttcf" path="res://Scripts/EnemyScripts/EnemyActionController.gd" id="1_f3nq7"]
 [ext_resource type="Texture2D" uid="uid://dw1wngwufijof" path="res://Sprites/Slime_EC.png" id="2_fj2sk"]
 [ext_resource type="Script" uid="uid://dke6741ivwwb8" path="res://Scripts/UniversalScripts/StatsController.gd" id="3_p50rj"]
 [ext_resource type="Script" uid="uid://dojndg4ajf7l6" path="res://Scripts/UniversalScripts/StatusController.gd" id="4_pygbi"]
@@ -1066,14 +1066,14 @@ animation = &"lag"
 states/slime_heavy_attack_tree/node = SubResource("AnimationNodeBlendSpace2D_kr5e7")
 states/slime_heavy_attack_tree/position = Vector2(584, 200)
 states/slime_hitstun_tree/node = SubResource("AnimationNodeBlendSpace2D_xym1f")
-states/slime_hitstun_tree/position = Vector2(739, -11)
+states/slime_hitstun_tree/position = Vector2(776, 14)
 states/slime_idle_tree/node = SubResource("AnimationNodeBlendSpace2D_o3sdn")
-states/slime_idle_tree/position = Vector2(448, 100)
+states/slime_idle_tree/position = Vector2(428, 100)
 states/slime_juggle_tree/node = SubResource("AnimationNodeBlendSpace2D_e0f8e")
 states/slime_juggle_tree/position = Vector2(679, 100)
 states/slime_lag_tree/node = SubResource("AnimationNodeAnimation_8jd68")
 states/slime_lag_tree/position = Vector2(568, 14)
-graph_offset = Vector2(268, -13)
+graph_offset = Vector2(-262, -18)
 
 [node name="SlimeCharacter" type="CharacterBody2D"]
 z_index = 5
@@ -1096,7 +1096,7 @@ texture = ExtResource("2_fj2sk")
 offset = Vector2(0, 3)
 hframes = 8
 vframes = 9
-frame = 8
+frame = 38
 region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
 
 [node name="EnemyPhysicalHurtbox" type="CollisionShape2D" parent="."]

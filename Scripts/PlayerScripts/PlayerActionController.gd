@@ -153,7 +153,7 @@ func handle_states():
 	# Check if the player is allowed to control their x/y velocity using the control stick
 	# (If they are not: rolling, dashing, hopping, jumping, pushing, healing, using magic,
 	# in hitstun, being juggled, or marked as stationary by a stationary attack)
-	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.lag:
+	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.lag && currentState != state.spark:
 		check_move()
 	
 	# Check for what action the player is doing this frame and makes the proper assignment to variables
@@ -187,13 +187,13 @@ func handle_states():
 			currentState = state.heal
 		else:
 			print("cannot heal")
-	elif Input.is_action_just_pressed("action_light_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && currentState != state.spark :
+	elif Input.is_action_just_pressed("action_light_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && currentState != state.spark:
 		if (attackLight != ""):
 			currentState = state.light_attack
-	elif Input.is_action_just_pressed("action_heavy_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark :
+	elif Input.is_action_just_pressed("action_heavy_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark:
 		if (attackHeavy != ""):
 			currentState = state.heavy_attack
-	elif Input.is_action_just_pressed("action_juggle_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark :
+	elif Input.is_action_just_pressed("action_juggle_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark:
 		if (attackJuggle  != ""):
 			currentState = state.juggle_attack
 	elif Input.is_action_just_pressed("action_spark"):
@@ -649,7 +649,7 @@ func spark():
 		get_node("Bullet").shot = true
 		get_node("Bullet").direction = direction
 		get_node("Bullet").userName = "PlayerCharacter"
-		bullet.set_as_toplevel(true)
+		#bullet.set_as_toplevel(true)
 		#remove_child(get_node("Bullet"))
 		replenish_movement_timers()
 		if is_direction_held():

@@ -1,7 +1,6 @@
 [gd_scene load_steps=94 format=3 uid="uid://rbec2tuumb8s"]
 
 [ext_resource type="Script" uid="uid://cl7373ec2hgad" path="res://Scripts/PlayerScripts/PlayerActionController.gd" id="1_0puox"]
-[ext_resource type="Script" uid="uid://dd1bnacgu8w05" path="res://Scripts/PlayerScripts/PlayerActionController.gd" id="1_0puox"]
 [ext_resource type="Texture2D" uid="uid://dsx3jn6cbxe42" path="res://Sprites/Ashe_PC.png" id="2_lb8xe"]
 [ext_resource type="Script" uid="uid://bagu28gjop4uk" path="res://Actors/Players/PlayerSpriteController.gd" id="3_2a2ki"]
 [ext_resource type="Texture2D" uid="uid://cfgc7dck7coic" path="res://Sprites/AsheNoArms_PC.png" id="3_2882w"]
@@ -1327,7 +1326,7 @@ metadata/Stamina = 5
 metadata/MaxHealth = 10
 metadata/MaxMana = 5
 metadata/MaxStamina = 5
-metadata/Bullet = "JuggleBullet"
+metadata/Bullet = "SparkBullet"
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 y_sort_enabled = true

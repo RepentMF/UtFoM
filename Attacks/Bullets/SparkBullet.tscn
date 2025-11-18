@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dk0aw0dag00bj"]
 
 [ext_resource type="Script" uid="uid://ha7og6p4cgf4" path="res://Scripts/UniversalScripts/Bullet.gd" id="1_e30ud"]
-[ext_resource type="Texture2D" uid="uid://dapcvcmpaq3r2" path="res://Sprites/Spark.png" id="2_e30ud"]
+[ext_resource type="Texture2D" uid="uid://dovl5t75cyhq2" path="res://Sprites/Spark.png" id="2_e30ud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_skuhd"]
 size = Vector2(1, 1)
@@ -40,7 +40,6 @@ position = Vector2(-1.19209e-07, 0)
 scale = Vector2(0.0234375, 0.0234375)
 texture = ExtResource("2_e30ud")
 region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
-script = ExtResource("1_e30ud")
 
 [node name="Area" type="Area2D" parent="."]
 
