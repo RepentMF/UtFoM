@@ -220,6 +220,12 @@ func run_damage_calc(body):
 	stats.currentMana = stats.modify_stat(curMP, manaDamage, maxMP)
 	stats.currentStamina = stats.modify_stat(curSP, staminaDamage, maxSP)
 
+func reset_combo():
+	allowCombo = false
+	user.canCombo = false
+	print("here")
+	pass
+
 func can_cancel():
 	allowCombo = true
 	user.canCombo = true

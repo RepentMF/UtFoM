@@ -1,7 +1,7 @@
 [gd_scene load_steps=68 format=3 uid="uid://d26gtbt3pd5qn"]
 
-[ext_resource type="Script" uid="uid://d1psx0prnx2o" path="res://Scripts/UniversalScripts/Attack.gd" id="1_sn1te"]
-[ext_resource type="Texture2D" uid="uid://b1e4464uvcnkh" path="res://Sprites/GroundedHammer_PCAttacks.png" id="2_e0r3y"]
+[ext_resource type="Script" uid="uid://kdumluq78ktr" path="res://Scripts/UniversalScripts/Attack.gd" id="1_sn1te"]
+[ext_resource type="Texture2D" uid="uid://2s1ah1pcqno0" path="res://Sprites/GroundedHammer_PCAttacks.png" id="2_e0r3y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycjq1"]
 size = Vector2(2.99385, 3.02335)
@@ -1036,9 +1036,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -1126,9 +1129,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -1216,9 +1222,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -1306,9 +1315,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -1396,9 +1408,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -1486,9 +1501,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -1576,9 +1594,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -1666,9 +1687,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -1759,9 +1783,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.6667),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.6667),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -1852,9 +1879,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -1942,9 +1972,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -2035,9 +2068,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -2125,9 +2161,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -2218,9 +2257,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -2308,9 +2350,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
@@ -2398,9 +2443,12 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.5333),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"reset_combo"
+}, {
 "args": [],
 "method": &"can_cancel"
 }]
