@@ -41,10 +41,7 @@ func _physics_process(_delta):
 			statusList.push_front(new_status_effect(statusName, statusChange, statusTimer, statusFreq))
 
 func _on_area_body_entered(body):
-	
 	if body is CharacterBody2D && body.name != userName:
-		print(body.name)
-		print(userName)
 		if height_check(body.height):
 			if !body.isInvincible:
 				get_tree().current_scene.get_node("GemsController").gem_function_checker(self)
@@ -92,10 +89,24 @@ func height_check(bodyHeight):
 			return false
 
 func _on_area_area_entered(area):
-	if area is Area2D && area.name.contains("Turret") && !shot:
-		shot = true
-		var rotation = snapped(area.rotation, 0.0001)
-		height = area.height
+	print(area.name)
+	if area is Area2D && !shot:
+		if area.name.contains("Turret"):
+			shot = true
+			var rotation = snapped(area.rotation, 0.0001)
+			if rotation == 0:
+				direction = Vector2(1, 0)
+			elif rotation == snapped(PI / 2, 0.0001):
+				direction = Vector2(0, 1)
+			elif rotation == snapped(PI, 0.0001):
+				direction = Vector2(-1, 0)
+			elif rotation == snapped(-1 * PI / 2, 0.0001):
+				direction = Vector2(0, -1)
+		elif area.name.contains("Player"):
+			shot = true
+			direction = area.get_parent().direction
+			userName = "PlayerCharacter"
+		height = area.get_parent().height
 		if height == "aerial":
 			z_index = 7
 		elif height == "mid":
@@ -104,14 +115,6 @@ func _on_area_area_entered(area):
 			z_index = 5
 		else:
 			z_index = 4
-		if rotation == 0:
-			direction = Vector2(1, 0)
-		elif rotation == snapped(PI / 2, 0.0001):
-			direction = Vector2(0, 1)
-		elif rotation == snapped(PI, 0.0001):
-			direction = Vector2(-1, 0)
-		elif rotation == snapped(-1 * PI / 2, 0.0001):
-			direction = Vector2(0, -1)
 	pass # Replace with function body.
 
 func new_status_effect(sName, change, timer, freq):

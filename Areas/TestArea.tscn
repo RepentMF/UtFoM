@@ -39,7 +39,7 @@ position = Vector2(52, -5)
 
 [node name="SlimeCharacter" parent="." instance=ExtResource("8_1ltbh")]
 modulate = Color(0.564706, 1, 0.694118, 1)
-position = Vector2(1, -8)
+position = Vector2(-119, -153)
 
 [node name="Block" parent="." instance=ExtResource("3_ykd2a")]
 modulate = Color(0.564706, 1, 0.694118, 1)

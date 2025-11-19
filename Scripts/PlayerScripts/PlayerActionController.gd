@@ -640,17 +640,15 @@ func burst():
 		burstTimer -= 1
 
 func spark():
-	if sparkTimer <= 0:
-		sparkTimer = sparkTimerDefault
-		#create spark bullet
+	if sparkTimer == sparkTimerDefault:
 		bulletMeta = "res://Attacks/Bullets/" + get_meta("Bullet") + ".tscn"
 		bullet = load(bulletMeta)
-		add_child(bullet.instantiate())
-		get_node("Bullet").shot = true
-		get_node("Bullet").direction = direction
-		get_node("Bullet").userName = "PlayerCharacter"
-		#bullet.set_as_toplevel(true)
-		#remove_child(get_node("Bullet"))
+		var realBullet = bullet.instantiate()
+		get_tree().root.get_children()[0].add_child(realBullet)
+		realBullet.position = position
+		realBullet.userName = "PlayerCharacter"
+	if sparkTimer <= 0:
+		sparkTimer = sparkTimerDefault
 		replenish_movement_timers()
 		if is_direction_held():
 			currentState = state.walk
@@ -658,7 +656,6 @@ func spark():
 			currentState = state.idle
 	else:
 		sparkTimer -= 1
-		print(sparkTimer)
 
 func lag():
 	if lagTimer <= 0:
