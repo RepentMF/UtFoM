@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dk0aw0dag00bj"]
 
-[ext_resource type="Script" uid="uid://cs814wi881id6" path="res://Scripts/UniversalScripts/Bullet.gd" id="1_e30ud"]
-[ext_resource type="Texture2D" uid="uid://dapcvcmpaq3r2" path="res://Sprites/Spark.png" id="2_e30ud"]
+[ext_resource type="Script" uid="uid://ha7og6p4cgf4" path="res://Scripts/UniversalScripts/Bullet.gd" id="1_e30ud"]
+[ext_resource type="Texture2D" uid="uid://dovl5t75cyhq2" path="res://Sprites/Spark.png" id="2_e30ud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_skuhd"]
 size = Vector2(1, 1)
@@ -20,14 +20,14 @@ linear_damp_mode = 1
 angular_damp_mode = 1
 script = ExtResource("1_e30ud")
 metadata/Speed = 100
-metadata/HitstunTimer = 10
-metadata/KnockUp = false
-metadata/KnockUpPower = 0
+metadata/HitstunTimer = 3
+metadata/KnockUp = true
+metadata/KnockUpPower = -80
 metadata/Status = ""
-metadata/StatusTimer = 0
-metadata/StatusFreq = 0
-metadata/StatusChange = 0
-metadata/Damage = 0
+metadata/StatusTimer = 300
+metadata/StatusFreq = 30
+metadata/StatusChange = -1
+metadata/Damage = -2
 metadata/UserName = ""
 metadata/ManaCost = 0
 metadata/StaminaCost = 0
@@ -42,6 +42,8 @@ texture = ExtResource("2_e30ud")
 region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
 
 [node name="Area" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
 position = Vector2(0.015, 0.015)

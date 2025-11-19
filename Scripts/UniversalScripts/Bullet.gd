@@ -35,8 +35,7 @@ func _physics_process(_delta):
 		manaCost = get_meta("ManaCost")
 		staminaCost = get_meta("StaminaCost")
 		userName = get_meta("UserName")
-		linear_velocity = direction * speed
-		#print(direction, speed)
+		linear_velocity = direction.normalized() * speed
 		if statusName != "":
 			statusList.push_front(new_status_effect(statusName, statusChange, statusTimer, statusFreq))
 
@@ -89,11 +88,10 @@ func height_check(bodyHeight):
 			return false
 
 func _on_area_area_entered(area):
-	print(area.name)
 	if area is Area2D && !shot:
 		if area.name.contains("Turret"):
 			shot = true
-			var rotation = snapped(area.rotation, 0.0001)
+			rotation = snapped(area.rotation, 0.0001)
 			if rotation == 0:
 				direction = Vector2(1, 0)
 			elif rotation == snapped(PI / 2, 0.0001):
@@ -105,7 +103,6 @@ func _on_area_area_entered(area):
 		elif area.name.contains("Player"):
 			shot = true
 			direction = area.get_parent().direction
-			userName = "PlayerCharacter"
 		height = area.get_parent().height
 		if height == "aerial":
 			z_index = 7

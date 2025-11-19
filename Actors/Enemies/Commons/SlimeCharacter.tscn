@@ -1096,7 +1096,7 @@ texture = ExtResource("2_fj2sk")
 offset = Vector2(0, 3)
 hframes = 8
 vframes = 9
-frame = 38
+frame = 8
 region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
 
 [node name="EnemyPhysicalHurtbox" type="CollisionShape2D" parent="."]
