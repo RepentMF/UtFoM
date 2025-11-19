@@ -45,7 +45,8 @@ func _ready():
 	statusFreq = get_meta("StatusFreq")
 	statusChange = get_meta("StatusChange")
 	userName = get_meta("UserName")
-	animation_tree = get_node("AnimationTree")
+	if userName == "PlayerCharacter":
+		animation_tree = get_node("AnimationTree")
 	if statusName != "":
 		statusList.push_front(new_status_effect(statusName, statusChange, statusTimer, statusFreq))
 

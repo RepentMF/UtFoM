@@ -7,7 +7,7 @@ var rng = RandomNumberGenerator.new()
 var attackHeavy
 var attack
 
-var maxEncounterRange = 55
+var maxEncounterRange = 55.0
 var heavyAttackTimerDefault = 30
 var heavyAttackTimer = heavyAttackTimerDefault
 var heavyStartupTimerDefault = 40

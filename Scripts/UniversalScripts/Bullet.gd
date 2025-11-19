@@ -41,8 +41,10 @@ func _physics_process(_delta):
 			statusList.push_front(new_status_effect(statusName, statusChange, statusTimer, statusFreq))
 
 func _on_area_body_entered(body):
-	print(body)
+	
 	if body is CharacterBody2D && body.name != userName:
+		print(body.name)
+		print(userName)
 		if height_check(body.height):
 			if !body.isInvincible:
 				get_tree().current_scene.get_node("GemsController").gem_function_checker(self)
