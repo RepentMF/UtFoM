@@ -1,35 +1,34 @@
-[gd_scene load_steps=15 format=3 uid="uid://cc0qrgsisvf5h"]
+[gd_scene load_steps=24 format=3 uid="uid://cc0qrgsisvf5h"]
 
 [ext_resource type="Script" uid="uid://d1psx0prnx2o" path="res://Scripts/UniversalScripts/Attack.gd" id="1_51pqc"]
 [ext_resource type="Texture2D" uid="uid://va5j73ho1p76" path="res://Sprites/GroundedKnife_PCAttacks.png" id="3_6xws4"]
-[ext_resource type="AnimationLibrary" uid="uid://bss4sxqss7v5b" path="res://Animations/Player/LightKnife/LightKnife.res" id="3_ywsoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycjq1"]
 size = Vector2(9, 8)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mnw4h"]
-animation = &"LightKnife/lightknife_1"
+animation = &"lightknife_1"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dhmb8"]
-animation = &"LightKnife/lightknife_2"
+animation = &"lightknife_2"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8hl3i"]
-animation = &"LightKnife/lightknife_3"
+animation = &"lightknife_3"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e3qk8"]
-animation = &"LightKnife/lightknife_4"
+animation = &"lightknife_4"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ix24i"]
-animation = &"LightKnife/lightknife_6"
+animation = &"lightknife_6"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tk1u3"]
-animation = &"LightKnife/lightknife_7"
+animation = &"lightknife_7"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n1be4"]
-animation = &"LightKnife/lightknife_8"
+animation = &"lightknife_8"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_32o6h"]
-animation = &"LightKnife/lightknife_9"
+animation = &"lightknife_9"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_iyw8g"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_mnw4h")
@@ -709,18 +708,18 @@ metadata/StaminaCost = 0
 metadata/Offset = 0
 
 [node name="AttackingSprite" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-0.5, 0)
 texture = ExtResource("3_6xws4")
 hframes = 5
 vframes = 8
-frame = 26
+frame = 9
 
 [node name="Area" type="Area2D" parent="."]
 collision_layer = 129
 collision_mask = 129
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
-position = Vector2(3.5338387, 2.3410065)
 shape = SubResource("RectangleShape2D_ycjq1")
 disabled = true
 
@@ -732,7 +731,6 @@ parameters/lightknife_tree/blend_position = Vector2(0.211604, -0.0851064)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_rk44w")
-&"LightKnife": ExtResource("3_ywsoq")
 }
 
 [connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]
