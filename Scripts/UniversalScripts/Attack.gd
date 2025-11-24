@@ -175,8 +175,17 @@ func determine_direction():
 				global_position += Vector2(offset, -offset)
 	visible = true
 
+func set_character_visibility(visibleSet):
+	user.get_node("PlayerSprite").visible = visibleSet
+	print(visibleSet)
+
 func apply_speed_boost():
-	user.velocity = direction * user.dashSpeed
+	user.speedBoostVelocity = direction * user.dashSpeed
+	user.isSpeedBoosted = true
+
+func remove_speed_boost():
+	user.speedBoostVelocity = Vector2(0, 0)
+	user.isSpeedBoosted = false
 
 func height_check(bodyHeight):
 	if bodyHeight == "grounded":
@@ -226,7 +235,6 @@ func run_damage_calc(body):
 func reset_combo():
 	allowCombo = false
 	user.canCombo = false
-	print("here")
 	pass
 
 func can_cancel():

@@ -18,6 +18,7 @@ var direction = Vector2(0, 1)
 var lastDirection = Vector2(0, 1)
 var hitstunDirection = Vector2(0, 0)
 var groundedPosition = Vector2(0, 0)
+var speedBoostVelocity = Vector2(0, 0)
 var gravity = 2
 var countJuggleDistance = false
 var canCombo = false
@@ -26,6 +27,7 @@ var isAttacking = false
 var isExhausted = false
 var isInvincible = false
 var isStationary = false
+var isSpeedBoosted = false
 var temp
 var done = false
 var bulletMeta
@@ -96,7 +98,7 @@ func _physics_process(delta):
 		handle_setup()
 	handle_states()
 	translate_states()
-	%RichTextLabel.text = str(canCombo)
+	%RichTextLabel.text = str(isSpeedBoosted)
 	#%RichTextLabel.text = str(height, ", ", airCount, ", ", countJuggleDistance, ", ", KBSpeed, ", ", juggleDistanceY)
 	#%RichTextLabel.text = str(temp, ", ", isAttacking, ", ", isStationary)
 	#%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
@@ -385,7 +387,11 @@ func translate_states():
 			temp = "spark"
 
 func idle():
-	velocity = Vector2(0, 0)
+	if !isSpeedBoosted:
+		velocity = Vector2(0, 0)
+	else:
+		velocity = speedBoostVelocity
+		move_and_slide()
 
 
 func move():

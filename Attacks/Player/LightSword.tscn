@@ -1,6 +1,6 @@
 [gd_scene load_steps=40 format=3 uid="uid://752i5acwtysw"]
 
-[ext_resource type="Script" path="res://Scripts/UniversalScripts/Attack.gd" id="1_iejji"]
+[ext_resource type="Script" uid="uid://dl6pfqmc7jnqw" path="res://Scripts/UniversalScripts/Attack.gd" id="1_iejji"]
 [ext_resource type="Texture2D" uid="uid://brcsxct28qxua" path="res://Sprites/GroundedSword_PCAttacks.png" id="2_5ue40"]
 [ext_resource type="Animation" uid="uid://88okse8dif75" path="res://Animations/Player/LightSword/lightsword1_1.res" id="3_xekca"]
 [ext_resource type="Animation" uid="uid://dvx5jk7tu8n04" path="res://Animations/Player/LightSword/lightsword1_2.res" id="4_acbi0"]
@@ -19,7 +19,7 @@
 [ext_resource type="Animation" uid="uid://cae8isq5sqr6b" path="res://Animations/Player/LightSword/lightsword2_8.res" id="17_2i2id"]
 [ext_resource type="Animation" uid="uid://dehetndoja4a8" path="res://Animations/Player/LightSword/lightsword2_9.res" id="18_oqfo2"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_stanc"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycjq1"]
 size = Vector2(14, 8)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uiu35"]
@@ -118,22 +118,22 @@ graph_offset = Vector2(161, -10)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ial38"]
 _data = {
-"lightsword1_1": ExtResource("3_xekca"),
-"lightsword1_2": ExtResource("4_acbi0"),
-"lightsword1_3": ExtResource("5_b57hc"),
-"lightsword1_4": ExtResource("6_v61v5"),
-"lightsword1_6": ExtResource("7_jd2ax"),
-"lightsword1_7": ExtResource("8_jmsjs"),
-"lightsword1_8": ExtResource("9_am6on"),
-"lightsword1_9": ExtResource("10_3c1wy"),
-"lightsword2_1": ExtResource("11_xtgjp"),
-"lightsword2_2": ExtResource("12_c5kd7"),
-"lightsword2_3": ExtResource("13_rll8u"),
-"lightsword2_4": ExtResource("14_su7xw"),
-"lightsword2_6": ExtResource("15_rkuf3"),
-"lightsword2_7": ExtResource("16_xfx5h"),
-"lightsword2_8": ExtResource("17_2i2id"),
-"lightsword2_9": ExtResource("18_oqfo2")
+&"lightsword1_1": ExtResource("3_xekca"),
+&"lightsword1_2": ExtResource("4_acbi0"),
+&"lightsword1_3": ExtResource("5_b57hc"),
+&"lightsword1_4": ExtResource("6_v61v5"),
+&"lightsword1_6": ExtResource("7_jd2ax"),
+&"lightsword1_7": ExtResource("8_jmsjs"),
+&"lightsword1_8": ExtResource("9_am6on"),
+&"lightsword1_9": ExtResource("10_3c1wy"),
+&"lightsword2_1": ExtResource("11_xtgjp"),
+&"lightsword2_2": ExtResource("12_c5kd7"),
+&"lightsword2_3": ExtResource("13_rll8u"),
+&"lightsword2_4": ExtResource("14_su7xw"),
+&"lightsword2_6": ExtResource("15_rkuf3"),
+&"lightsword2_7": ExtResource("16_xfx5h"),
+&"lightsword2_8": ExtResource("17_2i2id"),
+&"lightsword2_9": ExtResource("18_oqfo2")
 }
 
 [node name="LightSword" type="Node2D"]
@@ -162,7 +162,7 @@ position = Vector2(-1.19209e-07, 0)
 texture = ExtResource("2_5ue40")
 hframes = 14
 vframes = 8
-frame = 74
+frame = 14
 region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
 
 [node name="Area" type="Area2D" parent="."]
@@ -170,8 +170,8 @@ collision_layer = 129
 collision_mask = 129
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
-position = Vector2(3, -9)
-shape = SubResource("RectangleShape2D_stanc")
+position = Vector2(-4, 12)
+shape = SubResource("RectangleShape2D_ycjq1")
 disabled = true
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -182,7 +182,7 @@ parameters/lightsword_tree/blend_position = Vector2(0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"LightSword": SubResource("AnimationLibrary_ial38")
+&"LightSword": SubResource("AnimationLibrary_ial38")
 }
 
 [connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]
