@@ -1,6 +1,6 @@
 [gd_scene load_steps=95 format=3 uid="uid://rbec2tuumb8s"]
 
-[ext_resource type="Script" uid="uid://cl7373ec2hgad" path="res://Scripts/PlayerScripts/PlayerActionController.gd" id="1_0puox"]
+[ext_resource type="Script" uid="uid://cqfggmsj8tene" path="res://Scripts/PlayerScripts/PlayerActionController.gd" id="1_0puox"]
 [ext_resource type="Texture2D" uid="uid://dsx3jn6cbxe42" path="res://Sprites/Ashe_PC.png" id="2_lb8xe"]
 [ext_resource type="Script" uid="uid://bagu28gjop4uk" path="res://Actors/Players/PlayerSpriteController.gd" id="3_2a2ki"]
 [ext_resource type="Texture2D" uid="uid://cfgc7dck7coic" path="res://Sprites/AsheNoArms_PC.png" id="3_2882w"]
@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://cfktu0jkydgdl" path="res://Animations/Player/PlayerAnimationController.gd" id="5_1vsy1"]
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://cptpnlshvcno7" path="res://Animations/Player/player_walk_tree.tres" id="5_g6isn"]
 [ext_resource type="Script" uid="uid://cbrou84nb0qut" path="res://Scripts/PlayerScripts/Inventory.gd" id="7_y6huj"]
-[ext_resource type="Script" uid="uid://dxy0abrbk3h4b" path="res://Scripts/HUDScripts/HUDController.gd" id="10_okm1c"]
+[ext_resource type="Script" uid="uid://dt7ixqviunstw" path="res://Scripts/HUDScripts/HUDController.gd" id="10_okm1c"]
 [ext_resource type="Texture2D" uid="uid://depsrybwml8sd" path="res://Sprites/HUD/Empty HP.png" id="11_y6jjt"]
 [ext_resource type="Texture2D" uid="uid://csg3o60w682x1" path="res://Sprites/HUD/Full HP.png" id="12_okm1c"]
 [ext_resource type="Texture2D" uid="uid://d2bg4bhwgvgnf" path="res://Sprites/HUD/Sword.png" id="13_okm1c"]
@@ -1394,7 +1394,6 @@ script = ExtResource("5_1vsy1")
 script = ExtResource("7_y6huj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3

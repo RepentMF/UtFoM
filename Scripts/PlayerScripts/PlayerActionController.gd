@@ -8,9 +8,9 @@ enum state {idle, walk, run, roll, dash, hop, jump, light_attack, heavy_attack, 
 var currentState
 var inventory
 var currentWeapon
-var attackLight = "LightKnife"
-var attackHeavy = "HeavyHammer"
-var attackJuggle = "JuggleHammer"
+var attackLight = ""
+var attackHeavy = ""
+var attackJuggle = ""
 var attackRoll = "BluntRoll"
 var attack
 var height = "grounded"

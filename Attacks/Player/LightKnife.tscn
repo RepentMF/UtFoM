@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://cc0qrgsisvf5h"]
 
-[ext_resource type="Script" uid="uid://d1psx0prnx2o" path="res://Scripts/UniversalScripts/Attack.gd" id="1_51pqc"]
+[ext_resource type="Script" uid="uid://dl6pfqmc7jnqw" path="res://Scripts/UniversalScripts/Attack.gd" id="1_51pqc"]
 [ext_resource type="Texture2D" uid="uid://va5j73ho1p76" path="res://Sprites/GroundedKnife_PCAttacks.png" id="3_6xws4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycjq1"]
@@ -706,6 +706,7 @@ metadata/UserName = "PlayerCharacter"
 metadata/ManaCost = 0
 metadata/StaminaCost = 0
 metadata/Offset = 0
+metadata/SpeedBoost = false
 
 [node name="AttackingSprite" type="Sprite2D" parent="."]
 visible = false

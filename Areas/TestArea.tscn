@@ -25,7 +25,6 @@ offset_right = 247.0
 offset_bottom = 215.0
 
 [node name="Temp_Backdrop" type="Sprite2D" parent="."]
-visible = false
 modulate = Color(0.564706, 1, 0.694118, 1)
 z_index = -2
 position = Vector2(0.526997, -6.57812)

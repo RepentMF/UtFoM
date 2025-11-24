@@ -175,6 +175,9 @@ func determine_direction():
 				global_position += Vector2(offset, -offset)
 	visible = true
 
+func apply_speed_boost():
+	user.velocity = direction * user.dashSpeed
+
 func height_check(bodyHeight):
 	if bodyHeight == "grounded":
 		if height == "grounded" || height == "aerial":
