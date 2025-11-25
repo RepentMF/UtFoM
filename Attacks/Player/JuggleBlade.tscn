@@ -1,8 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://c5rfoluqjk0a4"]
+[gd_scene load_steps=27 format=3 uid="uid://c5rfoluqjk0a4"]
 
-[ext_resource type="Script" uid="uid://dl6pfqmc7jnqw" path="res://Scripts/UniversalScripts/Attack.gd" id="1_ti6rk"]
-[ext_resource type="Texture2D" uid="uid://d0127j76ujyno" path="res://Sprites/JuggleBlade_PCAttacks.png" id="2_ti6rk"]
+[ext_resource type="Script" uid="uid://c32nja13psv24" path="res://Scripts/UniversalScripts/Attack.gd" id="1_ti6rk"]
+[ext_resource type="Texture2D" uid="uid://ggbvyk1i1fuk" path="res://Sprites/JuggleBlade_PCAttacks.png" id="2_ti6rk"]
 [ext_resource type="Animation" uid="uid://c6wdf5cgv6tjy" path="res://Animations/Player/JuggleBlade/juggleblade_1.res" id="3_ti6rk"]
+[ext_resource type="Animation" uid="uid://bbd4q1bs1acgh" path="res://Animations/Player/JuggleBlade/juggleblade_2.res" id="4_u7cn7"]
+[ext_resource type="Animation" uid="uid://cbt0gbfxfpvs5" path="res://Animations/Player/JuggleBlade/juggleblade_4.res" id="5_aj8kb"]
+[ext_resource type="Animation" uid="uid://cqacu063x14bk" path="res://Animations/Player/JuggleBlade/juggleblade_7.res" id="6_e7q2i"]
+[ext_resource type="Animation" uid="uid://qv0b4xybmcdr" path="res://Animations/Player/JuggleBlade/juggleblade_8.res" id="7_mjxol"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ti6rk"]
 size = Vector2(5, 18)
@@ -19,6 +23,18 @@ animation = &"juggleblade_4"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ay0wb"]
 animation = &"juggleblade_7"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u7cn7"]
+animation = &"juggleblade_8"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aj8kb"]
+animation = &"juggleblade_9"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e7q2i"]
+animation = &"juggleblade_6"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mjxol"]
+animation = &"juggleblade_3"
+
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_lifow"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_nigaj")
 blend_point_0/pos = Vector2(0, 1)
@@ -28,6 +44,14 @@ blend_point_2/node = SubResource("AnimationNodeAnimation_lifow")
 blend_point_2/pos = Vector2(-1, 0)
 blend_point_3/node = SubResource("AnimationNodeAnimation_ay0wb")
 blend_point_3/pos = Vector2(-1, -1)
+blend_point_4/node = SubResource("AnimationNodeAnimation_u7cn7")
+blend_point_4/pos = Vector2(0, -1)
+blend_point_5/node = SubResource("AnimationNodeAnimation_aj8kb")
+blend_point_5/pos = Vector2(1, -1)
+blend_point_6/node = SubResource("AnimationNodeAnimation_e7q2i")
+blend_point_6/pos = Vector2(1, 0)
+blend_point_7/node = SubResource("AnimationNodeAnimation_mjxol")
+blend_point_7/pos = Vector2(1, 1)
 blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ay0wb"]
@@ -109,110 +133,11 @@ tracks/5/keys = {
 "values": [0.0]
 }
 
-[sub_resource type="Animation" id="Animation_ti6rk"]
-resource_name = "juggleblade_1"
-length = 0.75
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackingSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.33333334, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [3, 4, 5]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AttackingSprite:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.749),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Area/PhysicalHitbox:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.33333334, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Area/PhysicalHitbox:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-8.5, 8.5)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Area/PhysicalHitbox:shape")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [SubResource("RectangleShape2D_ti6rk")]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.33333334, 0.6, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"values": [{
-"args": [false],
-"method": &"set_character_visibility"
-}, {
-"args": [],
-"method": &"apply_speed_boost"
-}, {
-"args": [],
-"method": &"remove_speed_boost"
-}, {
-"args": [true],
-"method": &"set_character_visibility"
-}]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Area/PhysicalHitbox:rotation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.7853981633974483]
-}
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nigaj"]
 size = Vector2(6, 15)
 
-[sub_resource type="Animation" id="Animation_ay0wb"]
-resource_name = "juggleblade_4"
+[sub_resource type="Animation" id="Animation_u7cn7"]
+resource_name = "juggleblade_6"
 length = 0.75
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -224,7 +149,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.33333334, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [6, 7, 8]
+"values": [18, 19, 20]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -260,7 +185,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-11, 2)]
+"values": [Vector2(11, 2)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -310,8 +235,11 @@ tracks/6/keys = {
 "values": [1.5707963267948966]
 }
 
-[sub_resource type="Animation" id="Animation_nigaj"]
-resource_name = "juggleblade_7"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u7cn7"]
+size = Vector2(5, 18)
+
+[sub_resource type="Animation" id="Animation_aj8kb"]
+resource_name = "juggleblade_9"
 length = 0.75
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -323,7 +251,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.33333334, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [9, 10, 11]
+"values": [15, 16, 17]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -359,7 +287,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-11, -9)]
+"values": [Vector2(12, -9)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -371,7 +299,109 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [SubResource("RectangleShape2D_ti6rk")]
+"values": [SubResource("RectangleShape2D_u7cn7")]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [false],
+"method": &"set_character_visibility"
+}, {
+"args": [],
+"method": &"apply_speed_boost"
+}, {
+"args": [],
+"method": &"remove_speed_boost"
+}, {
+"args": [true],
+"method": &"set_character_visibility"
+}]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Area/PhysicalHitbox:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.7853981633974483]
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ah05e"]
+size = Vector2(5, 18)
+
+[sub_resource type="Animation" id="Animation_s0fvp"]
+resource_name = "juggleblade_3"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackingSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [21, 22, 23]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackingSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.749),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Area/PhysicalHitbox:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Area/PhysicalHitbox:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9.5, 8.5)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Area/PhysicalHitbox:shape")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_ah05e")]
 }
 tracks/5/type = "method"
 tracks/5/imported = false
@@ -412,10 +442,14 @@ tracks/6/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lifow"]
 _data = {
 &"RESET": SubResource("Animation_lifow"),
-&"juggleblade_1": SubResource("Animation_ti6rk"),
-&"juggleblade_2": ExtResource("3_ti6rk"),
-&"juggleblade_4": SubResource("Animation_ay0wb"),
-&"juggleblade_7": SubResource("Animation_nigaj")
+&"juggleblade_1": ExtResource("3_ti6rk"),
+&"juggleblade_2": ExtResource("4_u7cn7"),
+&"juggleblade_3": SubResource("Animation_s0fvp"),
+&"juggleblade_4": ExtResource("5_aj8kb"),
+&"juggleblade_6": SubResource("Animation_u7cn7"),
+&"juggleblade_7": ExtResource("6_e7q2i"),
+&"juggleblade_8": ExtResource("7_mjxol"),
+&"juggleblade_9": SubResource("Animation_aj8kb")
 }
 
 [node name="JuggleBlade" type="Node2D"]
