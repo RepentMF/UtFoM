@@ -1394,7 +1394,6 @@ script = ExtResource("5_1vsy1")
 script = ExtResource("7_y6huj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
