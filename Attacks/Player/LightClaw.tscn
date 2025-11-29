@@ -1,0 +1,112 @@
+[gd_scene load_steps=16 format=3 uid="uid://b666aw0n3xfjp"]
+
+[ext_resource type="Script" uid="uid://d1psx0prnx2o" path="res://Scripts/UniversalScripts/Attack.gd" id="1_cum8h"]
+[ext_resource type="Texture2D" uid="uid://b6tn2hly86i40" path="res://Sprites/ArmsClaw_PCAttacks.png" id="2_42qkj"]
+[ext_resource type="Texture2D" uid="uid://hdybvqphl4it" path="res://Sprites/Claw_PCAttacks.png" id="3_0fhk3"]
+[ext_resource type="AnimationLibrary" uid="uid://dj77orgq2wgsl" path="res://Animations/Player/LightClaw/LightClaw.res" id="4_42qkj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycjq1"]
+size = Vector2(14, 21)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_42qkj"]
+animation = &"lightclaw_1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0fhk3"]
+animation = &"lightclaw_4"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3fgij"]
+animation = &"lightclaw_7"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lpgb1"]
+animation = &"lightclaw_8"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mxg2w"]
+animation = &"lightclaw_9"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hqic4"]
+animation = &"lightclaw_6"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tjms0"]
+animation = &"lightclaw_3"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ocwoq"]
+animation = &"lightclaw_2"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_su1mm"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_42qkj")
+blend_point_0/pos = Vector2(-1, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_0fhk3")
+blend_point_1/pos = Vector2(-1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_3fgij")
+blend_point_2/pos = Vector2(-1, -1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_lpgb1")
+blend_point_3/pos = Vector2(0, -1)
+blend_point_4/node = SubResource("AnimationNodeAnimation_mxg2w")
+blend_point_4/pos = Vector2(1, -1)
+blend_point_5/node = SubResource("AnimationNodeAnimation_hqic4")
+blend_point_5/pos = Vector2(1, 0)
+blend_point_6/node = SubResource("AnimationNodeAnimation_tjms0")
+blend_point_6/pos = Vector2(1, 1)
+blend_point_7/node = SubResource("AnimationNodeAnimation_ocwoq")
+blend_point_7/pos = Vector2(0, 1)
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tfm4p"]
+states/lightclaw_tree/node = SubResource("AnimationNodeBlendSpace2D_su1mm")
+states/lightclaw_tree/position = Vector2(519, 102)
+
+[node name="LightClaw" type="Node2D"]
+z_index = -1
+script = ExtResource("1_cum8h")
+metadata/Speed = 0
+metadata/HitstunTimer = 0
+metadata/KnockUp = false
+metadata/KnockUpPower = 0
+metadata/Status = ""
+metadata/StatusTimer = 0
+metadata/StatusFreq = 0
+metadata/StatusChange = 0
+metadata/AttackTimer = 0
+metadata/Damage = -5
+metadata/isStationary = false
+metadata/UserName = "PlayerCharacter"
+metadata/ManaCost = 0
+metadata/StaminaCost = 0
+metadata/Offset = 0
+
+[node name="AttackingSpriteArm" type="Sprite2D" parent="."]
+z_index = -5
+position = Vector2(-0.5, 0)
+texture = ExtResource("2_42qkj")
+hframes = 12
+vframes = 8
+frame = 9
+
+[node name="AttackingSpriteClaw" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-0.5, 0)
+texture = ExtResource("3_0fhk3")
+hframes = 9
+vframes = 8
+frame = 13
+
+[node name="Area" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+
+[node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
+position = Vector2(1, 7)
+shape = SubResource("RectangleShape2D_ycjq1")
+disabled = true
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_tfm4p")
+anim_player = NodePath("../AnimationPlayerArms")
+parameters/lightclaw_tree/blend_position = Vector2(-0.9726027, -0.007058859)
+
+[node name="AnimationPlayerArms" type="AnimationPlayer" parent="."]
+libraries = {
+&"": ExtResource("4_42qkj")
+}
+
+[connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_finished"]

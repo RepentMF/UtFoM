@@ -255,3 +255,7 @@ func _on_animation_finished(anim_name):
 	user.secondAttack = false
 	queue_free()
 	pass # Replace with function body.
+
+
+func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
+	pass # Replace with function body.

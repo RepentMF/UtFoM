@@ -5,6 +5,7 @@ var fist_texture = load("res://Sprites/HUD/Fist.png")
 var sword_texture = load("res://Sprites/HUD/Sword.png")
 var knife_texture = load("res://Sprites/HUD/Knife.png")
 var hammer_texture = load("res://Sprites/HUD/Hammer.png")
+var claw_texture = load("res://Sprites/HUD/Claw.png")
 
 
 func _physics_process(_delta: float) -> void:
@@ -19,3 +20,5 @@ func _physics_process(_delta: float) -> void:
 			%WeaponIcon.texture = knife_texture
 		"hammer":
 			%WeaponIcon.texture = hammer_texture
+		"claw":
+			%WeaponIcon.texture = claw_texture
