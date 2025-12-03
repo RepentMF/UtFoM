@@ -76,7 +76,7 @@ var burstManaCost = -5
 # Gem instatiators
 var canBunnyHop = false
 var isDashEnabled = true
-var isJumpEnabled = false
+var isJumpEnabled = true
 var isBurstUnlocked = true
 var isAquamarineEnabled = false
 var isCinnabarEnabled = false
@@ -98,7 +98,7 @@ func _physics_process(delta):
 		handle_setup()
 	handle_states()
 	translate_states()
-	%RichTextLabel.text = str(isSpeedBoosted)
+	#%RichTextLabel.text = str(isSpeedBoosted)
 	#%RichTextLabel.text = str(height, ", ", airCount, ", ", countJuggleDistance, ", ", KBSpeed, ", ", juggleDistanceY)
 	#%RichTextLabel.text = str(temp, ", ", isAttacking, ", ", isStationary)
 	#%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
@@ -167,7 +167,7 @@ func handle_states():
 	# Topaz is a dilemma Gem that allows the plyaer to cast spells for less mana cost at the difference
 	# being dealt to their health
 		if isTopazEnabled:
-			if stats.check_current_stat(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana, true) && stats.check_current_stat(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth, true):
+			if stats.check_stat_overage(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana, true) && stats.check_stat_overage(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth, true):
 				stats.currentMana = stats.modify_stat(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana)
 				stats.currentHealth = stats.modify_stat(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth)
 	# Pearl is a chance Gem that returns mana spent on a spell to the player if the player successfully hits a target
@@ -177,7 +177,7 @@ func handle_states():
 						stats.currentHealth = stats.modify_stat(stats.currentHealth, -int(roundf(float(burstManaCost) / 2)), stats.maxHealth)
 				currentState = state.burst
 		else:
-			if stats.check_current_stat(stats.currentMana, burstManaCost, stats.maxMana, true):
+			if stats.check_stat_overage(stats.currentMana, burstManaCost, stats.maxMana, true):
 				stats.currentMana = stats.modify_stat(stats.currentMana, burstManaCost, stats.maxMana)
 	# Pearl is a chance Gem that returns mana spent on a spell to the player if the player successfully hits a target
 				if isPearlEnabled:
@@ -224,7 +224,7 @@ func handle_states():
 				if !isMoonStoneEnabled:
 	# Citrine is a dilemma Gem that allows the player to use less stamina per movement ability in exchange
 	# for it dealing the difference to their health and mana in equal parts
-					if isCitrineEnabled && stats.check_current_stat(stats.currentStamina, int(roundf(float(dashStaminaCost) / 3)), stats.maxStamina, true) && stats.check_current_stat(stats.currentHealth, int(roundf(float(dashStaminaCost) / 3)), stats.maxHealth, true) && stats.check_current_stat(stats.currentMana, int(roundf(float(dashStaminaCost) / 3)), stats.maxMana, true):
+					if isCitrineEnabled && stats.check_stat_overage(stats.currentStamina, int(roundf(float(dashStaminaCost) / 3)), stats.maxStamina, true) && stats.check_stat_overage(stats.currentHealth, int(roundf(float(dashStaminaCost) / 3)), stats.maxHealth, true) && stats.check_stat_overage(stats.currentMana, int(roundf(float(dashStaminaCost) / 3)), stats.maxMana, true):
 						stats.currentStamina = stats.modify_stat(stats.currentStamina, int(roundf(float(dashStaminaCost) / 3)), stats.maxStamina)
 						stats.currentHealth = stats.modify_stat(stats.currentHealth, int(roundf(float(dashStaminaCost) / 3)), stats.maxHealth)
 						stats.currentMana = stats.modify_stat(stats.currentMana, int(roundf(float(dashStaminaCost) / 3)), stats.maxMana)
@@ -233,7 +233,7 @@ func handle_states():
 							if rng.randi() % 4 == 0:
 								stats.currentMana = stats.modify_stat(stats.currentMana, -int(roundf(float(dashStaminaCost) / 3)), stats.maxMana)
 						currentState = state.dash
-					elif !isCitrineEnabled && stats.check_current_stat(stats.currentStamina, dashStaminaCost, stats.maxStamina, true):
+					elif !isCitrineEnabled && stats.check_stat_overage(stats.currentStamina, dashStaminaCost, stats.maxStamina, true):
 						stats.currentStamina = stats.modify_stat(stats.currentStamina, dashStaminaCost, stats.maxStamina)
 						currentState = state.dash
 				else:

@@ -15,11 +15,17 @@ func _ready():
 	currentMana = get_parent().get_meta("Mana")
 	currentStamina = get_parent().get_meta("Stamina")
 
-func modify_stat(minStat, change, maxStat):
-	var newMinStat = minStat + change
-	return check_min_max(newMinStat, maxStat)
+# Modify corresponding current stat and return calculated stat
+func modify_stat(curStat, change, maxStat):
+	var calculatedStat = curStat + change
+	#var stack_trace = get_stack()
+	#for item in stack_trace:
+	#	print(item)
+	return check_min_max(calculatedStat, maxStat)
 
-func check_current_stat(curStat, change, maxStat, zeroStat):
+# Check if calculated stat will be changed to be greater than max stat or 
+# negative
+func check_stat_overage(curStat, change, maxStat, zeroStat):
 	if zeroStat:
 		if curStat + change >= 0:
 			return true
@@ -31,6 +37,8 @@ func check_current_stat(curStat, change, maxStat, zeroStat):
 		else:
 			return false
 
+# Return calculated stat (change current stat if it is greater than max stat or
+# negative
 func check_min_max(minStat, maxStat):
 	if minStat <= 0:
 		minStat = 0

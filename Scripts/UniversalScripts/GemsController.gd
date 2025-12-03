@@ -10,7 +10,7 @@ var isKunziteEnabled = false
 var isTopazEnabled = false
 var isSunstoneEnabled = false
 var isPearlEnabled = false
-var isOpalEnabled = false
+var isOpalEnabled = true
 var isAmmoliteEnabled = false
 var isJetEnabled = false
 var isNuummiteEnabled = false
@@ -32,7 +32,6 @@ func gem_function_checker(attack):
 		attack.hitstunTimer = int(roundf(float(attack.hitstunTimer) * 1.2))
 	if isTanzaniteEnabled && attack.hitstunTimer > 0:
 		attack.hitstunTimer *= int(roundf(float(attack.hitstunTimer) * 1.5))
-		attack.attackTimer = int(roundf(float(attack.attackTimer) * .9))
 	if isPearlEnabled:
 		if rng.randi() % 4 == 0:
 			attack.manaDamage = abs(attack.manaCost)

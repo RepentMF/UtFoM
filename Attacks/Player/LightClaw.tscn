@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://b666aw0n3xfjp"]
 
-[ext_resource type="Script" uid="uid://dl6pfqmc7jnqw" path="res://Scripts/UniversalScripts/Attack.gd" id="1_cum8h"]
+[ext_resource type="Script" uid="uid://c32nja13psv24" path="res://Scripts/UniversalScripts/Attack.gd" id="1_cum8h"]
 [ext_resource type="Texture2D" uid="uid://b6tn2hly86i40" path="res://Sprites/ArmsClaw_PCAttacks.png" id="2_42qkj"]
 [ext_resource type="Texture2D" uid="uid://hdybvqphl4it" path="res://Sprites/Claw_PCAttacks.png" id="3_0fhk3"]
 [ext_resource type="AnimationLibrary" uid="uid://dj77orgq2wgsl" path="res://Animations/Player/LightClaw/LightClaw.res" id="4_42qkj"]

@@ -40,7 +40,9 @@ metadata/Bullet = "NormalBullet"
 
 [node name="SlimeCharacter" parent="." instance=ExtResource("8_1ltbh")]
 modulate = Color(0.564706, 1, 0.694118, 1)
-position = Vector2(-6, -7)
+position = Vector2(-26, -8)
+metadata/Health = 200
+metadata/MaxHealth = 200
 
 [node name="Block" parent="." instance=ExtResource("3_ykd2a")]
 modulate = Color(0.564706, 1, 0.694118, 1)

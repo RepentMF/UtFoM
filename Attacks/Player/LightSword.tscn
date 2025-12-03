@@ -1,6 +1,6 @@
 [gd_scene load_steps=40 format=3 uid="uid://752i5acwtysw"]
 
-[ext_resource type="Script" uid="uid://dl6pfqmc7jnqw" path="res://Scripts/UniversalScripts/Attack.gd" id="1_iejji"]
+[ext_resource type="Script" uid="uid://c32nja13psv24" path="res://Scripts/UniversalScripts/Attack.gd" id="1_iejji"]
 [ext_resource type="Texture2D" uid="uid://brcsxct28qxua" path="res://Sprites/GroundedSword_PCAttacks.png" id="2_5ue40"]
 [ext_resource type="Animation" uid="uid://88okse8dif75" path="res://Animations/Player/LightSword/lightsword1_1.res" id="3_xekca"]
 [ext_resource type="Animation" uid="uid://dvx5jk7tu8n04" path="res://Animations/Player/LightSword/lightsword1_2.res" id="4_acbi0"]

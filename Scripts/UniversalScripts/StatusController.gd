@@ -39,6 +39,7 @@ func _physics_process(_delta):
 			elif status.name == "execute":
 				var executeAmount = float((stats.maxHealth - stats.currentHealth)) / stats.maxHealth
 				stats.currentHealth = stats.modify_stat(stats.currentHealth, floori(executeAmount * status.change), stats.maxHealth)
+				print(executeAmount, ", ", status.change, ", ", floori(executeAmount * status.change))
 				statusList.erase(status)
 			elif status.name == "exhaust":
 				if status.timer > 0 && !actions.isExhausted:

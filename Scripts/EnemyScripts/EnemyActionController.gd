@@ -51,7 +51,7 @@ func _physics_process(delta):
 	#%RichTextLabel.text = temp
 	#%RichTextLabel.text = str(hitstunTimer)
 	#%RichTextLabel.text = str(name, ", ", z_index)
-	#%RichTextLabel.text = str(temp, ", ", "\nHP: ", get_node("StatsController").currentHealth, "/", get_node("StatsController").maxHealth, "\nMP: ", get_node("StatsController").currentMana, "\nSP: ", get_node("StatsController").currentStamina)
+	%RichTextLabel.text = str(temp, ", ", "\nHP: ", get_node("StatsController").currentHealth, "/", get_node("StatsController").maxHealth, "\nMP: ", get_node("StatsController").currentMana, "\nSP: ", get_node("StatsController").currentStamina)
 
 func handle_states():
 	match currentState:
