@@ -4,13 +4,14 @@ extends CharacterBody2D
 var rng = RandomNumberGenerator.new()
 
 # Game engine
-enum state {idle, walk, run, roll, dash, hop, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, heal, burst, lag, spark}
+enum state {idle, walk, run, roll, dash, hop, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, heal, daze, lag, spark}
 var currentState
 var inventory
 var currentWeapon
 var attackLight = ""
 var attackHeavy = ""
 var attackJuggle = ""
+var attackDaze = ""
 var attackRoll = "BluntRoll"
 var attack
 var height = "grounded"
@@ -100,7 +101,7 @@ func _physics_process(delta):
 	translate_states()
 	#%RichTextLabel.text = str(isSpeedBoosted)
 	#%RichTextLabel.text = str(height, ", ", airCount, ", ", countJuggleDistance, ", ", KBSpeed, ", ", juggleDistanceY)
-	#%RichTextLabel.text = str(temp, ", ", isAttacking, ", ", isStationary)
+	%RichTextLabel.text = str(temp, ", ", isAttacking, ", ", isStationary)
 	#%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
 	#%RichTextLabel.text = str(temp, ", ", isAttacking, ", ", isStationary)
 	#%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
@@ -113,6 +114,7 @@ func handle_setup():
 	attackLight = currentWeapon.light
 	attackHeavy = currentWeapon.heavy
 	attackJuggle = currentWeapon.juggle
+	attackDaze = "Daze"
 	rng.randomize()
 	done = true
 
@@ -156,7 +158,7 @@ func handle_states():
 	# Check if the player is allowed to control their x/y velocity using the control stick
 	# (If they are not: rolling, dashing, hopping, jumping, pushing, healing, using magic,
 	# in hitstun, being juggled, or marked as stationary by a stationary attack)
-	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.lag && currentState != state.spark:
+	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.daze && currentState != state.lag && currentState != state.spark:
 		check_move()
 	
 	# Check for what action the player is doing this frame and makes the proper assignment to variables
@@ -175,7 +177,7 @@ func handle_states():
 					if rng.randi() % 4 == 0:
 						stats.currentMana = stats.modify_stat(stats.currentMana, -int(roundf(float(burstManaCost) / 2)), stats.maxMana)
 						stats.currentHealth = stats.modify_stat(stats.currentHealth, -int(roundf(float(burstManaCost) / 2)), stats.maxHealth)
-				currentState = state.burst
+				currentState = state.daze
 		else:
 			if stats.check_stat_overage(stats.currentMana, burstManaCost, stats.maxMana, true):
 				stats.currentMana = stats.modify_stat(stats.currentMana, burstManaCost, stats.maxMana)
@@ -183,20 +185,20 @@ func handle_states():
 				if isPearlEnabled:
 					if rng.randi() % 4 == 0:
 						stats.currentMana = stats.modify_stat(stats.currentMana, -burstManaCost, stats.maxMana)
-				currentState = state.burst
-	elif Input.is_action_just_pressed("action_heal") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && height == "grounded":
+				currentState = state.daze
+	elif Input.is_action_just_pressed("action_heal") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.daze && height == "grounded":
 	# Goshenite is a challenge Gem that prevents the player from healing
 		if !isGosheniteEnabled:
 			currentState = state.heal
 		else:
 			print("cannot heal")
-	elif Input.is_action_just_pressed("action_light_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && currentState != state.spark:
+	elif Input.is_action_just_pressed("action_light_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.daze && currentState != state.spark:
 		if (attackLight != ""):
 			currentState = state.light_attack
-	elif Input.is_action_just_pressed("action_heavy_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark:
+	elif Input.is_action_just_pressed("action_heavy_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.daze && currentState != state.spark:
 		if (attackHeavy != ""):
 			currentState = state.heavy_attack
-	elif Input.is_action_just_pressed("action_juggle_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark:
+	elif Input.is_action_just_pressed("action_juggle_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.daze && currentState != state.spark:
 		if (attackJuggle  != ""):
 			currentState = state.juggle_attack
 	elif Input.is_action_just_pressed("action_spark"):
@@ -218,7 +220,7 @@ func handle_states():
 			else:
 				print("cannot use SP")
 	
-	if currentState == state.walk || currentState == state.run || currentState == state.burst || currentState == state.spark:
+	if currentState == state.walk || currentState == state.run || currentState == state.daze || currentState == state.spark:
 		if !isExhausted && (Input.is_action_just_pressed("action_dodge") && isDashEnabled && is_direction_held()) && (!isAttacking || isHemimorphiteEnabled):
 	# Moonstone is a challenge Gem that prevents the player from using stamina
 				if !isMoonStoneEnabled:
@@ -342,8 +344,8 @@ func handle_states():
 					z_index = 5
 		state.heal:
 			heal()
-		state.burst:
-			burst() 
+		state.daze:
+			daze() 
 		state.spark:
 			spark()
 		state.lag:
@@ -380,7 +382,7 @@ func translate_states():
 		13:
 			temp = "heal"
 		14:
-			temp = "burst"
+			temp = "daze"
 		15:
 			temp = "lag"
 		16:
@@ -627,24 +629,13 @@ func heal():
 	else:
 		healTimer -= 1
 
-func burst():
+func daze():
 	# Bursting is based on a timer system and changes States and variables accordingly 
-	if burstTimer <= 0:
-		burstTimer = burstTimerDefault
-		isInvincible = false
-		replenish_movement_timers()
-		if !countJuggleDistance:
-			if is_direction_held():
-				currentState = state.walk
-			else:
-				currentState = state.idle
-		else:
-			return_to_juggle()
-	else:
-		if !isInvincible:
-			isInvincible = true
-			velocity = Vector2(0, 0)
-		burstTimer -= 1
+	if !isAttacking:
+		currentState = state.idle
+	if !has_node(attackDaze): #|| has_node(attackBurst)):
+		attack = load("res://Attacks/Player/" + attackDaze + ".tscn")
+		add_child(attack.instantiate())
 
 func spark():
 	if sparkTimer == sparkTimerDefault:
@@ -704,7 +695,7 @@ func is_direction_held():
 		return false
 
 func is_player_locked():
-	if currentState == state.roll || currentState == state.jump || currentState == state.light_attack || currentState == state.hitstun || currentState == state.juggle || currentState == state.burst:
+	if currentState == state.roll || currentState == state.jump || currentState == state.light_attack || currentState == state.hitstun || currentState == state.juggle || currentState == state.daze:
 		return true
 	else:
 		return false

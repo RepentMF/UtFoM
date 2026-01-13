@@ -101,6 +101,8 @@ func _on_area_body_entered(body):
 				if knockUp:
 					body.juggleSpeed = knockUpPower
 					body.currentState = body.state.juggle
+				if self.name == "Daze" || self.name == "Burst":
+					print((body.position - user.position).normalized())
 				run_damage_calc(body)
 	pass # Replace with function body.
 
