@@ -1,7 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://bgbybutvgx8qt"]
+[gd_scene load_steps=16 format=3 uid="uid://bgbybutvgx8qt"]
 
 [ext_resource type="Script" uid="uid://c32nja13psv24" path="res://Scripts/UniversalScripts/Attack.gd" id="1_eolt1"]
-[ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="2_eolt1"]
 [ext_resource type="AnimationLibrary" uid="uid://2yja5d8e4pns" path="res://Animations/Player/Daze/Daze.res" id="3_hvp5o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d7cqq"]
@@ -56,18 +55,6 @@ graph_offset = Vector2(161, -10)
 
 [sub_resource type="Animation" id="Animation_c0xe8"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Area/Sprite2D:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_25k74"]
 _data = {
@@ -75,11 +62,10 @@ _data = {
 }
 
 [node name="Daze" type="Node2D"]
-z_index = -1
 position = Vector2(0, 5)
 script = ExtResource("1_eolt1")
-metadata/Speed = 0
-metadata/HitstunTimer = 45
+metadata/Speed = 125
+metadata/HitstunTimer = 15
 metadata/KnockUp = false
 metadata/KnockUpPower = 0
 metadata/Status = ""
@@ -98,13 +84,8 @@ metadata/Offset = 0
 collision_layer = 129
 collision_mask = 129
 
-[node name="Sprite2D" type="Sprite2D" parent="Area"]
-scale = Vector2(0.2, 0.1)
-texture = ExtResource("2_eolt1")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
-rotation = -0.5235988
-skew = -0.57595867
+scale = Vector2(1.275, 0.75)
 shape = SubResource("CircleShape2D_d7cqq")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]

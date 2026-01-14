@@ -1,6 +1,6 @@
-[gd_scene load_steps=95 format=3 uid="uid://rbec2tuumb8s"]
+[gd_scene load_steps=96 format=3 uid="uid://rbec2tuumb8s"]
 
-[ext_resource type="Script" uid="uid://cqfggmsj8tene" path="res://Scripts/PlayerScripts/PlayerActionController.gd" id="1_0puox"]
+[ext_resource type="Script" uid="uid://yrqlwj7jsa6b" path="res://Scripts/PlayerScripts/PlayerActionController.gd" id="1_0puox"]
 [ext_resource type="Texture2D" uid="uid://dsx3jn6cbxe42" path="res://Sprites/Ashe_PC.png" id="2_lb8xe"]
 [ext_resource type="Script" uid="uid://bagu28gjop4uk" path="res://Actors/Players/PlayerSpriteController.gd" id="3_2a2ki"]
 [ext_resource type="Texture2D" uid="uid://cfgc7dck7coic" path="res://Sprites/AsheNoArms_PC.png" id="3_2882w"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://depsrybwml8sd" path="res://Sprites/HUD/Empty HP.png" id="11_y6jjt"]
 [ext_resource type="Texture2D" uid="uid://csg3o60w682x1" path="res://Sprites/HUD/Full HP.png" id="12_okm1c"]
 [ext_resource type="Texture2D" uid="uid://d2bg4bhwgvgnf" path="res://Sprites/HUD/Sword.png" id="13_okm1c"]
+[ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="14_5m0gt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0n22e"]
 size = Vector2(10, 7)
@@ -1420,3 +1421,9 @@ texture = ExtResource("13_okm1c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBulletArea"]
 shape = SubResource("RectangleShape2D_okm1c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, 3.4999995)
+scale = Vector2(0.203125, 0.1171875)
+texture = ExtResource("14_5m0gt")

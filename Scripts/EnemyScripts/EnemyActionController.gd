@@ -16,6 +16,8 @@ var gravity = 2
 var countJuggleDistance = false
 var isAttacking = false
 var isStationary = true
+var canCombo = false
+var secondAttack = false
 var isExhausted = false
 var isInvincible = false
 var temp
@@ -49,9 +51,6 @@ func _ready():
 func _physics_process(delta):
 	handle_states()
 	#%RichTextLabel.text = temp
-	#%RichTextLabel.text = str(hitstunTimer)
-	#%RichTextLabel.text = str(name, ", ", z_index)
-	#%RichTextLabel.text = str(temp, ", ", "\nHP: ", get_node("StatsController").currentHealth, "/", get_node("StatsController").maxHealth, "\nMP: ", get_node("StatsController").currentMana, "\nSP: ", get_node("StatsController").currentStamina)
 
 func handle_states():
 	match currentState:
