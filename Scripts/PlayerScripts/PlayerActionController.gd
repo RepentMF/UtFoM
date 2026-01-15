@@ -78,8 +78,8 @@ var burstManaCost = -5
 var canBunnyHop = false
 var isDashEnabled = true
 var isJumpEnabled = true
-var isBurstUnlocked = false
-var isDazeUnlocked = true
+var isBurstUnlocked = true
+var isDazeUnlocked = false
 var isAquamarineEnabled = false
 var isCinnabarEnabled = false
 var isAmetrineEnabled = false
@@ -162,7 +162,7 @@ func handle_states():
 	# We check with a priority order- spells are checked first, then healing, then attacks, then movement abilities- 
 	# whatever action the player chooses, we assign their StateMachine accordingly so long as the conditional passes true
 	if Input.is_action_just_pressed("action_spell"):
-		if (isDazeUnlocked && !countJuggleDistance) || isBurstUnlocked:
+		if (isDazeUnlocked && !countJuggleDistance && currentState != state.hitstun) || isBurstUnlocked:
 		# Topaz is a dilemma Gem that allows the plyaer to cast spells for less mana cost at the difference
 		# being dealt to their health
 			if isTopazEnabled:
