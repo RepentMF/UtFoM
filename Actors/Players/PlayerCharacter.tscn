@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://rbec2tuumb8s"]
+[gd_scene load_steps=98 format=3 uid="uid://rbec2tuumb8s"]
 
 [ext_resource type="Script" uid="uid://bf8r5oyde6wio" path="res://Scripts/PlayerScripts/PlayerActionController.gd" id="1_0puox"]
 [ext_resource type="Texture2D" uid="uid://dsx3jn6cbxe42" path="res://Sprites/Ashe_PC.png" id="2_lb8xe"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://depsrybwml8sd" path="res://Sprites/HUD/Empty HP.png" id="11_y6jjt"]
 [ext_resource type="Texture2D" uid="uid://csg3o60w682x1" path="res://Sprites/HUD/Full HP.png" id="12_okm1c"]
 [ext_resource type="Texture2D" uid="uid://d2bg4bhwgvgnf" path="res://Sprites/HUD/Sword.png" id="13_okm1c"]
+[ext_resource type="Texture2D" uid="uid://bekoxy441f3oa" path="res://Sprites/HUD/Full MP.png" id="13_virxs"]
+[ext_resource type="Texture2D" uid="uid://d811pde1yiln" path="res://Sprites/HUD/Full SP.png" id="14_0xg36"]
 [ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="14_5m0gt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0n22e"]
@@ -1411,9 +1413,31 @@ value = 10.0
 texture_under = ExtResource("11_y6jjt")
 texture_progress = ExtResource("12_okm1c")
 
+[node name="ManaBar" type="TextureProgressBar" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 30.0
+offset_right = 160.0
+offset_bottom = 60.0
+max_value = 5.0
+value = 5.0
+texture_under = ExtResource("11_y6jjt")
+texture_progress = ExtResource("13_virxs")
+
+[node name="StaminaBar" type="TextureProgressBar" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 60.0
+offset_right = 160.0
+offset_bottom = 90.0
+max_value = 5.0
+value = 5.0
+texture_under = ExtResource("11_y6jjt")
+texture_progress = ExtResource("14_0xg36")
+
 [node name="WeaponIcon" type="Sprite2D" parent="CanvasLayer/Control"]
 unique_name_in_owner = true
-position = Vector2(23.999998, 51.999996)
+position = Vector2(23.999998, 112)
 scale = Vector2(0.18, 0.18)
 texture = ExtResource("13_okm1c")
 

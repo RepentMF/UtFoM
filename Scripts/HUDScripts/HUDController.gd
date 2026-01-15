@@ -11,6 +11,8 @@ var blade_texture = load("res://Sprites/HUD/Blade.png")
 
 func _physics_process(_delta: float) -> void:
 	%HealthBar.value = %StatsController.currentHealth
+	%ManaBar.value = %StatsController.currentMana
+	%StaminaBar.value = %StatsController.currentStamina
 	#Checks for grandparent variable and loads the appropriate sprite
 	match get_parent().get_parent().currentWeapon.name:
 		"fists":

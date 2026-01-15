@@ -25,6 +25,7 @@ var countJuggleDistance = false
 var canCombo = false
 var secondAttack = false
 var isAttacking = false
+var hasException = false
 var isExhausted = false
 var isInvincible = false
 var isStationary = false
@@ -100,7 +101,7 @@ func _physics_process(delta):
 		handle_setup()
 	handle_states()
 	translate_states()
-	#%RichTextLabel.text = str(isSpeedBoosted)
+	%RichTextLabel.text = str(isAttacking, ", ", hasException)
 
 func handle_setup():
 	# Calling needed nodes and values to be used in the rest of PlayerActionController
@@ -162,7 +163,7 @@ func handle_states():
 	# We check with a priority order- spells are checked first, then healing, then attacks, then movement abilities- 
 	# whatever action the player chooses, we assign their StateMachine accordingly so long as the conditional passes true
 	if Input.is_action_just_pressed("action_spell"):
-		if (isDazeUnlocked && !countJuggleDistance && currentState != state.hitstun) || isBurstUnlocked:
+		if ((isDazeUnlocked && !countJuggleDistance && currentState != state.hitstun) || isBurstUnlocked) && !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.heal && currentState != state.lag:
 		# Topaz is a dilemma Gem that allows the plyaer to cast spells for less mana cost at the difference
 		# being dealt to their health
 			if isTopazEnabled:
@@ -292,7 +293,6 @@ func handle_states():
 			roll()
 		state.dash:
 			if isDashEnabled:
-				temp = "dash"
 				dash()
 		state.hop:
 			hop()
@@ -300,7 +300,6 @@ func handle_states():
 			if isJumpEnabled:
 				if Input.is_action_just_pressed("action_heavy_attack") && isCinnabarEnabled:
 					heavy_attack()
-				temp = "jump"
 				jump()
 		state.light_attack:
 			light_attack()
@@ -628,7 +627,7 @@ func heal():
 
 func burst():
 	# Bursting is based on a timer system and changes States and variables accordingly 
-	if !has_node(attackBurst):
+	if !has_node(attackBurst) && burstTimer == burstTimerDefault:
 		attack = load("res://Attacks/Player/" + attackBurst + ".tscn")
 		add_child(attack.instantiate())
 		burstTimer -= 1
@@ -636,7 +635,7 @@ func burst():
 			isInvincible = true
 			velocity = Vector2(0, 0)
 	elif burstTimer != burstTimerDefault:
-		burstTimer -=1
+		burstTimer -= 1
 	if !isAttacking && burstTimer <= 0:
 		burstTimer = burstTimerDefault
 		isInvincible = false

@@ -15,6 +15,7 @@ var targetDirection
 var gravity = 2
 var countJuggleDistance = false
 var isAttacking = false
+var hasException = false
 var isStationary = true
 var canCombo = false
 var secondAttack = false

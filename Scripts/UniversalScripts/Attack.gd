@@ -28,7 +28,7 @@ var allowCombo = false
 var firstAttack = true
 
 func _ready():
-	if get_meta("Offset") != 0:
+	if has_meta("Offset"):
 		offset = get_meta("Offset")
 	visible = false
 	baseDamage = get_meta("Damage")
@@ -53,6 +53,8 @@ func _ready():
 func _physics_process(_delta):
 	if user == null:
 		user = get_tree().root.get_node("TestArea/" + userName)
+	if has_meta("HasException"):
+		user.hasException = true
 	attacked = true
 	height = user.height
 	if height == "aerial":
@@ -77,7 +79,7 @@ func _physics_process(_delta):
 			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, -manaCost, user.stats.maxMana)
 			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, int(roundf(float(manaCost) / 2)), user.stats.maxMana)
 			user.stats.currentHealth = user.stats.modify_stat(user.stats.currentHealth, int(roundf(float(manaCost) / 2)), user.stats.maxHealth)
-	if attackTimer != null:
+	if get_meta("AttackTimer") != 0:
 		if attackTimer > 0:
 			attackTimer -= 1
 		elif attackTimer == 0:
@@ -256,6 +258,8 @@ func finish_attack():
 	user.isStationary = false
 	user.canCombo = false
 	user.secondAttack = false
+	user.hasException = false
+	print("here")
 	queue_free()
 
 func next_attack(next):

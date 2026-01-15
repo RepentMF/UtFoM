@@ -20,9 +20,9 @@ zoom = Vector2(7, 7)
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true
 offset_left = 35.0
-offset_top = 98.0
+offset_top = 138.0
 offset_right = 247.0
-offset_bottom = 215.0
+offset_bottom = 255.0
 
 [node name="Temp_Backdrop" type="Sprite2D" parent="."]
 modulate = Color(0.564706, 1, 0.694118, 1)
@@ -35,12 +35,11 @@ unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 z_index = 5
 y_sort_enabled = true
-position = Vector2(39, -7)
-metadata/Bullet = "NormalBullet"
+position = Vector2(-13, 38)
 
 [node name="SlimeCharacter" parent="." instance=ExtResource("8_1ltbh")]
 modulate = Color(0.564706, 1, 0.694118, 1)
-position = Vector2(55, -101)
+position = Vector2(7, -5)
 metadata/Health = 200
 metadata/MaxHealth = 200
 
