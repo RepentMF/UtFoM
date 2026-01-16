@@ -16,7 +16,7 @@ var user
 var hitstunTimer = 0
 var direction
 var speed = 0
-var height = "grounded"
+var attackHeight = "grounded"
 var knockUp = false
 var knockUpPower = 0
 var statusName = ""
@@ -56,12 +56,12 @@ func _physics_process(_delta):
 	if has_meta("HasException"):
 		user.hasException = true
 	attacked = true
-	height = user.height
-	if height == "aerial":
+	attackHeight = user.height
+	if attackHeight == "aerial":
 		z_index = 7
-	elif height == "mid":
+	elif attackHeight == "mid":
 		z_index = 6
-	elif height == "low":
+	elif attackHeight == "low":
 		z_index = 5
 	else:
 		z_index = 4
@@ -200,22 +200,23 @@ func remove_speed_boost():
 
 func height_check(bodyHeight):
 	if bodyHeight == "grounded":
-		if height == "grounded" || height == "aerial":
+		if attackHeight == "grounded" || attackHeight == "aerial":
 			return true
 		else:
 			return false
-	if bodyHeight == "low":
-		if height == "grounded" || height == "low" || height == "mid":
+	elif bodyHeight == "low":
+		if attackHeight == "grounded" || attackHeight == "low" || attackHeight == "mid" || attackHeight == "aerial":
+			print(true)
 			return true
 		else:
 			return false
 	elif bodyHeight == "mid":
-		if height == "mid" || height == "aerial":
+		if attackHeight == "mid" || attackHeight == "aerial":
 			return true
 		else:
 			return false
 	elif bodyHeight == "aerial":
-		if height == "aerial":
+		if attackHeight == "aerial":
 			return true
 		else:
 			return false

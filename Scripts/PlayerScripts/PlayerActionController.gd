@@ -329,10 +329,10 @@ func handle_states():
 				if juggleDistanceY < -26:
 					height = "aerial"
 					z_index = 8
-				elif juggleDistanceY < -11 && juggleDistanceY >= -25:
+				elif juggleDistanceY < -17 && juggleDistanceY >= -25:
 					height = "mid"
 					z_index = 7
-				elif juggleDistanceY < -1.5 && juggleDistanceY >= -10:
+				elif juggleDistanceY < -1.5 && juggleDistanceY >= -17:
 					height = "low"
 					z_index = 6
 				elif juggleDistanceY >= -1.5:

@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dw1wngwufijof" path="res://Sprites/Slime_EC.png" id="2_fj2sk"]
 [ext_resource type="Script" uid="uid://dke6741ivwwb8" path="res://Scripts/UniversalScripts/StatsController.gd" id="3_p50rj"]
 [ext_resource type="Script" uid="uid://dojndg4ajf7l6" path="res://Scripts/UniversalScripts/StatusController.gd" id="4_pygbi"]
-[ext_resource type="Script" uid="uid://f82qkmhnx5i5" path="res://Animations/Commons/EnemyAnimationController.gd" id="5_vvtpn"]
-[ext_resource type="Script" uid="uid://b61e8p4carad5" path="res://Scripts/EnemyScripts/slimeAttacksController.gd" id="6_34vvh"]
+[ext_resource type="Script" uid="uid://ceswlsh2svcol" path="res://Animations/Commons/EnemyAnimationController.gd" id="5_vvtpn"]
+[ext_resource type="Script" uid="uid://drdwpwu6pg2uj" path="res://Scripts/EnemyScripts/slimeAttacksController.gd" id="6_34vvh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0n22e"]
 size = Vector2(8, 5)
