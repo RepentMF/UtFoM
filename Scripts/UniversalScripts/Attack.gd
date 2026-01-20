@@ -79,7 +79,7 @@ func _physics_process(_delta):
 			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, -manaCost, user.stats.maxMana)
 			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, int(roundf(float(manaCost) / 2)), user.stats.maxMana)
 			user.stats.currentHealth = user.stats.modify_stat(user.stats.currentHealth, int(roundf(float(manaCost) / 2)), user.stats.maxHealth)
-	if get_meta("AttackTimer") != 0:
+	if attackTimer != -1:
 		if attackTimer > 0:
 			attackTimer -= 1
 		elif attackTimer == 0:

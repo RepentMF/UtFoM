@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=3 uid="uid://j5l48mqu5gil"]
 
-[ext_resource type="Script" uid="uid://d1psx0prnx2o" path="res://Scripts/UniversalScripts/Attack.gd" id="1_irgch"]
-[ext_resource type="Texture2D" uid="uid://b1e4464uvcnkh" path="res://Sprites/GroundedHammer_PCAttacks.png" id="2_eox2m"]
+[ext_resource type="Script" uid="uid://c32nja13psv24" path="res://Scripts/UniversalScripts/Attack.gd" id="1_irgch"]
+[ext_resource type="Texture2D" uid="uid://2s1ah1pcqno0" path="res://Sprites/GroundedHammer_PCAttacks.png" id="2_eox2m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycjq1"]
 size = Vector2(2.99385, 3.02335)
@@ -772,7 +772,7 @@ metadata/Status = ""
 metadata/StatusTimer = 0
 metadata/StatusFreq = 0
 metadata/StatusChange = 0
-metadata/AttackTimer = 0
+metadata/AttackTimer = -1
 metadata/Damage = -15
 metadata/isStationary = true
 metadata/UserName = "PlayerCharacter"
