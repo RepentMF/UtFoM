@@ -206,7 +206,6 @@ func height_check(bodyHeight):
 			return false
 	elif bodyHeight == "low":
 		if attackHeight == "grounded" || attackHeight == "low" || attackHeight == "mid" || attackHeight == "aerial":
-			print(true)
 			return true
 		else:
 			return false
@@ -260,7 +259,6 @@ func finish_attack():
 	user.canCombo = false
 	user.secondAttack = false
 	user.hasException = false
-	print("here")
 	queue_free()
 
 func next_attack(next):
