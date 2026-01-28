@@ -5,32 +5,32 @@
 [ext_resource type="Texture2D" uid="uid://bwgl04i8pnfct" path="res://Sprites/GroundedGauntlet_PCAttacks.png" id="3_xiyfv"]
 [ext_resource type="AnimationLibrary" uid="uid://jctyl3ru20vy" path="res://Animations/Player/LightGauntlet/LightGauntlet.res" id="4_cjrpt"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xiyfv"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oitnn"]
 size = Vector2(15, 14)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_42qkj"]
-animation = &"lightclaw_1"
+animation = &"LightGauntlet/lightgauntlet_1"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0fhk3"]
-animation = &"lightclaw_4"
+animation = &"LightGauntlet/lightgauntlet_4"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3fgij"]
-animation = &"lightclaw_7"
+animation = &"LightGauntlet/lightgauntlet_7"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lpgb1"]
-animation = &"lightclaw_8"
+animation = &"LightGauntlet/lightgauntlet_8"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mxg2w"]
-animation = &"lightclaw_9"
+animation = &"LightGauntlet/lightgauntlet_9"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hqic4"]
-animation = &"lightclaw_6"
+animation = &"LightGauntlet/lightgauntlet_6"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tjms0"]
-animation = &"lightclaw_3"
+animation = &"LightGauntlet/lightgauntlet_3"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ocwoq"]
-animation = &"lightclaw_2"
+animation = &"LightGauntlet/lightgauntlet_2"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_su1mm"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_42qkj")
@@ -188,6 +188,78 @@ tracks/10/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("AttackingSpriteGauntlet:flip_v")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("AttackingSpriteGauntlet:flip_h")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("AttackingSpriteGauntlet2:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("AttackingSpriteGauntlet2:flip_h")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("AttackingSpriteGauntlet:rotation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("AttackingSpriteArm:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cjrpt"]
 _data = {
@@ -198,7 +270,7 @@ _data = {
 z_index = -1
 script = ExtResource("1_xiyfv")
 metadata/Speed = 0
-metadata/HitstunTimer = 0
+metadata/HitstunTimer = 20
 metadata/KnockUp = false
 metadata/KnockUpPower = 0
 metadata/Status = ""
@@ -207,7 +279,7 @@ metadata/StatusFreq = 0
 metadata/StatusChange = 0
 metadata/AttackTimer = -1
 metadata/Damage = -5
-metadata/isStationary = false
+metadata/isStationary = true
 metadata/UserName = "PlayerCharacter"
 metadata/ManaCost = 0
 metadata/StaminaCost = 0
@@ -227,7 +299,6 @@ vframes = 2
 [node name="AttackingSpriteGauntlet2" type="Sprite2D" parent="."]
 position = Vector2(-11, 7)
 texture = ExtResource("3_xiyfv")
-flip_h = true
 hframes = 3
 vframes = 2
 
@@ -237,12 +308,13 @@ collision_mask = 129
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
 position = Vector2(-4.945, 12.825)
-shape = SubResource("RectangleShape2D_xiyfv")
+shape = SubResource("RectangleShape2D_oitnn")
+disabled = true
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_tfm4p")
 anim_player = NodePath("../AnimationPlayerArms")
-parameters/lightgauntlet_tree/blend_position = Vector2(-0.9950042, 0.99421966)
+parameters/lightgauntlet_tree/blend_position = Vector2(-1, 1)
 
 [node name="AnimationPlayerArms" type="AnimationPlayer" parent="."]
 libraries = {
