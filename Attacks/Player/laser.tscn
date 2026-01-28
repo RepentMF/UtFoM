@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqd3npfrv3jvk"]
+
+[ext_resource type="Script" uid="uid://d2s6tskhkgl4o" path="res://Attacks/Player/Laser.gd" id="1_xv2qa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x72ya"]
+
+[node name="Laser" type="Node2D"]
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_x72ya")
+target_position = Vector2(100, 0)
+script = ExtResource("1_xv2qa")
+
+[node name="Line2D" type="Line2D" parent="ShapeCast2D"]
+points = PackedVector2Array(0, 0, 100, 0)
+default_color = Color(0.86343604, 5.318448e-06, 7.70092e-07, 1)
