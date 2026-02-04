@@ -1,12 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://y83amuafglwt"]
+[gd_scene load_steps=17 format=3 uid="uid://y83amuafglwt"]
 
-[ext_resource type="Script" uid="uid://c32nja13psv24" path="res://Scripts/UniversalScripts/Attack.gd" id="1_xiyfv"]
-[ext_resource type="Texture2D" uid="uid://gvf00rxvbq" path="res://Sprites/GroundedGauntletArm_PCAttacks.png" id="2_xiyfv"]
+[ext_resource type="Script" uid="uid://dl6pfqmc7jnqw" path="res://Scripts/UniversalScripts/Attack.gd" id="1_xiyfv"]
+[ext_resource type="Texture2D" uid="uid://c2h4iji2dwjtp" path="res://Sprites/GroundedGauntletArm_PCAttacks.png" id="2_xiyfv"]
 [ext_resource type="Texture2D" uid="uid://bwgl04i8pnfct" path="res://Sprites/GroundedGauntlet_PCAttacks.png" id="3_xiyfv"]
 [ext_resource type="AnimationLibrary" uid="uid://jctyl3ru20vy" path="res://Animations/Player/LightGauntlet/LightGauntlet.res" id="4_cjrpt"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oitnn"]
-size = Vector2(15, 14)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_42qkj"]
 animation = &"LightGauntlet/lightgauntlet_1"
@@ -270,7 +267,7 @@ _data = {
 z_index = -1
 script = ExtResource("1_xiyfv")
 metadata/Speed = 0
-metadata/HitstunTimer = 20
+metadata/HitstunTimer = 35
 metadata/KnockUp = false
 metadata/KnockUpPower = 0
 metadata/Status = ""
@@ -308,8 +305,6 @@ collision_mask = 129
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
 position = Vector2(-4.945, 12.825)
-shape = SubResource("RectangleShape2D_oitnn")
-disabled = true
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_tfm4p")

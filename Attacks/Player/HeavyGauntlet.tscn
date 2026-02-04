@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://bulaswjagdba1"]
 
-[ext_resource type="Script" uid="uid://c32nja13psv24" path="res://Scripts/UniversalScripts/Attack.gd" id="1_f5v3k"]
+[ext_resource type="Script" uid="uid://dl6pfqmc7jnqw" path="res://Scripts/UniversalScripts/Attack.gd" id="1_f5v3k"]
 [ext_resource type="Texture2D" uid="uid://cli0ui8b6luqq" path="res://Sprites/AshePunches_PCAttacks.png" id="2_f5v3k"]
 [ext_resource type="Texture2D" uid="uid://bwgl04i8pnfct" path="res://Sprites/GroundedGauntlet_PCAttacks.png" id="3_hqg2d"]
 [ext_resource type="AnimationLibrary" uid="uid://urwglfmw5trb" path="res://Animations/Player/HeavyGauntlet/HeavyGauntlet.res" id="4_xowgn"]
@@ -9,28 +9,28 @@
 size = Vector2(13, 13.99)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_42qkj"]
-animation = &"LightGauntlet/lightgauntlet_1"
+animation = &"HeavyGauntlet/heavygauntlet_1"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0fhk3"]
-animation = &"LightGauntlet/lightgauntlet_4"
+animation = &"HeavyGauntlet/heavygauntlet_4"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3fgij"]
-animation = &"LightGauntlet/lightgauntlet_7"
+animation = &"HeavyGauntlet/heavygauntlet_7"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lpgb1"]
-animation = &"LightGauntlet/lightgauntlet_8"
+animation = &"HeavyGauntlet/heavygauntlet_8"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mxg2w"]
-animation = &"LightGauntlet/lightgauntlet_9"
+animation = &"HeavyGauntlet/heavygauntlet_9"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hqic4"]
-animation = &"LightGauntlet/lightgauntlet_6"
+animation = &"HeavyGauntlet/heavygauntlet_6"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tjms0"]
-animation = &"LightGauntlet/lightgauntlet_3"
+animation = &"HeavyGauntlet/heavygauntlet_3"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ocwoq"]
-animation = &"LightGauntlet/lightgauntlet_2"
+animation = &"HeavyGauntlet/heavygauntlet_2"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_su1mm"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_42qkj")
@@ -51,8 +51,8 @@ blend_point_7/node = SubResource("AnimationNodeAnimation_ocwoq")
 blend_point_7/pos = Vector2(0, 1)
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tfm4p"]
-states/lightgauntlet_tree/node = SubResource("AnimationNodeBlendSpace2D_su1mm")
-states/lightgauntlet_tree/position = Vector2(519, 102)
+states/heavygauntlet_tree/node = SubResource("AnimationNodeBlendSpace2D_su1mm")
+states/heavygauntlet_tree/position = Vector2(519, 102)
 
 [sub_resource type="Animation" id="Animation_hqg2d"]
 length = 0.001
@@ -176,16 +176,52 @@ tracks/9/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("AttackingSpriteGauntlet:flip_h")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("AttackingSpriteGauntlet:flip_v")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("AttackingSpriteArm:z_index")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rhd7l"]
 _data = {
 &"RESET": SubResource("Animation_hqg2d")
 }
 
-[node name="LightGauntlet" type="Node2D"]
+[node name="HeavyGauntlet" type="Node2D"]
 z_index = -1
 script = ExtResource("1_f5v3k")
-metadata/Speed = 0
+metadata/Speed = 150
 metadata/HitstunTimer = 20
 metadata/KnockUp = false
 metadata/KnockUpPower = 0
@@ -226,7 +262,7 @@ disabled = true
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_tfm4p")
 anim_player = NodePath("../AnimationPlayerArms")
-parameters/lightgauntlet_tree/blend_position = Vector2(-1, 1)
+parameters/heavygauntlet_tree/blend_position = Vector2(-1, 1)
 
 [node name="AnimationPlayerArms" type="AnimationPlayer" parent="."]
 libraries = {
