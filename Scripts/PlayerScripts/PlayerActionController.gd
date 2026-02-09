@@ -4,7 +4,7 @@ extends CharacterBody2D
 var rng = RandomNumberGenerator.new()
 
 # Game engine
-enum state {idle, walk, run, roll, dash, hop, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, heal, burst, lag, spark, lazer, frost, storm}
+enum state {idle, walk, run, roll, dash, hop, jump, light_attack, heavy_attack, juggle_attack, push, hitstun, juggle, heal, burst, lag, spark, laser, frost, storm}
 var currentState
 var inventory
 var currentWeapon
@@ -62,8 +62,8 @@ var burstTimerDefault = 30
 var burstTimer = burstTimerDefault
 var sparkTimerDefault = 15
 var sparkTimer = sparkTimerDefault
-var lazerTimerDefault = 10
-var lazerTimer = lazerTimerDefault
+var laserTimerDefault = 10
+var laserTimer = laserTimerDefault
 var frostTimerDefault = 10
 var frostTimer = frostTimerDefault
 var stormTimerDefault = 10
@@ -85,7 +85,7 @@ var isDashEnabled = true
 var isJumpEnabled = true
 var isBurstUnlocked = false
 var isSparkActive = false
-var isLazerActive = true
+var isLaserActive = true
 var isFrostActive = false
 var isStormActive = false
 var isAquamarineEnabled = false
@@ -108,7 +108,7 @@ func _physics_process(delta):
 		handle_setup()
 	handle_states()
 	translate_states()
-	#%RichTextLabel.text = str(isSpeedBoosted)
+	%RichTextLabel.text = str(temp)
 	#%RichTextLabel.text = str(height, ", ", airCount, ", ", countJuggleDistance, ", ", KBSpeed, ", ", juggleDistanceY)
 	#%RichTextLabel.text = str(temp, ", ", isAttacking, ", ", isStationary)
 	#%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
@@ -166,7 +166,7 @@ func handle_states():
 	# Check if the player is allowed to control their x/y velocity using the control stick
 	# (If they are not: rolling, dashing, hopping, jumping, pushing, healing, using magic,
 	# in hitstun, being juggled, or marked as stationary by a stationary attack)
-	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.lag && currentState != state.spark && currentState != state.lazer && currentState != state.frost && currentState != state.storm:
+	if !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.hitstun && currentState != state.juggle && currentState != state.heal && currentState != state.burst && currentState != state.lag && currentState != state.spark && currentState != state.laser && currentState != state.frost && currentState != state.storm:
 		check_move()
 	
 	# Check for what action the player is doing this frame and makes the proper assignment to variables
@@ -200,19 +200,19 @@ func handle_states():
 			currentState = state.heal
 		else:
 			print("cannot heal")
-	elif Input.is_action_just_pressed("action_light_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && currentState != state.spark && currentState != state.lazer && currentState != state.frost && currentState != state.storm:
+	elif Input.is_action_just_pressed("action_light_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && currentState != state.spark && currentState != state.laser && currentState != state.frost && currentState != state.storm:
 		if (attackLight != ""):
 			currentState = state.light_attack
-	elif Input.is_action_just_pressed("action_heavy_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark && currentState != state.lazer && currentState != state.frost && currentState != state.storm:
+	elif Input.is_action_just_pressed("action_heavy_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark && currentState != state.laser && currentState != state.frost && currentState != state.storm:
 		if (attackHeavy != ""):
 			currentState = state.heavy_attack
-	elif Input.is_action_just_pressed("action_juggle_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark && currentState != state.lazer && currentState != state.frost && currentState != state.storm:
+	elif Input.is_action_just_pressed("action_juggle_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark && currentState != state.laser && currentState != state.frost && currentState != state.storm:
 		if (attackJuggle  != ""):
 			currentState = state.juggle_attack
 	elif Input.is_action_just_pressed("action_spell") && isSparkActive:
 		currentState = state.spark
-	elif Input.is_action_just_pressed("action_spell") && isLazerActive:
-		currentState = state.lazer
+	elif Input.is_action_just_pressed("action_spell") && isLaserActive:
+		currentState = state.laser
 	elif Input.is_action_just_pressed("action_spell") && isFrostActive:
 		currentState = state.frost
 	elif Input.is_action_just_pressed("action_spell") && isStormActive:
@@ -234,7 +234,7 @@ func handle_states():
 			else:
 				print("cannot use SP")
 	
-	if currentState == state.walk || currentState == state.run || currentState == state.burst || currentState == state.spark || currentState == state.lazer || currentState == state.frost || currentState == state.storm:
+	if currentState == state.walk || currentState == state.run || currentState == state.burst || currentState == state.spark || currentState == state.laser || currentState == state.frost || currentState == state.storm:
 		if !isExhausted && (Input.is_action_just_pressed("action_dodge") && isDashEnabled && is_direction_held()) && (!isAttacking || isHemimorphiteEnabled):
 	# Moonstone is a challenge Gem that prevents the player from using stamina
 				if !isMoonStoneEnabled:
@@ -362,8 +362,8 @@ func handle_states():
 			burst() 
 		state.spark:
 			spark()
-		state.lazer:
-			lazer()
+		state.laser:
+			laser()
 		state.frost:
 			frost()
 		state.storm:
@@ -408,7 +408,7 @@ func translate_states():
 		16:
 			temp = "spark"
 		17: 
-			temp = "lazer"
+			temp = "laser"
 		18:
 			temp = "frost"
 		19:
@@ -692,19 +692,19 @@ func spark():
 	else:
 		sparkTimer -= 1
 
-func lazer():
-	if lazerTimer == lazerTimerDefault:
-		attack = load("res://Attacks/Player/laser.tscn")
+func laser():
+	if laserTimer == laserTimerDefault:
+		attack = load("res://Attacks/Player/LaserDetector.tscn")
 		add_child(attack.instantiate())
-	if lazerTimer <= 0:
-		lazerTimer = lazerTimerDefault
+	if laserTimer <= 0:
+		laserTimer = laserTimerDefault
 		replenish_movement_timers()
 		if is_direction_held():
 			currentState = state.walk
 		else:
 			currentState = state.idle
 	else:
-		lazerTimer -= 1
+		laserTimer -= 1
 		
 func frost():
 	if frostTimer == frostTimerDefault:

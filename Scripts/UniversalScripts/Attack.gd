@@ -67,6 +67,8 @@ func _physics_process(_delta):
 	determine_direction()
 	user.isAttacking = true
 	user.isStationary = get_meta("isStationary")
+	if name.contains("Laser"):
+		get_node("Area").scale.y = get_meta("Size")
 	if firstAttack && animation_tree != null:
 		animation_tree["parameters/playback"].travel(name.to_lower() + "_tree")
 		animation_tree.set("parameters/" + name.to_lower() + "_tree/blend_position", direction)

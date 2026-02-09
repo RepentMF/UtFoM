@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bqd3npfrv3jvk"]
 
-[ext_resource type="Script" uid="uid://d2s6tskhkgl4o" path="res://Attacks/Player/Laser.gd" id="1_xv2qa"]
+[ext_resource type="Script" uid="uid://kxa2huiftonb" path="res://Attacks/Player/LaserDetector.gd" id="1_xv2qa"]
 
 [node name="RayCast2D" type="RayCast2D"]
 z_index = -1
@@ -11,5 +11,3 @@ script = ExtResource("1_xv2qa")
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 0)
 default_color = Color(0.7943987, 2.2621452e-06, 0, 1)
-
-[node name="ShapeCast2D" type="ShapeCast2D" parent="."]

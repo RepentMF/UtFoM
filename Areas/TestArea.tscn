@@ -38,9 +38,8 @@ y_sort_enabled = true
 position = Vector2(-16, 0)
 
 [node name="SlimeCharacter" parent="." instance=ExtResource("8_1ltbh")]
-process_mode = 4
 modulate = Color(0.564706, 1, 0.694118, 1)
-position = Vector2(203, -45)
+position = Vector2(26, -25)
 metadata/Health = 200
 metadata/MaxHealth = 200
 
