@@ -85,8 +85,8 @@ var isDashEnabled = true
 var isJumpEnabled = true
 var isBurstUnlocked = false
 var isSparkActive = false
-var isLaserActive = true
-var isFrostActive = false
+var isLaserActive = false
+var isFrostActive = true
 var isStormActive = false
 var isAquamarineEnabled = false
 var isCinnabarEnabled = false
@@ -708,7 +708,9 @@ func laser():
 		
 func frost():
 	if frostTimer == frostTimerDefault:
-		print("frost")
+		attack = load("res://Attacks/Player/Frost.tscn")
+		get_tree().current_scene.add_child(attack.instantiate())
+		get_tree().current_scene.get_node("Frost").position = position
 	if frostTimer <= 0:
 		frostTimer = frostTimerDefault
 		replenish_movement_timers()

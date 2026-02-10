@@ -45,6 +45,7 @@ func _ready():
 	statusFreq = get_meta("StatusFreq")
 	statusChange = get_meta("StatusChange")
 	userName = get_meta("UserName")
+	print(userName)
 	if userName == "PlayerCharacter":
 		animation_tree = get_node("AnimationTree")
 	if statusName != "":
@@ -240,6 +241,7 @@ func next_attack(next):
 		user.isStationary = false
 		user.secondAttack = false
 		queue_free()
+		print("244")
 	elif next == name:
 		if !user.secondAttack:
 			animation_tree["parameters/playback"].travel(next.to_lower() + "_2_tree")
@@ -255,4 +257,5 @@ func _on_animation_finished(anim_name):
 	user.canCombo = false
 	user.secondAttack = false
 	queue_free()
+	print("260")
 	pass # Replace with function body.

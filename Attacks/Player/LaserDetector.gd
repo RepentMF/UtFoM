@@ -28,3 +28,14 @@ func _physics_process(_delta: float):
 			laserDistance = abs(snappedf(laserDistance.y, 0.1))
 		print(laserDistance)
 		checkedDistance = true
+	else:
+		target_position = get_parent().global_position + (direction * 1000)
+		$Line2D.points[1] = target_position
+		stopPosition = target_position
+		laserDistance = direction * 1000
+		if laserDistance.y == 0:
+			laserDistance = abs(snappedf(laserDistance.x, 0.1))
+		else:
+			laserDistance = abs(snappedf(laserDistance.y, 0.1))
+		print(laserDistance)
+		checkedDistance = true
