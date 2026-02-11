@@ -46,12 +46,12 @@ func _ready():
 	enemyName = get_meta("Name")
 	enemyAttacks = get_node(enemyName + "AttacksController")
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	handle_states()
 	#%RichTextLabel.text = temp
 	#%RichTextLabel.text = str(hitstunTimer)
 	#%RichTextLabel.text = str(name, ", ", z_index)
-	%RichTextLabel.text = str(temp, ", ", "\nHP: ", get_node("StatsController").currentHealth, "/", get_node("StatsController").maxHealth, "\nMP: ", get_node("StatsController").currentMana, "\nSP: ", get_node("StatsController").currentStamina)
+	#%RichTextLabel.text = str(isExhausted)
 
 func handle_states():
 	match currentState:

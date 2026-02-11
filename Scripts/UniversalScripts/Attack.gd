@@ -26,6 +26,7 @@ var statusChange = 0
 var userName
 var allowCombo = false
 var firstAttack = true
+var continueAttack = true
 
 func _ready():
 	if get_meta("Offset") != 0:
@@ -45,6 +46,7 @@ func _ready():
 	statusFreq = get_meta("StatusFreq")
 	statusChange = get_meta("StatusChange")
 	userName = get_meta("UserName")
+	continueAttack = get_meta("ContinueAttacking")
 	print(userName)
 	if userName == "PlayerCharacter":
 		animation_tree = get_node("AnimationTree")
@@ -66,7 +68,8 @@ func _physics_process(_delta):
 		z_index = 4
 	direction = user.lastDirection
 	determine_direction()
-	user.isAttacking = true
+	if continueAttack:
+		user.isAttacking = true
 	user.isStationary = get_meta("isStationary")
 	if name.contains("Laser"):
 		get_node("Area").scale.y = get_meta("Size")
@@ -251,7 +254,7 @@ func next_attack(next):
 			animation_tree["parameters/playback"].travel(next.to_lower() + "_3_tree")
 			animation_tree.set("parameters/" + next.to_lower() + "_3_tree/blend_position", direction)
 
-func _on_animation_finished(anim_name):
+func _on_animation_finished(_anim_name):
 	user.isAttacking = false
 	user.isStationary = false
 	user.canCombo = false

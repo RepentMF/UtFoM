@@ -102,13 +102,13 @@ var isGosheniteEnabled = false
 var isMoonStoneEnabled = false
 var isPearlEnabled = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	# Bool "done" is false until "handle_setup()" is complete
 	if !done:
 		handle_setup()
 	handle_states()
 	translate_states()
-	%RichTextLabel.text = str(temp)
+	%RichTextLabel.text = str(isAttacking)
 	#%RichTextLabel.text = str(height, ", ", airCount, ", ", countJuggleDistance, ", ", KBSpeed, ", ", juggleDistanceY)
 	#%RichTextLabel.text = str(temp, ", ", isAttacking, ", ", isStationary)
 	#%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
@@ -707,20 +707,29 @@ func laser():
 		laserTimer -= 1
 		
 func frost():
-	if frostTimer == frostTimerDefault:
+	if !get_tree().current_scene.has_node("Frost"):
 		attack = load("res://Attacks/Player/Frost.tscn")
 		get_tree().current_scene.add_child(attack.instantiate())
 		get_tree().current_scene.get_node("Frost").position = position
-	if frostTimer <= 0:
-		frostTimer = frostTimerDefault
 		replenish_movement_timers()
-		if is_direction_held():
-			currentState = state.walk
-		else:
-			currentState = state.idle
+	if is_direction_held():
+		currentState = state.walk
 	else:
-		frostTimer -= 1
-		
+		currentState = state.idle
+	#if frostTimer == frostTimerDefault:
+	#	attack = load("res://Attacks/Player/Frost.tscn")
+	#	get_tree().current_scene.add_child(attack.instantiate())
+	#	get_tree().current_scene.get_node("Frost").position = position
+	#if frostTimer <= 0:
+	#	frostTimer = frostTimerDefault
+	#	replenish_movement_timers()
+	#	if is_direction_held():
+	#		currentState = state.walk
+	#	else:
+	#		currentState = state.idle
+	#else:
+	#	frostTimer -= 1
+
 func storm():
 	if stormTimer == stormTimerDefault:
 		print("storm")

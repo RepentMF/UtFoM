@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=3 uid="uid://j5l48mqu5gil"]
 
-[ext_resource type="Script" uid="uid://d1psx0prnx2o" path="res://Scripts/UniversalScripts/Attack.gd" id="1_irgch"]
-[ext_resource type="Texture2D" uid="uid://b1e4464uvcnkh" path="res://Sprites/GroundedHammer_PCAttacks.png" id="2_eox2m"]
+[ext_resource type="Script" uid="uid://c32nja13psv24" path="res://Scripts/UniversalScripts/Attack.gd" id="1_irgch"]
+[ext_resource type="Texture2D" uid="uid://2s1ah1pcqno0" path="res://Sprites/GroundedHammer_PCAttacks.png" id="2_eox2m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycjq1"]
 size = Vector2(2.99385, 3.02335)
@@ -440,6 +440,82 @@ tracks/5/keys = {
 "values": [Vector2(-18.5, 4)]
 }
 
+[sub_resource type="Animation" id="Animation_eox2m"]
+resource_name = "heavyhammer_6"
+length = 0.933
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackingSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.2667, 0.4, 0.53333336, 0.6667, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [169, 170, 171, 172, 173, 174, 175]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackingSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackingSprite:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Area/PhysicalHitbox:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Area/PhysicalHitbox:shape")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_448xc")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Area/PhysicalHitbox:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(18.5, 4)]
+}
+
 [sub_resource type="Animation" id="Animation_c5855"]
 resource_name = "heavyhammer_7"
 length = 0.933
@@ -671,82 +747,6 @@ tracks/5/keys = {
 "values": [Vector2(14.5, -8.5)]
 }
 
-[sub_resource type="Animation" id="Animation_eox2m"]
-resource_name = "heavyhammer_6"
-length = 0.933
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackingSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.13333334, 0.2667, 0.4, 0.53333336, 0.6667, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [169, 170, 171, 172, 173, 174, 175]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AttackingSprite:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AttackingSprite:z_index")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [-1]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Area/PhysicalHitbox:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.13333334, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Area/PhysicalHitbox:shape")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [SubResource("RectangleShape2D_448xc")]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Area/PhysicalHitbox:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(18.5, 4)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mbvgy"]
 _data = {
 &"RESET": SubResource("Animation_5nin4"),
@@ -778,6 +778,7 @@ metadata/isStationary = true
 metadata/UserName = "PlayerCharacter"
 metadata/ManaCost = 0
 metadata/StaminaCost = 0
+metadata/ContinueAttacking = true
 
 [node name="AttackingSprite" type="Sprite2D" parent="."]
 position = Vector2(-1.19209e-07, 0)

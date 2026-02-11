@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://dkew6tjkkgb3t"]
 
-[ext_resource type="Script" uid="uid://dl6pfqmc7jnqw" path="res://Scripts/UniversalScripts/Attack.gd" id="1_j3k6k"]
+[ext_resource type="Script" uid="uid://c32nja13psv24" path="res://Scripts/UniversalScripts/Attack.gd" id="1_j3k6k"]
 [ext_resource type="Texture2D" uid="uid://2s1ah1pcqno0" path="res://Sprites/GroundedHammer_PCAttacks.png" id="2_o8y01"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uqoox"]
@@ -438,6 +438,7 @@ metadata/UserName = "PlayerCharacter"
 metadata/ManaCost = 0
 metadata/StaminaCost = 0
 metadata/Size = 0.0
+metadata/ContinueAttacking = false
 
 [node name="AttackingSprite" type="Sprite2D" parent="."]
 z_index = -1

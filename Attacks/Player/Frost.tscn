@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://cxqbu7p8jluq"]
 
-[ext_resource type="Script" uid="uid://dl6pfqmc7jnqw" path="res://Scripts/UniversalScripts/Attack.gd" id="1_ucn45"]
+[ext_resource type="Script" uid="uid://c32nja13psv24" path="res://Scripts/UniversalScripts/Attack.gd" id="1_ucn45"]
 [ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="2_fkpgv"]
 [ext_resource type="AnimationLibrary" uid="uid://bgmju275xxwyd" path="res://Animations/Player/Frost/Frost.res" id="4_3mj0n"]
 
@@ -78,24 +78,26 @@ z_index = -1
 position = Vector2(0.5, 0)
 script = ExtResource("1_ucn45")
 metadata/Speed = 0
-metadata/HitstunTimer = 15
+metadata/HitstunTimer = 0
 metadata/KnockUp = false
 metadata/KnockUpPower = 0
 metadata/Status = "exhaust"
 metadata/StatusTimer = 10
 metadata/StatusFreq = 0
-metadata/StatusChange = 5
+metadata/StatusChange = 100
 metadata/AttackTimer = 0
-metadata/Damage = -15
+metadata/Damage = 0
 metadata/isStationary = false
 metadata/UserName = "PlayerCharacter"
 metadata/ManaCost = 0
 metadata/StaminaCost = 0
 metadata/Offset = 0
+metadata/ContinueAttacking = false
 
 [node name="Area" type="Area2D" parent="."]
 collision_layer = 129
 collision_mask = 129
+priority = -620
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
 shape = SubResource("RectangleShape2D_ucn45")

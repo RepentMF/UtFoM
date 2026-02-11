@@ -72,6 +72,7 @@ metadata/UserName = "PlayerCharacter"
 metadata/ManaCost = 0
 metadata/StaminaCost = 0
 metadata/Offset = 0
+metadata/ContinueAttacking = false
 
 [node name="AttackingSpriteArm" type="Sprite2D" parent="."]
 z_index = -5
