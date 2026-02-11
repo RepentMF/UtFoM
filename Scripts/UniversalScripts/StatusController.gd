@@ -46,7 +46,9 @@ func _physics_process(_delta):
 					actions.isExhausted = true
 					status.statDefault = actions.walkSpeed
 					stats.currentStamina = 0
+					print(actions.walkSpeed)
 					actions.walkSpeed = stats.modify_stat(actions.walkSpeed, float(0.01 * status.change) * actions.walkSpeed, actions.walkSpeed)
+					print(actions.walkSpeed)
 				elif status.timer <= 0 || stats.currentStamina == stats.maxStamina:
 					actions.isExhausted = false
 					actions.walkSpeed = status.statDefault
