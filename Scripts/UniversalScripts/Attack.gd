@@ -100,10 +100,12 @@ func _on_area_body_entered(body):
 								body.get_node("StatusController").statusList.push_front(status)
 					else:
 						body.get_node("StatusController").statusList.push_front(status)
-				body.hitstunTimer = hitstunTimer
-				body.hitstunDirection = direction
-				body.KBSpeed = speed
-				body.currentState = body.state.hitstun
+				if hitstunTimer != 0:
+					body.hitstunTimer = hitstunTimer
+					body.hitstunDirection = direction
+					body.currentState = body.state.hitstun
+				if speed != 0:
+					body.KBSpeed = speed
 				if knockUp:
 					body.juggleSpeed = knockUpPower
 					body.currentState = body.state.juggle
