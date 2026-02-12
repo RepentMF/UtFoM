@@ -48,7 +48,7 @@ func _ready():
 
 func _physics_process(_delta):
 	handle_states()
-	#%RichTextLabel.text = temp
+	%RichTextLabel.text = str(stats.currentHealth)
 	#%RichTextLabel.text = str(hitstunTimer)
 	#%RichTextLabel.text = str(name, ", ", z_index)
 	#%RichTextLabel.text = str(isExhausted)

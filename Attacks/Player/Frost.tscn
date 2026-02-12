@@ -81,11 +81,11 @@ metadata/Speed = 0
 metadata/HitstunTimer = 0
 metadata/KnockUp = false
 metadata/KnockUpPower = 0
-metadata/Status = "exhaust"
+metadata/Status = "bleed"
 metadata/StatusTimer = 10
-metadata/StatusFreq = 0
-metadata/StatusChange = 100
-metadata/AttackTimer = 0
+metadata/StatusFreq = 3
+metadata/StatusChange = -2
+metadata/AttackTimer = 60
 metadata/Damage = 0
 metadata/isStationary = false
 metadata/UserName = "PlayerCharacter"
@@ -97,7 +97,6 @@ metadata/ContinueAttacking = false
 [node name="Area" type="Area2D" parent="."]
 collision_layer = 129
 collision_mask = 129
-priority = -620
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
 shape = SubResource("RectangleShape2D_ucn45")

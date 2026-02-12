@@ -36,7 +36,8 @@ func gem_function_checker(attack):
 		if rng.randi() % 4 == 0:
 			attack.manaDamage = abs(attack.manaCost)
 	if isOpalEnabled:
-		if rng.randi() % 4 == 0:
+		#if rng.randi() % 4 == 0:
+			print("hello bug")
 			attack.statusName = "execute"
 			attack.statusTimer = 0
 			attack.statusFreq = 0
