@@ -60,3 +60,11 @@ func _physics_process(_delta):
 				elif status.timer <= 0:
 					statusList.erase(status)
 			status.timer -= 1
+
+func check_status_index(statusToCheck):
+	var statusIndex = -1
+	if !statusList.is_empty():
+		for status in statusList:
+			if status.name == statusToCheck.name:
+				statusIndex = statusList.find(status)
+	return statusIndex

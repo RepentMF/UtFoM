@@ -91,15 +91,17 @@ func _on_area_body_entered(body):
 				if userName == "PlayerCharacter":
 					get_tree().current_scene.get_node("GemsController").gem_function_checker(self)
 				for status in statusList:
-					if !body.get_node("StatusController").statusList.is_empty():
-						for ctlStatus in body.get_node("StatusController").statusList:
-							if status.name == ctlStatus.name:
-								if status.timerDefault > ctlStatus.timerDefault || status.change > ctlStatus.change:
-									body.get_node("StatusController").statusList.push_front(status)
-							else:
-								body.get_node("StatusController").statusList.push_front(status)
-					else:
+					var statusIndex = body.get_node("StatusController").check_status_index(status)
+					if statusIndex == -1:
 						body.get_node("StatusController").statusList.push_front(status)
+					else:
+						if status.timerDefault > body.get_node("StatusController").statusList[statusIndex].timerDefault:
+							body.get_node("StatusController").statusList[statusIndex].timerDefault = status.timerDefault
+							body.get_node("StatusController").statusList[statusIndex].timer = status.timerDefault
+						if status.change > body.get_node("StatusController").statusList[statusIndex].change:
+							body.get_node("StatusController").statusList[statusIndex].change = status.change
+							body.get_node("StatusController").statusList[statusIndex].timerDefault = status.timerDefault
+							body.get_node("StatusController").statusList[statusIndex].timer = status.timerDefault
 				if hitstunTimer != 0:
 					body.hitstunTimer = hitstunTimer
 					body.hitstunDirection = direction
@@ -246,7 +248,6 @@ func next_attack(next):
 		user.isStationary = false
 		user.secondAttack = false
 		queue_free()
-		print("244")
 	elif next == name:
 		if !user.secondAttack:
 			animation_tree["parameters/playback"].travel(next.to_lower() + "_2_tree")
@@ -262,5 +263,4 @@ func _on_animation_finished(_anim_name):
 	user.canCombo = false
 	user.secondAttack = false
 	queue_free()
-	print("260")
 	pass # Replace with function body.
