@@ -1,0 +1,321 @@
+[gd_scene load_steps=17 format=3 uid="uid://y83amuafglwt"]
+
+[ext_resource type="Script" uid="uid://dl6pfqmc7jnqw" path="res://Scripts/UniversalScripts/Attack.gd" id="1_xiyfv"]
+[ext_resource type="Texture2D" uid="uid://c2h4iji2dwjtp" path="res://Sprites/GroundedGauntletArm_PCAttacks.png" id="2_xiyfv"]
+[ext_resource type="Texture2D" uid="uid://bwgl04i8pnfct" path="res://Sprites/GroundedGauntlet_PCAttacks.png" id="3_xiyfv"]
+[ext_resource type="AnimationLibrary" uid="uid://jctyl3ru20vy" path="res://Animations/Player/LightGauntlet/LightGauntlet.res" id="4_cjrpt"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_42qkj"]
+animation = &"LightGauntlet/lightgauntlet_1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0fhk3"]
+animation = &"LightGauntlet/lightgauntlet_4"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3fgij"]
+animation = &"LightGauntlet/lightgauntlet_7"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lpgb1"]
+animation = &"LightGauntlet/lightgauntlet_8"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mxg2w"]
+animation = &"LightGauntlet/lightgauntlet_9"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hqic4"]
+animation = &"LightGauntlet/lightgauntlet_6"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tjms0"]
+animation = &"LightGauntlet/lightgauntlet_3"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ocwoq"]
+animation = &"LightGauntlet/lightgauntlet_2"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_su1mm"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_42qkj")
+blend_point_0/pos = Vector2(-1, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_0fhk3")
+blend_point_1/pos = Vector2(-1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_3fgij")
+blend_point_2/pos = Vector2(-1, -1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_lpgb1")
+blend_point_3/pos = Vector2(0, -1)
+blend_point_4/node = SubResource("AnimationNodeAnimation_mxg2w")
+blend_point_4/pos = Vector2(1, -1)
+blend_point_5/node = SubResource("AnimationNodeAnimation_hqic4")
+blend_point_5/pos = Vector2(1, 0)
+blend_point_6/node = SubResource("AnimationNodeAnimation_tjms0")
+blend_point_6/pos = Vector2(1, 1)
+blend_point_7/node = SubResource("AnimationNodeAnimation_ocwoq")
+blend_point_7/pos = Vector2(0, 1)
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tfm4p"]
+states/lightgauntlet_tree/node = SubResource("AnimationNodeBlendSpace2D_su1mm")
+states/lightgauntlet_tree/position = Vector2(519, 102)
+
+[sub_resource type="Animation" id="Animation_xiyfv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackingSpriteArm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackingSpriteGauntlet:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackingSpriteGauntlet2:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AttackingSpriteGauntlet:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(11, 7)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AttackingSpriteGauntlet2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-11, 7)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AttackingSpriteGauntlet:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AttackingSpriteGauntlet2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Area/PhysicalHitbox:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-4.945, 12.825)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AttackingSpriteGauntlet2:flip_v")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AttackingSpriteGauntlet:z_index")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("AttackingSpriteGauntlet2:z_index")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("AttackingSpriteGauntlet:flip_v")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("AttackingSpriteGauntlet:flip_h")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("AttackingSpriteGauntlet2:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("AttackingSpriteGauntlet2:flip_h")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("AttackingSpriteGauntlet:rotation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("AttackingSpriteArm:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cjrpt"]
+_data = {
+&"RESET": SubResource("Animation_xiyfv")
+}
+
+[node name="LightGauntlet" type="Node2D"]
+z_index = -1
+script = ExtResource("1_xiyfv")
+metadata/Speed = 0
+metadata/HitstunTimer = 35
+metadata/KnockUp = false
+metadata/KnockUpPower = 0
+metadata/Status = ""
+metadata/StatusTimer = 0
+metadata/StatusFreq = 0
+metadata/StatusChange = 0
+metadata/AttackTimer = -1
+metadata/Damage = -5
+metadata/isStationary = true
+metadata/UserName = "PlayerCharacter"
+metadata/ManaCost = 0
+metadata/StaminaCost = 0
+
+[node name="AttackingSpriteArm" type="Sprite2D" parent="."]
+position = Vector2(-0.5, 0)
+texture = ExtResource("2_xiyfv")
+hframes = 3
+vframes = 8
+
+[node name="AttackingSpriteGauntlet" type="Sprite2D" parent="."]
+position = Vector2(11, 7)
+texture = ExtResource("3_xiyfv")
+hframes = 3
+vframes = 2
+
+[node name="AttackingSpriteGauntlet2" type="Sprite2D" parent="."]
+position = Vector2(-11, 7)
+texture = ExtResource("3_xiyfv")
+hframes = 3
+vframes = 2
+
+[node name="Area" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+
+[node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
+position = Vector2(-4.945, 12.825)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_tfm4p")
+anim_player = NodePath("../AnimationPlayerArms")
+parameters/lightgauntlet_tree/blend_position = Vector2(-1, 1)
+
+[node name="AnimationPlayerArms" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_cjrpt"),
+&"LightGauntlet": ExtResource("4_cjrpt")
+}
+
+[connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_finished"]

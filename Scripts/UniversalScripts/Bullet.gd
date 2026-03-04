@@ -5,7 +5,7 @@ var shot = false
 var hitstunTimer = 0
 var direction = Vector2(0, 0)
 var speed = 0
-var height = "grounded"
+var bulletHeight = "grounded"
 var knockUp = false
 var knockUpPower = 0
 var baseDamage = 0
@@ -61,28 +61,29 @@ func _on_area_body_entered(body):
 				if knockUp:
 					body.juggleSpeed = knockUpPower
 					body.currentState = body.state.juggle
+					print("here?")
 				run_damage_calc(body)
 				queue_free()
 	pass # Replace with function body.
 
 func height_check(bodyHeight):
 	if bodyHeight == "grounded":
-		if height == "grounded":
+		if bulletHeight == "grounded" || bulletHeight == "aerial":
 			return true
 		else:
 			return false
-	if bodyHeight == "low":
-		if height == "low" || height == "mid":
+	elif bodyHeight == "low":
+		if bulletHeight == "grounded" || bulletHeight == "low" || bulletHeight == "mid" || bulletHeight == "aerial":
 			return true
 		else:
 			return false
 	elif bodyHeight == "mid":
-		if height == "mid" || height == "aerial":
+		if bulletHeight == "mid" || bulletHeight == "aerial":
 			return true
 		else:
 			return false
 	elif bodyHeight == "aerial":
-		if height == "aerial":
+		if bulletHeight == "aerial":
 			return true
 		else:
 			return false
@@ -103,12 +104,12 @@ func _on_area_area_entered(area):
 		elif area.name.contains("Player"):
 			shot = true
 			direction = area.get_parent().direction
-		height = area.get_parent().height
-		if height == "aerial":
+		bulletHeight = area.get_parent().height
+		if bulletHeight == "aerial":
 			z_index = 7
-		elif height == "mid":
+		elif bulletHeight == "mid":
 			z_index = 6
-		elif height == "low":
+		elif bulletHeight == "low":
 			z_index = 5
 		else:
 			z_index = 4

@@ -1,0 +1,231 @@
+[gd_scene load_steps=26 format=3 uid="uid://b8ldpsd2wp64d"]
+
+[ext_resource type="Script" uid="uid://d1psx0prnx2o" path="res://Scripts/UniversalScripts/Attack.gd" id="1_4bxw6"]
+[ext_resource type="Texture2D" uid="uid://pc8ldi3uhlsb" path="res://Sprites/GroundedBlade_PCAttacks.png" id="2_4bxw6"]
+[ext_resource type="AnimationLibrary" uid="uid://biphw675fhm8" path="res://Animations/Player/LightBlade/LightBlade.res" id="3_p0l02"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0l02"]
+size = Vector2(15, 20)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uiu35"]
+animation = &"LightBlade/lightblade2_1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s4t7h"]
+animation = &"LightBlade/lightblade2_2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oyie7"]
+animation = &"LightBlade/lightblade2_3"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a66sr"]
+animation = &"LightBlade/lightblade2_4"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g50nm"]
+animation = &"LightBlade/lightblade2_6"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uwu43"]
+animation = &"LightBlade/lightblade2_7"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3m3op"]
+animation = &"LightBlade/lightblade2_8"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q2mre"]
+animation = &"LightBlade/lightblade2_9"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_puorr"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_uiu35")
+blend_point_0/pos = Vector2(-1, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_s4t7h")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_oyie7")
+blend_point_2/pos = Vector2(1, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_a66sr")
+blend_point_3/pos = Vector2(-1, 0)
+blend_point_4/node = SubResource("AnimationNodeAnimation_g50nm")
+blend_point_4/pos = Vector2(1, 0)
+blend_point_5/node = SubResource("AnimationNodeAnimation_uwu43")
+blend_point_5/pos = Vector2(-1, -1)
+blend_point_6/node = SubResource("AnimationNodeAnimation_3m3op")
+blend_point_6/pos = Vector2(0, -1)
+blend_point_7/node = SubResource("AnimationNodeAnimation_q2mre")
+blend_point_7/pos = Vector2(1, -1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_041ug"]
+animation = &"LightBlade/lightblade1_7"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_46rcx"]
+animation = &"LightBlade/lightblade1_8"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4u3oi"]
+animation = &"LightBlade/lightblade1_9"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pgsc7"]
+animation = &"LightBlade/lightblade1_4"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mb36s"]
+animation = &"LightBlade/lightblade1_6"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yq0yb"]
+animation = &"LightBlade/lightblade1_1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wp31f"]
+animation = &"LightBlade/lightblade1_2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_njime"]
+animation = &"LightBlade/lightblade1_3"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_vjef1"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_041ug")
+blend_point_0/pos = Vector2(-1, -1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_46rcx")
+blend_point_1/pos = Vector2(0, -1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_4u3oi")
+blend_point_2/pos = Vector2(1, -1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_pgsc7")
+blend_point_3/pos = Vector2(-1, 0)
+blend_point_4/node = SubResource("AnimationNodeAnimation_mb36s")
+blend_point_4/pos = Vector2(1, 0)
+blend_point_5/node = SubResource("AnimationNodeAnimation_yq0yb")
+blend_point_5/pos = Vector2(-1, 1)
+blend_point_6/node = SubResource("AnimationNodeAnimation_wp31f")
+blend_point_6/pos = Vector2(0, 1)
+blend_point_7/node = SubResource("AnimationNodeAnimation_njime")
+blend_point_7/pos = Vector2(1, 1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_msjfn"]
+states/End/position = Vector2(621, 132)
+states/lightblade_2_tree/node = SubResource("AnimationNodeBlendSpace2D_puorr")
+states/lightblade_2_tree/position = Vector2(397, 167)
+states/lightblade_tree/node = SubResource("AnimationNodeBlendSpace2D_vjef1")
+states/lightblade_tree/position = Vector2(397, 100)
+graph_offset = Vector2(161, -10)
+
+[sub_resource type="Animation" id="Animation_a650w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackingSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackingSprite:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackingSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Area/PhysicalHitbox:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Area/PhysicalHitbox:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-3.5, 17)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Area/PhysicalHitbox:shape")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_p0l02")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w26ko"]
+_data = {
+&"RESET": SubResource("Animation_a650w")
+}
+
+[node name="LightBlade" type="Node2D"]
+z_index = -1
+position = Vector2(-0.5, 0)
+script = ExtResource("1_4bxw6")
+metadata/Speed = 0
+metadata/HitstunTimer = 45
+metadata/KnockUp = false
+metadata/KnockUpPower = 0
+metadata/Status = ""
+metadata/StatusTimer = 0
+metadata/StatusFreq = 0
+metadata/StatusChange = 0
+metadata/AttackTimer = -1
+metadata/Damage = -10
+metadata/isStationary = true
+metadata/UserName = "PlayerCharacter"
+metadata/ManaCost = 0
+metadata/StaminaCost = 0
+
+[node name="AttackingSprite" type="Sprite2D" parent="."]
+position = Vector2(-1.19209e-07, 0)
+texture = ExtResource("2_4bxw6")
+hframes = 9
+vframes = 8
+region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
+
+[node name="Area" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+
+[node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
+position = Vector2(-3.5, 17)
+shape = SubResource("RectangleShape2D_p0l02")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_msjfn")
+anim_player = NodePath("../AnimationPlayer")
+parameters/lightblade_2_tree/blend_position = Vector2(0, 0)
+parameters/lightblade_tree/blend_position = Vector2(-0.96405226, 0.9306358)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_w26ko"),
+&"LightBlade": ExtResource("3_p0l02")
+}
+
+[connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_finished"]

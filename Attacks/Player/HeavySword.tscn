@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://pg5v6yfdaxmf"]
 
-[ext_resource type="Script" uid="uid://d1psx0prnx2o" path="res://Scripts/UniversalScripts/Attack.gd" id="1_p5gc0"]
+[ext_resource type="Script" uid="uid://c32nja13psv24" path="res://Scripts/UniversalScripts/Attack.gd" id="1_p5gc0"]
 [ext_resource type="Texture2D" uid="uid://brcsxct28qxua" path="res://Sprites/GroundedSword_PCAttacks.png" id="2_rm47m"]
 [ext_resource type="AnimationLibrary" uid="uid://blp5r60pdkc8x" path="res://Animations/Player/HeavySword/HeavySword.res" id="3_qv0ii"]
 
@@ -103,13 +103,12 @@ metadata/Status = ""
 metadata/StatusTimer = 0
 metadata/StatusFreq = 0
 metadata/StatusChange = 0
-metadata/AttackTimer = 0
+metadata/AttackTimer = -1
 metadata/Damage = -15
 metadata/isStationary = true
 metadata/UserName = "PlayerCharacter"
 metadata/ManaCost = 0
 metadata/StaminaCost = 0
-metadata/Offset = 0
 
 [node name="AttackingSprite" type="Sprite2D" parent="."]
 visible = false

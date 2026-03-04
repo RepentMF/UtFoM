@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://ct8qhnflu0fth"]
 
-[ext_resource type="Script" uid="uid://d1psx0prnx2o" path="res://Scripts/UniversalScripts/Attack.gd" id="1_6bm5c"]
+[ext_resource type="Script" uid="uid://c32nja13psv24" path="res://Scripts/UniversalScripts/Attack.gd" id="1_6bm5c"]
 [ext_resource type="Texture2D" uid="uid://cli0ui8b6luqq" path="res://Sprites/AshePunches_PCAttacks.png" id="2_6bm5c"]
 [ext_resource type="AnimationLibrary" uid="uid://dkgno6oq0owpc" path="res://Animations/Player/HeavyPunch/HeavyPunch.res" id="3_g0vbv"]
 
@@ -64,13 +64,12 @@ metadata/Status = ""
 metadata/StatusTimer = 0
 metadata/StatusFreq = 0
 metadata/StatusChange = 0
-metadata/AttackTimer = 0
+metadata/AttackTimer = -1
 metadata/Damage = -5
 metadata/isStationary = false
 metadata/UserName = "PlayerCharacter"
 metadata/ManaCost = 0
 metadata/StaminaCost = 0
-metadata/Offset = 0
 
 [node name="AttackingSprite" type="Sprite2D" parent="."]
 visible = false

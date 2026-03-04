@@ -16,7 +16,7 @@ var user
 var hitstunTimer = 0
 var direction
 var speed = 0
-var height = "grounded"
+var attackHeight = "grounded"
 var knockUp = false
 var knockUpPower = 0
 var statusName = ""
@@ -28,7 +28,7 @@ var allowCombo = false
 var firstAttack = true
 
 func _ready():
-	if get_meta("Offset") != 0:
+	if has_meta("Offset"):
 		offset = get_meta("Offset")
 	visible = false
 	baseDamage = get_meta("Damage")
@@ -53,13 +53,15 @@ func _ready():
 func _physics_process(_delta):
 	if user == null:
 		user = get_tree().root.get_node("TestArea/" + userName)
+	if has_meta("HasException"):
+		user.hasException = true
 	attacked = true
-	height = user.height
-	if height == "aerial":
+	attackHeight = user.height
+	if attackHeight == "aerial":
 		z_index = 7
-	elif height == "mid":
+	elif attackHeight == "mid":
 		z_index = 6
-	elif height == "low":
+	elif attackHeight == "low":
 		z_index = 5
 	else:
 		z_index = 4
@@ -77,8 +79,15 @@ func _physics_process(_delta):
 			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, -manaCost, user.stats.maxMana)
 			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, int(roundf(float(manaCost) / 2)), user.stats.maxMana)
 			user.stats.currentHealth = user.stats.modify_stat(user.stats.currentHealth, int(roundf(float(manaCost) / 2)), user.stats.maxHealth)
+	if attackTimer != -1:
+		if attackTimer > 0:
+			attackTimer -= 1
+		elif attackTimer == 0:
+			finish_attack()
 
 func _on_area_body_entered(body):
+	if user == null:
+		user = get_tree().root.get_node("TestArea/" + userName)
 	if body is CharacterBody2D && body.name != userName:
 		if height_check(body.height):
 			if !body.isInvincible:
@@ -101,6 +110,21 @@ func _on_area_body_entered(body):
 				if knockUp:
 					body.juggleSpeed = knockUpPower
 					body.currentState = body.state.juggle
+				if self.name == "Daze" || self.name == "Burst":
+					var burstDir = user.position.direction_to(body.position)
+					if abs(burstDir.x) < .6:
+						burstDir.x = 0
+					elif abs(burstDir.x) < .8:
+						burstDir.x = sign(burstDir.x) * 0.7404
+					else:
+						burstDir.x = sign(burstDir.x)
+					if abs(burstDir.y) < .3:
+						burstDir.y = 0
+					elif abs(burstDir.y) < .8:
+						burstDir.y = sign(burstDir.y) * 0.7404
+					else:
+						burstDir.y = sign(burstDir.y)
+					body.hitstunDirection = burstDir
 				run_damage_calc(body)
 	pass # Replace with function body.
 
@@ -165,7 +189,6 @@ func determine_direction():
 
 func set_character_visibility(visibleSet):
 	user.get_node("PlayerSprite").visible = visibleSet
-	print(visibleSet)
 
 func apply_speed_boost():
 	user.speedBoostVelocity = direction * user.dashSpeed
@@ -177,22 +200,22 @@ func remove_speed_boost():
 
 func height_check(bodyHeight):
 	if bodyHeight == "grounded":
-		if height == "grounded" || height == "aerial":
+		if attackHeight == "grounded" || attackHeight == "aerial":
 			return true
 		else:
 			return false
-	if bodyHeight == "low":
-		if height == "grounded" || height == "low" || height == "mid":
+	elif bodyHeight == "low":
+		if attackHeight == "grounded" || attackHeight == "low" || attackHeight == "mid" || attackHeight == "aerial":
 			return true
 		else:
 			return false
 	elif bodyHeight == "mid":
-		if height == "mid" || height == "aerial":
+		if attackHeight == "mid" || attackHeight == "aerial":
 			return true
 		else:
 			return false
 	elif bodyHeight == "aerial":
-		if height == "aerial":
+		if attackHeight == "aerial":
 			return true
 		else:
 			return false
@@ -230,6 +253,14 @@ func can_cancel():
 	user.canCombo = true
 	pass
 
+func finish_attack():
+	user.isAttacking = false
+	user.isStationary = false
+	user.canCombo = false
+	user.secondAttack = false
+	user.hasException = false
+	queue_free()
+
 func next_attack(next):
 	if next != name:
 		user.attack = load("res://Attacks/Player/" + next + ".tscn")
@@ -248,9 +279,5 @@ func next_attack(next):
 			animation_tree.set("parameters/" + next.to_lower() + "_3_tree/blend_position", direction)
 
 func _on_animation_finished(anim_name):
-	user.isAttacking = false
-	user.isStationary = false
-	user.canCombo = false
-	user.secondAttack = false
-	queue_free()
+	finish_attack()
 	pass # Replace with function body.

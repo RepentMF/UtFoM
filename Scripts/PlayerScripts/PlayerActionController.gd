@@ -11,6 +11,7 @@ var currentWeapon
 var attackLight = ""
 var attackHeavy = ""
 var attackJuggle = ""
+var attackBurst = ""
 var attackRoll = "BluntRoll"
 var attack
 var height = "grounded"
@@ -24,6 +25,7 @@ var countJuggleDistance = false
 var canCombo = false
 var secondAttack = false
 var isAttacking = false
+var hasException = false
 var isExhausted = false
 var isInvincible = false
 var isStationary = false
@@ -78,6 +80,7 @@ var canBunnyHop = false
 var isDashEnabled = true
 var isJumpEnabled = true
 var isBurstUnlocked = true
+var isDazeUnlocked = false
 var isAquamarineEnabled = false
 var isCinnabarEnabled = false
 var isAmetrineEnabled = false
@@ -98,12 +101,7 @@ func _physics_process(delta):
 		handle_setup()
 	handle_states()
 	translate_states()
-	#%RichTextLabel.text = str(isSpeedBoosted)
-	#%RichTextLabel.text = str(height, ", ", airCount, ", ", countJuggleDistance, ", ", KBSpeed, ", ", juggleDistanceY)
-	#%RichTextLabel.text = str(temp, ", ", isAttacking, ", ", isStationary)
-	#%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
-	#%RichTextLabel.text = str(temp, ", ", isAttacking, ", ", isStationary)
-	#%RichTextLabel.text = str(stats.currentHealth, " / ", stats.maxHealth) + "\n" + str(stats.currentMana, " / ", stats.maxMana) + "\n" + str(stats.currentStamina, " / ", stats.maxStamina) + "\n" + currentWeapon.name + ", " + str(inventory.inventory.find(inventory.currentWeapon))
+	%RichTextLabel.text = str(isAttacking, ", ", hasException)
 
 func handle_setup():
 	# Calling needed nodes and values to be used in the rest of PlayerActionController
@@ -113,6 +111,7 @@ func handle_setup():
 	attackLight = currentWeapon.light
 	attackHeavy = currentWeapon.heavy
 	attackJuggle = currentWeapon.juggle
+	attackBurst = "Burst"
 	rng.randomize()
 	done = true
 
@@ -163,27 +162,28 @@ func handle_states():
 	# in order to reflect that action choice
 	# We check with a priority order- spells are checked first, then healing, then attacks, then movement abilities- 
 	# whatever action the player chooses, we assign their StateMachine accordingly so long as the conditional passes true
-	if Input.is_action_just_pressed("action_spell") && isBurstUnlocked:
-	# Topaz is a dilemma Gem that allows the plyaer to cast spells for less mana cost at the difference
-	# being dealt to their health
-		if isTopazEnabled:
-			if stats.check_stat_overage(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana, true) && stats.check_stat_overage(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth, true):
-				stats.currentMana = stats.modify_stat(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana)
-				stats.currentHealth = stats.modify_stat(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth)
-	# Pearl is a chance Gem that returns mana spent on a spell to the player if the player successfully hits a target
-				if isPearlEnabled:
-					if rng.randi() % 4 == 0:
-						stats.currentMana = stats.modify_stat(stats.currentMana, -int(roundf(float(burstManaCost) / 2)), stats.maxMana)
-						stats.currentHealth = stats.modify_stat(stats.currentHealth, -int(roundf(float(burstManaCost) / 2)), stats.maxHealth)
-				currentState = state.burst
-		else:
-			if stats.check_stat_overage(stats.currentMana, burstManaCost, stats.maxMana, true):
-				stats.currentMana = stats.modify_stat(stats.currentMana, burstManaCost, stats.maxMana)
-	# Pearl is a chance Gem that returns mana spent on a spell to the player if the player successfully hits a target
-				if isPearlEnabled:
-					if rng.randi() % 4 == 0:
-						stats.currentMana = stats.modify_stat(stats.currentMana, -burstManaCost, stats.maxMana)
-				currentState = state.burst
+	if Input.is_action_just_pressed("action_spell"):
+		if ((isDazeUnlocked && !countJuggleDistance && currentState != state.hitstun) || isBurstUnlocked) && !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.heal && currentState != state.lag:
+		# Topaz is a dilemma Gem that allows the plyaer to cast spells for less mana cost at the difference
+		# being dealt to their health
+			if isTopazEnabled:
+				if stats.check_stat_overage(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana, true) && stats.check_stat_overage(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth, true):
+					stats.currentMana = stats.modify_stat(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana)
+					stats.currentHealth = stats.modify_stat(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth)
+		# Pearl is a chance Gem that returns mana spent on a spell to the player if the player successfully hits a target
+					if isPearlEnabled:
+						if rng.randi() % 4 == 0:
+							stats.currentMana = stats.modify_stat(stats.currentMana, -int(roundf(float(burstManaCost) / 2)), stats.maxMana)
+							stats.currentHealth = stats.modify_stat(stats.currentHealth, -int(roundf(float(burstManaCost) / 2)), stats.maxHealth)
+					currentState = state.burst
+			else:
+				if stats.check_stat_overage(stats.currentMana, burstManaCost, stats.maxMana, true):
+					stats.currentMana = stats.modify_stat(stats.currentMana, burstManaCost, stats.maxMana)
+		# Pearl is a chance Gem that returns mana spent on a spell to the player if the player successfully hits a target
+					if isPearlEnabled:
+						if rng.randi() % 4 == 0:
+							stats.currentMana = stats.modify_stat(stats.currentMana, -burstManaCost, stats.maxMana)
+					currentState = state.burst
 	elif Input.is_action_just_pressed("action_heal") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && height == "grounded":
 	# Goshenite is a challenge Gem that prevents the player from healing
 		if !isGosheniteEnabled:
@@ -193,10 +193,10 @@ func handle_states():
 	elif Input.is_action_just_pressed("action_light_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && currentState != state.spark:
 		if (attackLight != ""):
 			currentState = state.light_attack
-	elif Input.is_action_just_pressed("action_heavy_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark:
+	elif Input.is_action_just_pressed("action_heavy_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && currentState != state.spark:
 		if (attackHeavy != ""):
 			currentState = state.heavy_attack
-	elif Input.is_action_just_pressed("action_juggle_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark:
+	elif Input.is_action_just_pressed("action_juggle_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && currentState != state.spark:
 		if (attackJuggle  != ""):
 			currentState = state.juggle_attack
 	elif Input.is_action_just_pressed("action_spark"):
@@ -293,7 +293,6 @@ func handle_states():
 			roll()
 		state.dash:
 			if isDashEnabled:
-				temp = "dash"
 				dash()
 		state.hop:
 			hop()
@@ -301,7 +300,6 @@ func handle_states():
 			if isJumpEnabled:
 				if Input.is_action_just_pressed("action_heavy_attack") && isCinnabarEnabled:
 					heavy_attack()
-				temp = "jump"
 				jump()
 		state.light_attack:
 			light_attack()
@@ -331,10 +329,10 @@ func handle_states():
 				if juggleDistanceY < -26:
 					height = "aerial"
 					z_index = 8
-				elif juggleDistanceY < -11 && juggleDistanceY >= -25:
+				elif juggleDistanceY < -17 && juggleDistanceY >= -25:
 					height = "mid"
 					z_index = 7
-				elif juggleDistanceY < -1.5 && juggleDistanceY >= -10:
+				elif juggleDistanceY < -1.5 && juggleDistanceY >= -17:
 					height = "low"
 					z_index = 6
 				elif juggleDistanceY >= -1.5:
@@ -343,7 +341,7 @@ func handle_states():
 		state.heal:
 			heal()
 		state.burst:
-			burst() 
+			burst()
 		state.spark:
 			spark()
 		state.lag:
@@ -629,7 +627,16 @@ func heal():
 
 func burst():
 	# Bursting is based on a timer system and changes States and variables accordingly 
-	if burstTimer <= 0:
+	if !has_node(attackBurst) && burstTimer == burstTimerDefault:
+		attack = load("res://Attacks/Player/" + attackBurst + ".tscn")
+		add_child(attack.instantiate())
+		burstTimer -= 1
+		if !isInvincible:
+			isInvincible = true
+			velocity = Vector2(0, 0)
+	elif burstTimer != burstTimerDefault:
+		burstTimer -= 1
+	if !isAttacking && burstTimer <= 0:
 		burstTimer = burstTimerDefault
 		isInvincible = false
 		replenish_movement_timers()
@@ -640,11 +647,6 @@ func burst():
 				currentState = state.idle
 		else:
 			return_to_juggle()
-	else:
-		if !isInvincible:
-			isInvincible = true
-			velocity = Vector2(0, 0)
-		burstTimer -= 1
 
 func spark():
 	if sparkTimer == sparkTimerDefault:
