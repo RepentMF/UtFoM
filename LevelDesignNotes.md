@@ -24,7 +24,11 @@
 
 
 
-**Catacomb X Layer 2 Puzzle - 9-Gem (3 tiers) door and knowledge that Gem color combinations exist (Peridot assists)**
+**"X Tier" - 3 gem holes arranged in a triangle**
+
+
+
+**Catacomb X Layer 2 Puzzle - 3 tiered door and knowledge that Gem color combinations exist (Peridot assists)**
 
 
 
@@ -47,7 +51,7 @@
 
 **Room 4 (South exit, Secret exit)**
 
--upgrade scroll available (health upgrade)
+-puzzle room - basic solution reveals upgrade scroll (health upgrade)
 
 -Underground Secret exit available
 
@@ -64,8 +68,4 @@
 **The Chapel**
 
 **Bookcase Puzzle** - basic solution is to order books 1, 2, 3 (chronologically) and gives book; secret solution to order books by author last name and gives access to a catacomb
-
-
-
-
 

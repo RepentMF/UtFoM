@@ -1,7 +1,0 @@
-ROAD MAP FOR UTFOM
--finish player actions and attacks (due date was 1/21/2026)
--troubleshoot and review gem abilities and ensure they work correctly (due end of January)
--finish player moving attacks (due end of January)
--finish no-control player states (due end of January)
-
--work on map and level design; macro explanation, into micro level creation (due end of March)
