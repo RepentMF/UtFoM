@@ -470,6 +470,7 @@ metadata/UserName = "PlayerCharacter"
 metadata/ManaCost = 0
 metadata/StaminaCost = 0
 metadata/SpeedBoost = true
+metadata/ContinueAttacking = true
 
 [node name="AttackingSprite" type="Sprite2D" parent="."]
 z_index = -5

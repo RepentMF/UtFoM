@@ -26,6 +26,7 @@ var statusChange = 0
 var userName
 var allowCombo = false
 var firstAttack = true
+var continueAttack = true
 
 func _ready():
 	if has_meta("Offset"):
@@ -45,6 +46,8 @@ func _ready():
 	statusFreq = get_meta("StatusFreq")
 	statusChange = get_meta("StatusChange")
 	userName = get_meta("UserName")
+	continueAttack = get_meta("ContinueAttacking")
+	print(userName)
 	if userName == "PlayerCharacter":
 		animation_tree = get_node("AnimationTree")
 	if statusName != "":
@@ -67,8 +70,11 @@ func _physics_process(_delta):
 		z_index = 4
 	direction = user.lastDirection
 	determine_direction()
-	user.isAttacking = true
+	if continueAttack:
+		user.isAttacking = true
 	user.isStationary = get_meta("isStationary")
+	if name.contains("Laser"):
+		get_node("Area").scale.y = get_meta("Size")
 	if firstAttack && animation_tree != null:
 		animation_tree["parameters/playback"].travel(name.to_lower() + "_tree")
 		animation_tree.set("parameters/" + name.to_lower() + "_tree/blend_position", direction)
@@ -85,6 +91,7 @@ func _physics_process(_delta):
 		elif attackTimer == 0:
 			finish_attack()
 
+
 func _on_area_body_entered(body):
 	if user == null:
 		user = get_tree().root.get_node("TestArea/" + userName)
@@ -94,19 +101,23 @@ func _on_area_body_entered(body):
 				if userName == "PlayerCharacter":
 					get_tree().current_scene.get_node("GemsController").gem_function_checker(self)
 				for status in statusList:
-					if !body.get_node("StatusController").statusList.is_empty():
-						for ctlStatus in body.get_node("StatusController").statusList:
-							if status.name == ctlStatus.name:
-								if status.timerDefault > ctlStatus.timerDefault || status.change > ctlStatus.change:
-									body.get_node("StatusController").statusList.push_front(status)
-							else:
-								body.get_node("StatusController").statusList.push_front(status)
-					else:
+					var statusIndex = body.get_node("StatusController").check_status_index(status)
+					if statusIndex == -1:
 						body.get_node("StatusController").statusList.push_front(status)
-				body.hitstunTimer = hitstunTimer
-				body.hitstunDirection = direction
-				body.KBSpeed = speed
-				body.currentState = body.state.hitstun
+					else:
+						if status.timerDefault > body.get_node("StatusController").statusList[statusIndex].timerDefault:
+							body.get_node("StatusController").statusList[statusIndex].timerDefault = status.timerDefault
+							body.get_node("StatusController").statusList[statusIndex].timer = status.timerDefault
+						if status.change > body.get_node("StatusController").statusList[statusIndex].change:
+							body.get_node("StatusController").statusList[statusIndex].change = status.change
+							body.get_node("StatusController").statusList[statusIndex].timerDefault = status.timerDefault
+							body.get_node("StatusController").statusList[statusIndex].timer = status.timerDefault
+				if hitstunTimer != 0:
+					body.hitstunTimer = hitstunTimer
+					body.hitstunDirection = direction
+					body.currentState = body.state.hitstun
+				if speed != 0:
+					body.KBSpeed = speed
 				if knockUp:
 					body.juggleSpeed = knockUpPower
 					body.currentState = body.state.juggle
@@ -197,6 +208,7 @@ func apply_speed_boost():
 func remove_speed_boost():
 	user.speedBoostVelocity = Vector2(0, 0)
 	user.isSpeedBoosted = false
+
 
 func height_check(bodyHeight):
 	if bodyHeight == "grounded":

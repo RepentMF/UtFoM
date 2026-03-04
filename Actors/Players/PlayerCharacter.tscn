@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://cfktu0jkydgdl" path="res://Animations/Player/PlayerAnimationController.gd" id="5_1vsy1"]
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://cptpnlshvcno7" path="res://Animations/Player/player_walk_tree.tres" id="5_g6isn"]
 [ext_resource type="Script" uid="uid://cbrou84nb0qut" path="res://Scripts/PlayerScripts/Inventory.gd" id="7_y6huj"]
-[ext_resource type="Script" uid="uid://dt7ixqviunstw" path="res://Scripts/HUDScripts/HUDController.gd" id="10_okm1c"]
+[ext_resource type="Script" uid="uid://d26shikkrn1ma" path="res://Scripts/HUDScripts/HUDController.gd" id="10_okm1c"]
 [ext_resource type="Texture2D" uid="uid://depsrybwml8sd" path="res://Sprites/HUD/Empty HP.png" id="11_y6jjt"]
 [ext_resource type="Texture2D" uid="uid://csg3o60w682x1" path="res://Sprites/HUD/Full HP.png" id="12_okm1c"]
 [ext_resource type="Texture2D" uid="uid://d2bg4bhwgvgnf" path="res://Sprites/HUD/Sword.png" id="13_okm1c"]
@@ -1397,6 +1397,7 @@ script = ExtResource("5_1vsy1")
 script = ExtResource("7_y6huj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3

@@ -1,0 +1,123 @@
+[gd_scene load_steps=17 format=3 uid="uid://cxqbu7p8jluq"]
+
+[ext_resource type="Script" uid="uid://c32nja13psv24" path="res://Scripts/UniversalScripts/Attack.gd" id="1_ucn45"]
+[ext_resource type="Texture2D" uid="uid://sd7bqf6gr1sm" path="res://icon.svg" id="2_fkpgv"]
+[ext_resource type="AnimationLibrary" uid="uid://bgmju275xxwyd" path="res://Animations/Player/Frost/Frost.res" id="4_3mj0n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucn45"]
+size = Vector2(60, 60)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ucn45"]
+animation = &"Frost/frost_1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fkpgv"]
+animation = &"Frost/frost_2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3mj0n"]
+animation = &"Frost/frost_3"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0w8d4"]
+animation = &"Frost/frost_4"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wlmkm"]
+animation = &"Frost/frost_6"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gket5"]
+animation = &"Frost/frost_7"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vt85s"]
+animation = &"Frost/frost_8"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_khsx2"]
+animation = &"Frost/frost_9"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_pv8ns"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ucn45")
+blend_point_0/pos = Vector2(-1, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_fkpgv")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_3mj0n")
+blend_point_2/pos = Vector2(1, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_0w8d4")
+blend_point_3/pos = Vector2(-1, 0)
+blend_point_4/node = SubResource("AnimationNodeAnimation_wlmkm")
+blend_point_4/pos = Vector2(1, 0)
+blend_point_5/node = SubResource("AnimationNodeAnimation_gket5")
+blend_point_5/pos = Vector2(-1, -1)
+blend_point_6/node = SubResource("AnimationNodeAnimation_vt85s")
+blend_point_6/pos = Vector2(0, -1)
+blend_point_7/node = SubResource("AnimationNodeAnimation_khsx2")
+blend_point_7/pos = Vector2(1, -1)
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ucn45"]
+states/frost_tree/node = SubResource("AnimationNodeBlendSpace2D_pv8ns")
+states/frost_tree/position = Vector2(407, 100)
+
+[sub_resource type="Animation" id="Animation_fkpgv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area/PhysicalHitbox:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3mj0n"]
+_data = {
+&"RESET": SubResource("Animation_fkpgv")
+}
+
+[node name="Frost" type="Node2D"]
+z_index = -1
+position = Vector2(0.5, 0)
+script = ExtResource("1_ucn45")
+metadata/Speed = 0
+metadata/HitstunTimer = 0
+metadata/KnockUp = false
+metadata/KnockUpPower = 0
+metadata/Status = "bleed"
+metadata/StatusTimer = 10
+metadata/StatusFreq = 3
+metadata/StatusChange = -2
+metadata/AttackTimer = 60
+metadata/Damage = 0
+metadata/isStationary = false
+metadata/UserName = "PlayerCharacter"
+metadata/ManaCost = 0
+metadata/StaminaCost = 0
+metadata/Offset = 0
+metadata/ContinueAttacking = false
+
+[node name="Area" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+
+[node name="PhysicalHitbox" type="CollisionShape2D" parent="Area"]
+shape = SubResource("RectangleShape2D_ucn45")
+
+[node name="AttackingSprite" type="Sprite2D" parent="."]
+z_index = -5
+position = Vector2(-1.1920929e-07, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_fkpgv")
+region_rect = Rect2(30.8788, 96.9096, 14.2651, 16.1928)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_ucn45")
+anim_player = NodePath("../AnimationPlayer")
+parameters/frost_tree/blend_position = Vector2(0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3mj0n"),
+&"Frost": ExtResource("4_3mj0n")
+}
+
+[connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_finished"]

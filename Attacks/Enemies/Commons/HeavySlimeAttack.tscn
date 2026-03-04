@@ -26,6 +26,7 @@ metadata/UserName = "SlimeCharacter"
 metadata/ManaCost = 0
 metadata/StaminaCost = 0
 metadata/Offset = 4.0
+metadata/ContinueAttacking = true
 
 [node name="Sprite" type="Sprite2D" parent="."]
 visible = false
