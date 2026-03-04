@@ -15,7 +15,10 @@ var targetDirection
 var gravity = 2
 var countJuggleDistance = false
 var isAttacking = false
+var hasException = false
 var isStationary = true
+var canCombo = false
+var secondAttack = false
 var isExhausted = false
 var isInvincible = false
 var temp
@@ -46,12 +49,9 @@ func _ready():
 	enemyName = get_meta("Name")
 	enemyAttacks = get_node(enemyName + "AttacksController")
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	handle_states()
-	%RichTextLabel.text = str(stats.currentHealth)
-	#%RichTextLabel.text = str(hitstunTimer)
-	#%RichTextLabel.text = str(name, ", ", z_index)
-	#%RichTextLabel.text = str(isExhausted)
+	%RichTextLabel.text = temp
 
 func handle_states():
 	match currentState:
@@ -77,10 +77,10 @@ func handle_states():
 				if juggleDistanceY < -26:
 					height = "aerial"
 					z_index = 8
-				elif juggleDistanceY < -11 && juggleDistanceY >= -25:
+				elif juggleDistanceY < -17 && juggleDistanceY >= -25:
 					height = "mid"
 					z_index = 7
-				elif juggleDistanceY < -1.5 && juggleDistanceY >= -10:
+				elif juggleDistanceY < -1.5 && juggleDistanceY >= -17:
 					height = "low"
 					z_index = 6
 				elif juggleDistanceY >= -1.5:
@@ -142,6 +142,7 @@ func hitstun():
 				height = "grounded"
 			if encounterTarget != null:
 				enemyAttacks.replenish_attack_timers()
+				replenish_movement_timers()
 			currentState = state.idle
 		else:
 			return_to_juggle()
@@ -166,6 +167,7 @@ func juggle():
 			juggleDistanceY = 0
 			currentState = state.lag
 			enemyAttacks.replenish_attack_timers()
+			replenish_movement_timers()
 		else:
 			if airCount == 0 && groundedPosition == Vector2(0, 0) && (height == "grounded" || height == "low"):
 				groundedPosition = global_position
@@ -225,6 +227,11 @@ func determine_direction():
 			direction = lastDirection
 	else:
 		targetDirection = null
+
+func replenish_movement_timers():
+	idleTimer = idleTimerDefault
+	walkTimer = walkTimerDefault
+	lagTimer = lagTimerDefault
 
 func _on_area_2d_body_entered(body):
 	if body.name.contains("PlayerCharacter"):

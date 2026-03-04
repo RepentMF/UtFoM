@@ -8,6 +8,7 @@ func _ready():
 	inventory.push_back(new_weapon_add("knife", "it's a knife", "LightKnife", "LightKnife", "LightKnife")) # light, no looping
 	inventory.push_back(new_weapon_add("hammer", "hammer c:", "JuggleHammer", "HeavyHammer", "JuggleHammer")) # juggle 1 > juggle 2 > juggle 3 > heavy; juggle 1 > juggle 2 > heavy; juggle 1 > heavy; heavy
 	inventory.push_back(new_weapon_add("sword", "swoosh", "LightSword", "HeavySword", "LightSword")) # light 1 > light 2 > heavy; light 1 > heavy; heavy
+	inventory.push_back(new_weapon_add("gauntlet", "beeg fists", "LightGauntlet", "HeavyGauntlet", "LightGauntlet"))
 	inventory.push_back(new_weapon_add("claw", "santa", "LightClaw", "LightClaw", "LightClaw")) # light, no looping
 	inventory.push_back(new_weapon_add("blade", "swish", "LightBlade", "JuggleBlade", "JuggleBlade")) # light 1 > light 2 > juggle; light 1 > juggle; juggle
 	
