@@ -7,7 +7,6 @@ var hasActorException = false
 func _process(_delta):
 	if isActorAttacking != get_parent().isAttacking:
 		isActorAttacking = get_parent().isAttacking
-		print(isActorAttacking, ", ", hasActorException)
 		if isActorAttacking && !hasActorException:
 			texture = get_parent().get_node("NoArmsPlayerSprite").texture
 		else:

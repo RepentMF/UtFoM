@@ -26,7 +26,6 @@ func _physics_process(_delta: float):
 			laserDistance = abs(snappedf(laserDistance.x, 0.1))
 		else:
 			laserDistance = abs(snappedf(laserDistance.y, 0.1))
-		print(laserDistance)
 		checkedDistance = true
 	else:
 		target_position = get_parent().global_position + (direction * 1000)
@@ -37,5 +36,4 @@ func _physics_process(_delta: float):
 			laserDistance = abs(snappedf(laserDistance.x, 0.1))
 		else:
 			laserDistance = abs(snappedf(laserDistance.y, 0.1))
-		print(laserDistance)
 		checkedDistance = true

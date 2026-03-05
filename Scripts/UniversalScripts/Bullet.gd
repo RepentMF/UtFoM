@@ -61,7 +61,6 @@ func _on_area_body_entered(body):
 				if knockUp:
 					body.juggleSpeed = knockUpPower
 					body.currentState = body.state.juggle
-					print("here?")
 				run_damage_calc(body)
 				queue_free()
 	pass # Replace with function body.

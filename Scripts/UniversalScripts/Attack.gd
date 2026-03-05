@@ -47,7 +47,6 @@ func _ready():
 	statusChange = get_meta("StatusChange")
 	userName = get_meta("UserName")
 	continueAttack = get_meta("ContinueAttacking")
-	print(userName)
 	if userName == "PlayerCharacter":
 		animation_tree = get_node("AnimationTree")
 	if statusName != "":
@@ -68,7 +67,7 @@ func _physics_process(_delta):
 		z_index = 5
 	else:
 		z_index = 4
-	direction = user.lastDirection
+	direction = user.direction
 	determine_direction()
 	if continueAttack:
 		user.isAttacking = true
@@ -79,6 +78,9 @@ func _physics_process(_delta):
 		animation_tree["parameters/playback"].travel(name.to_lower() + "_tree")
 		animation_tree.set("parameters/" + name.to_lower() + "_tree/blend_position", direction)
 		firstAttack = false
+	if !user.isStationary && animation_tree != null:
+		animation_tree["parameters/playback"].travel(name.to_lower() + "_tree")
+		animation_tree.set("parameters/" + name.to_lower() + "_tree/blend_position", direction)
 	user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, manaCost, user.stats.maxMana)
 	if userName.contains("PlayerCharacter"):
 		if user.isTopazEnabled:

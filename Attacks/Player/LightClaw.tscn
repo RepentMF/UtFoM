@@ -53,6 +53,7 @@ blend_point_7/pos = Vector2(0, 1)
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tfm4p"]
 states/lightclaw_tree/node = SubResource("AnimationNodeBlendSpace2D_su1mm")
 states/lightclaw_tree/position = Vector2(519, 102)
+graph_offset = Vector2(199, 0)
 
 [node name="LightClaw" type="Node2D"]
 z_index = -1
