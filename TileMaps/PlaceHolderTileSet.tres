@@ -1,0 +1,15 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dapegptb8b07v"]
+
+[ext_resource type="Texture2D" uid="uid://bvlmxdn3pos7s" path="res://Sprites/TilePractice.png" id="1_or8f3"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5y6iu"]
+texture = ExtResource("1_or8f3")
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
+0:1/0 = 0
+1:1/0 = 0
+
+[resource]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_5y6iu")
