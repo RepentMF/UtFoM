@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhlm30wmo46l2"]
+
+[ext_resource type="Texture2D" uid="uid://bvlmxdn3pos7s" path="res://Sprites/TilePractice.png" id="1_3ugj1"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5y6iu"]
+texture = ExtResource("1_3ugj1")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_us2eg"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_5y6iu")
+
+[node name="TileMapLayer" type="TileMapLayer"]
+tile_set = SubResource("TileSet_us2eg")
