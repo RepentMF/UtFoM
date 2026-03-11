@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn4j8kecuseyi"]
+
+[ext_resource type="Script" uid="uid://ccvjmsl2ubqa3" path="res://Areas/CustomCamera2D.gd" id="1_n7ih7"]
+
+[node name="CustomCamera2D" type="Camera2D"]
+zoom = Vector2(4.5, 4.5)
+process_callback = 0
+limit_left = 0
+limit_top = 0
+limit_right = 368
+limit_bottom = 240
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 6.5
+script = ExtResource("1_n7ih7")

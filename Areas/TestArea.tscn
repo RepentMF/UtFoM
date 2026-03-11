@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://ni8ovwd065o1"]
+[gd_scene load_steps=9 format=3 uid="uid://ni8ovwd065o1"]
 
 [ext_resource type="Texture2D" uid="uid://cmhojdde7yh5u" path="res://Sprites/Hero's Cave - The Legend of Zelda_ Oracle of Seasons (Lets Play Part 1) - YouTube - 0-16-0.png" id="1_ama53"]
+[ext_resource type="PackedScene" uid="uid://bn4j8kecuseyi" path="res://Actors/CustomCamera2D.tscn" id="1_muak4"]
 [ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="1_qs71s"]
 [ext_resource type="PackedScene" uid="uid://dd5q0pik41su1" path="res://Objects/Block.tscn" id="3_ykd2a"]
 [ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="6_3djan"]
@@ -11,23 +12,25 @@
 [node name="TestArea" type="Node2D"]
 y_sort_enabled = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(7, -10)
-zoom = Vector2(4.5, 4.5)
+[node name="CustomCamera2D" parent="." instance=ExtResource("1_muak4")]
+position = Vector2(139.473, 85)
+limit_right = 256
+limit_bottom = 144
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true
-offset_left = 35.0
-offset_top = 98.0
-offset_right = 247.0
-offset_bottom = 215.0
+offset_left = 174.473
+offset_top = 183.0
+offset_right = 386.47302
+offset_bottom = 300.0
+metadata/_edit_use_anchors_ = true
 
 [node name="Temp_Backdrop" type="Sprite2D" parent="."]
 modulate = Color(0.564706, 1, 0.694118, 1)
 z_index = -2
-position = Vector2(0.526997, -6.57812)
+position = Vector2(140, 78.42188)
 texture = ExtResource("1_ama53")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_qs71s")]
@@ -35,48 +38,51 @@ unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 z_index = 5
 y_sort_enabled = true
+position = Vector2(139.473, 85)
 
 [node name="SlimeCharacter" parent="." instance=ExtResource("8_1ltbh")]
 modulate = Color(0.564706, 1, 0.694118, 1)
-position = Vector2(-8, -31)
+position = Vector2(131.473, 54)
 metadata/Health = 200
 metadata/MaxHealth = 200
 
 [node name="Block" parent="." instance=ExtResource("3_ykd2a")]
 modulate = Color(0.564706, 1, 0.694118, 1)
-position = Vector2(30, 1)
+position = Vector2(169.473, 86)
 collision_layer = 5
 collision_mask = 5
 
 [node name="Block2" parent="." instance=ExtResource("3_ykd2a")]
 modulate = Color(0.564706, 1, 0.694118, 1)
-position = Vector2(65, 1)
+position = Vector2(204.473, 86)
 collision_layer = 5
 collision_mask = 5
 
 [node name="Block3" parent="." instance=ExtResource("3_ykd2a")]
 modulate = Color(0.564706, 1, 0.694118, 1)
-position = Vector2(0, -48)
+position = Vector2(139.473, 37)
 collision_layer = 5
 collision_mask = 5
 
 [node name="Block4" parent="." instance=ExtResource("3_ykd2a")]
 modulate = Color(0.564706, 1, 0.694118, 1)
-position = Vector2(-66, 1)
+position = Vector2(73.47301, 86)
 collision_layer = 5
 collision_mask = 5
 
 [node name="Block5" parent="." instance=ExtResource("3_ykd2a")]
 modulate = Color(0.564706, 1, 0.694118, 1)
-position = Vector2(89, -55)
+position = Vector2(228.473, 30)
 collision_layer = 5
 collision_mask = 5
 
 [node name="GemsController" parent="." instance=ExtResource("6_3djan")]
+position = Vector2(139.473, 85)
 
 [node name="InventoryController" parent="." instance=ExtResource("7_i1qoj")]
+position = Vector2(139.473, 85)
 
 [node name="Turret" parent="." instance=ExtResource("7_fqfv3")]
 process_mode = 4
-position = Vector2(24, -95)
+position = Vector2(163.473, -10)
 metadata/Bullet = "JuggleBullet"
