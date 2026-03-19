@@ -37,11 +37,11 @@ var bullet
 
 # Physics Speeds
 var moveSpeed = 0
-var walkSpeed = 45
+var walkSpeed = 60
 var rollSpeed = 80
 var dashSpeed = 250
 var jumpSpeed = 65
-var runSpeed = 65
+var runSpeed = 90
 var KBSpeed = 0
 var juggleSpeed = 0
 

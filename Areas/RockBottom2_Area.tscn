@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://sot5ytgdskk5"]
 
 [ext_resource type="PackedScene" uid="uid://bsjp4a5n1v0q8" path="res://TileMaps/RockBottom2_TileMap.tscn" id="1_gsta2"]
-[ext_resource type="PackedScene" uid="uid://bn4j8kecuseyi" path="res://Actors/CustomCamera2d.tscn" id="2_1fojb"]
+[ext_resource type="PackedScene" uid="uid://bn4j8kecuseyi" path="res://Actors/CustomCamera2D.tscn" id="2_1fojb"]
 [ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="2_lgekc"]
 [ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="3_1fojb"]
 [ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="4_om2yf"]
