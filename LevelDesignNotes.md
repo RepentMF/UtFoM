@@ -34,28 +34,28 @@
 
 **Rock Bottom - an old abandoned refugee camp; objective is to leave (going to talk to Mom to discuss leaving the Underground)**
 
-**Room 1 (North exit)**
+**Room 1 (North exit) (\*Clothing store, decrepit, knocked over clothing racks and clothes everywhere)**
 -find weapon (Sword preferred)
 
 -combat kill room (fight Slimes, North door opens)
 
-**Room 2 (South exit, North exit, East exit)**
+**Room 2 (South exit, North exit, East exit) (\*Road/walkways, think sidewalks and connectors for outlet malls)**
 
 -combat available (fight Slimes + \[insert second enemies])
 
 -puzzle room - basic solution opens North door; secret solution opens East door
 
-**Room 3 (West exit, North exit)**
+**Room 3 (West exit, North exit) (\*Shopping store, of what kind?)**
 
 -mini-boss kill room (fight mini-boss, North door opens)
 
-**Room 4 (South exit, Secret exit)**
+**Room 4 (South exit, Secret exit) (\*Shopping store, manager's office/ break room for employees; documents strewn everywhere)**
 
 -puzzle room - basic solution reveals upgrade scroll (health upgrade)
 
 -Underground Secret exit available
 
-**Room 5 (South exit, West exit, North exit)**
+**Room 5 (South exit, West exit, North exit) (\*Road/walkways, think sidewalks and connectors for outlet malls)**
 
 -combat kill room (fight Slimes + \[insert second enemies], North and West doors open)
 
@@ -68,4 +68,30 @@
 **The Chapel**
 
 **Bookcase Puzzle** - basic solution is to order books 1, 2, 3 (chronologically) and gives book; secret solution to order books by author last name and gives access to a catacomb
+findable charms and collectibles
+
+packrat traveling salesman
+
+defeating dedicated boss of the area without collecting collectibles
+
+
+
+packrat cleans out the collectibles (not all of them; certain ones)
+
+
+HP (health)
+
+MP (magic)
+
+SP (stamina)
+
+LB (lifeblood; estus equivalent; collected from drops from killed enemies)
+
+
+
+packrat accepts trades and sacrifices
+
+packrat accepts (as currency) LB, HP, MP, and other collectibles (not major keys or minor keys)
+
+you can fight and kill(?)/defeat packrat and he will stop cleaning out collectibles
 
