@@ -54,7 +54,9 @@ func _ready():
 
 func _physics_process(_delta):
 	if user == null:
-		user = get_tree().root.get_node("TestArea/" + userName)
+		var index = str(get_tree().current_scene).find(":")
+		var areaSceneName = str(get_tree().current_scene).left(index)
+		user = get_tree().root.get_node(areaSceneName + "/" + userName)
 	if has_meta("HasException"):
 		user.hasException = true
 	attacked = true

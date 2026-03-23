@@ -15,9 +15,13 @@ warnings/check_invalid_track_paths=false
 [application]
 
 config/name="UtFoM"
-run/main_scene="res://Areas/TestArea.tscn"
+run/main_scene="uid://ctb7qng6vhli2"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GlobalDataManager="*res://Scripts/UniversalScripts/GlobalDataManager.gd"
 
 [input]
 

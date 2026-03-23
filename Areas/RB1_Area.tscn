@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctb7qng6vhli2"]
+[gd_scene load_steps=7 format=3 uid="uid://ctb7qng6vhli2"]
 
 [ext_resource type="PackedScene" uid="uid://b66jxtkt13ggh" path="res://TileMaps/RockBottom1_TileMap.tscn" id="1_dmxwq"]
 [ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="2_rexkg"]
 [ext_resource type="Script" uid="uid://ccvjmsl2ubqa3" path="res://Areas/CustomCamera2D.gd" id="2_tod6f"]
 [ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="3_tod6f"]
 [ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="4_psbc5"]
+[ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_tod6f"]
 
 [node name="RB1_Area" type="Node2D"]
 
@@ -43,3 +44,8 @@ position = Vector2(187, 104)
 [node name="GemsController" parent="." instance=ExtResource("3_tod6f")]
 
 [node name="InventoryController" parent="." instance=ExtResource("4_psbc5")]
+
+[node name="LoadZone" parent="." instance=ExtResource("6_tod6f")]
+position = Vector2(128, -24)
+scale = Vector2(4, 1)
+metadata/NextSceneName = "RB2_Area"

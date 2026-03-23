@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ni8ovwd065o1"]
+[gd_scene load_steps=10 format=3 uid="uid://ni8ovwd065o1"]
 
 [ext_resource type="Texture2D" uid="uid://cmhojdde7yh5u" path="res://Sprites/Hero's Cave - The Legend of Zelda_ Oracle of Seasons (Lets Play Part 1) - YouTube - 0-16-0.png" id="1_ama53"]
 [ext_resource type="PackedScene" uid="uid://bn4j8kecuseyi" path="res://Actors/CustomCamera2D.tscn" id="1_muak4"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://3v3haqtkic8g" path="res://Objects/Turret.tscn" id="7_fqfv3"]
 [ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="7_i1qoj"]
 [ext_resource type="PackedScene" uid="uid://nbf1tkcmqgtp" path="res://Actors/Enemies/Commons/SlimeCharacter.tscn" id="8_1ltbh"]
+[ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="9_t300p"]
 
 [node name="TestArea" type="Node2D"]
 y_sort_enabled = true
@@ -86,3 +87,6 @@ position = Vector2(139.473, 85)
 process_mode = 4
 position = Vector2(163.473, -10)
 metadata/Bullet = "JuggleBullet"
+
+[node name="LoadZone" parent="." instance=ExtResource("9_t300p")]
+position = Vector2(110, 134)

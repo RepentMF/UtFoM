@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhlm30wmo46l2"]
+[gd_scene load_steps=3 format=3 uid="uid://dhlm30wmo46l2"]
 
 [ext_resource type="TileSet" uid="uid://dapegptb8b07v" path="res://TileMaps/PlaceHolderTileSet.tres" id="1_3ugj1"]
+[ext_resource type="Script" uid="uid://dapegptb8b07v" path="res://TileMaps/PlaceHolderTileSet.tres" id="2_5y6iu"]
 
 [node name="TileMapLayer" type="TileMapLayer"]
 tile_set = ExtResource("1_3ugj1")
+script = ExtResource("2_5y6iu")

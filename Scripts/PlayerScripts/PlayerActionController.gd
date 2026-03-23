@@ -108,6 +108,7 @@ var isPearlEnabled = false
 func _physics_process(delta):
 	# Bool "done" is false until "handle_setup()" is complete
 	if !done:
+		print(GlobalDataManager.test)
 		handle_setup()
 	handle_states()
 	translate_states()
