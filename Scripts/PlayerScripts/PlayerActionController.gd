@@ -77,6 +77,7 @@ var juggleDistanceY = 0.0
 
 # Costs
 var stats
+var statusController
 var healAmount = 3
 var dashStaminaCost = -3
 var burstManaCost = -5
@@ -108,7 +109,6 @@ var isPearlEnabled = false
 func _physics_process(delta):
 	# Bool "done" is false until "handle_setup()" is complete
 	if !done:
-		print(GlobalDataManager.test)
 		handle_setup()
 	handle_states()
 	translate_states()
@@ -117,6 +117,7 @@ func _physics_process(delta):
 func handle_setup():
 	# Calling needed nodes and values to be used in the rest of PlayerActionController
 	stats = get_node("StatsController")
+	statusController = get_node("StatusController")
 	inventory = get_tree().current_scene.get_node("InventoryController")
 	currentWeapon = inventory.currentWeapon
 	attackLight = currentWeapon.light

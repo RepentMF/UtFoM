@@ -1,6 +1,7 @@
 extends Node2D
 
 var animation_tree
+var areaSceneName
 
 var offset
 var statusList = []
@@ -55,7 +56,7 @@ func _ready():
 func _physics_process(_delta):
 	if user == null:
 		var index = str(get_tree().current_scene).find(":")
-		var areaSceneName = str(get_tree().current_scene).left(index)
+		areaSceneName = str(get_tree().current_scene).left(index)
 		user = get_tree().root.get_node(areaSceneName + "/" + userName)
 	if has_meta("HasException"):
 		user.hasException = true
@@ -98,24 +99,24 @@ func _physics_process(_delta):
 
 func _on_area_body_entered(body):
 	if user == null:
-		user = get_tree().root.get_node("TestArea/" + userName)
+		user = get_tree().root.get_node(areaSceneName + "/" + userName)
 	if body is CharacterBody2D && body.name != userName:
 		if height_check(body.height):
 			if !body.isInvincible:
 				if userName == "PlayerCharacter":
 					get_tree().current_scene.get_node("GemsController").gem_function_checker(self)
 				for status in statusList:
-					var statusIndex = body.get_node("StatusController").check_status_index(status)
+					var statusIndex = body.statusController.check_status_index(status)
 					if statusIndex == -1:
-						body.get_node("StatusController").statusList.push_front(status)
+						body.statusController.statusList.push_front(status)
 					else:
-						if status.timerDefault > body.get_node("StatusController").statusList[statusIndex].timerDefault:
-							body.get_node("StatusController").statusList[statusIndex].timerDefault = status.timerDefault
-							body.get_node("StatusController").statusList[statusIndex].timer = status.timerDefault
-						if status.change > body.get_node("StatusController").statusList[statusIndex].change:
-							body.get_node("StatusController").statusList[statusIndex].change = status.change
-							body.get_node("StatusController").statusList[statusIndex].timerDefault = status.timerDefault
-							body.get_node("StatusController").statusList[statusIndex].timer = status.timerDefault
+						if status.timerDefault > body.statusController.statusList[statusIndex].timerDefault:
+							body.statusController.statusList[statusIndex].timerDefault = status.timerDefault
+							body.statusController.statusList[statusIndex].timer = status.timerDefault
+						if status.change > body.statusController.statusList[statusIndex].change:
+							body.statusController.statusList[statusIndex].change = status.change
+							body.statusController.statusList[statusIndex].timerDefault = status.timerDefault
+							body.statusController.statusList[statusIndex].timer = status.timerDefault
 				if hitstunTimer != 0:
 					body.hitstunTimer = hitstunTimer
 					body.hitstunDirection = direction

@@ -24,6 +24,7 @@ var isInvincible = false
 var temp
 
 var stats
+var statusController
 
 var encounterTarget
 var encounterDistance
@@ -45,6 +46,7 @@ var juggleDistanceY = 0.0
 
 func _ready():
 	stats = get_node("StatsController")
+	statusController = get_node("StatusController")
 	currentState = state.idle
 	enemyName = get_meta("Name")
 	enemyAttacks = get_node(enemyName + "AttacksController")

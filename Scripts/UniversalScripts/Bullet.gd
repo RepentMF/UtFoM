@@ -45,15 +45,15 @@ func _on_area_body_entered(body):
 			if !body.isInvincible:
 				get_tree().current_scene.get_node("GemsController").gem_function_checker(self)
 				for status in statusList:
-					if !body.get_node("StatusController").statusList.is_empty():
-						for ctlStatus in body.get_node("StatusController").statusList:
+					if !body.statusController.statusList.is_empty():
+						for ctlStatus in body.statusController.statusList:
 							if status.name == ctlStatus.name:
 								if status.timerDefault > ctlStatus.timerDefault || status.change > ctlStatus.change:
-									body.get_node("StatusController").statusList.push_front(status)
+									body.statusController.statusList.push_front(status)
 							else:
-								body.get_node("StatusController").statusList.push_front(status)
+								body.statusController.statusList.push_front(status)
 					else:
-						body.get_node("StatusController").statusList.push_front(status)
+						body.statusController.statusList.push_front(status)
 				body.hitstunTimer = hitstunTimer
 				body.hitstunDirection = direction
 				body.KBSpeed = speed
