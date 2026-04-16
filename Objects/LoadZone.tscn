@@ -8,6 +8,7 @@ size = Vector2(16, 16)
 [node name="LoadZone" type="Area2D"]
 script = ExtResource("1_d1pof")
 metadata/NextSceneName = ""
+metadata/NextScenePosition = Vector2(0, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_d1pof")

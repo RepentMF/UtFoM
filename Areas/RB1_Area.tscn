@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_tod6f"]
 
 [node name="RB1_Area" type="Node2D"]
+metadata/_edit_group_ = true
 
 [node name="RB1_TileMap" parent="." instance=ExtResource("1_dmxwq")]
 
@@ -16,7 +17,7 @@ position = Vector2(128, 72)
 zoom = Vector2(4.5, 4.5)
 process_callback = 0
 limit_left = 0
-limit_top = 0
+limit_top = -16
 limit_right = 256
 limit_bottom = 144
 limit_smoothed = true
@@ -39,13 +40,15 @@ unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 z_index = 5
 y_sort_enabled = true
-position = Vector2(187, 104)
+position = Vector2(128, 59)
 
 [node name="GemsController" parent="." instance=ExtResource("3_tod6f")]
 
 [node name="InventoryController" parent="." instance=ExtResource("4_psbc5")]
+unique_name_in_owner = true
 
 [node name="LoadZone" parent="." instance=ExtResource("6_tod6f")]
 position = Vector2(128, -24)
 scale = Vector2(4, 1)
 metadata/NextSceneName = "RB2_Area"
+metadata/NextScenePosition = Vector2(192, 256)

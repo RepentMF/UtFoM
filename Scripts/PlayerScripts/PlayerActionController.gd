@@ -108,8 +108,11 @@ var isPearlEnabled = false
 
 func _physics_process(delta):
 	# Bool "done" is false until "handle_setup()" is complete
-	if !done:
+	if GlobalDataManager.start && !done:
 		handle_setup()
+	elif !GlobalDataManager.start && !done:
+		handle_setup()
+		GlobalDataManager.load_player_data()
 	handle_states()
 	translate_states()
 	%RichTextLabel.text = str(isAttacking, ", ", hasException)
