@@ -34,30 +34,30 @@
 
 **Rock Bottom - an old abandoned shopping mall near the refugee camp; objective is to leave (going to talk to Mom to discuss leaving the Underground)**
 
-**Room 1 (North exit) (\*Clothing store, decrepit, knocked over clothing racks and clothes everywhere)**
+Room 1 (North exit) (\*Clothing store, decrepit, knocked over clothing racks and clothes everywhere)
 -find weapon (Sword preferred)
 
 \-combat kill room (North door is covered in slime, killing Slimes decreases amount of slime on door, kill all Slimes and North door opens) PZ01
 
-**Room 2 (South exit, North exit, East exit) (\*Road/walkways, think sidewalks and connectors for outlet malls)**
+Room 2 (South exit, North exit, East exit) (\*Road/walkways, think sidewalks and connectors for outlet malls)
 
 \-combat available (fight Slimes + \[insert second enemies])
 
 \-puzzle room - basic solution opens North door (North door is locked with small key lock, find small key in room and unlock door) PZ02
 
-\-puzzle room - secret solution opens East door (power must be available from RB6 and RB5, activate power extension switch and East door opens)
+\-puzzle room - secret solution opens East door (power must be available from RB6 and RB5, activate power extension switch and East door opens) PZ04
 
-**Room 3 (West exit, North exit) (\*Shopping store, of what kind?)**
+Room 3 (West exit, North exit) (\*Shopping store, of what kind?)
 
 \-mini-boss kill room (fight mini-boss, North door opens)
 
-**Room 4 (South exit, Secret exit) (\*Shopping store, manager's office/ break room for employees; documents strewn everywhere)**
+Room 4 (South exit, Secret exit) (\*Shopping store, manager's office/ break room for employees; documents strewn everywhere)
 
 \-puzzle room - basic solution reveals upgrade scroll (health upgrade)
 
-\-Underground Secret exit available (power must be available from RB6, RB5, and RB2, activate power extension switch and Secret door opens)
+\-Underground Secret exit available (power must be available from RB6, RB5, and RB2, activate power extension switch and Secret door opens) PZ04
 
-**Room 5 (South exit, West exit, North exit) (\*Road/walkways, think sidewalks and connectors for outlet malls)**
+Room 5 (South exit, West exit, North exit) (\*Road/walkways, think sidewalks and connectors for outlet malls)
 
 \-combat available (fight \[insert second enemies] + \[insert third enemies])
 
@@ -65,7 +65,7 @@
 
 \-puzzle available (activate switch for outlet mall power extension, make power extension available in RB2) PZ04
 
-**Room 6 (East exit)**
+Room 6 (East exit)
 
 \-Gem available (Obsidian)
 
