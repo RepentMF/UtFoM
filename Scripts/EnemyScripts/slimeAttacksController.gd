@@ -38,7 +38,11 @@ func heavy_attack(body, direction):
 			else:
 				attackHeavy = load("res://Attacks/Enemies/Commons/HeavySlimeAttack.tscn")
 				attack = attackHeavy
-				add_child(attack.instantiate())
+				var atkInstance = attack.instantiate()
+				var index = str(get_tree().current_scene).find(":")
+				atkInstance.areaSceneName = str(get_tree().current_scene).left(index)
+				atkInstance.user = get_parent()
+				add_child(atkInstance)
 		elif heavyAttackTimer > 0:
 			heavyAttackTimer -= 1
 			return true

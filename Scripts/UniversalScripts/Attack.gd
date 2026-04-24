@@ -99,8 +99,10 @@ func _physics_process(_delta):
 
 func _on_area_body_entered(body):
 	if user == null:
+		var index = str(get_tree().current_scene).find(":")
+		areaSceneName = str(get_tree().current_scene).left(index)
 		user = get_tree().root.get_node(areaSceneName + "/" + userName)
-	if body is CharacterBody2D && body.name != userName:
+	if body is CharacterBody2D && !body.name.contains(userName):
 		if height_check(body.height):
 			if !body.isInvincible:
 				if userName == "PlayerCharacter":

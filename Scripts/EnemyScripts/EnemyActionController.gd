@@ -4,7 +4,7 @@ var rng = RandomNumberGenerator.new()
 
 var enemyName
 var enemyAttacks
-enum state {idle, walk, light_attack, heavy_attack, juggle_attack, hitstun, juggle, lag}
+enum state {idle, walk, light_attack, heavy_attack, juggle_attack, hitstun, juggle, lag, dying}
 var currentState
 var height = "grounded"
 var direction = Vector2(0, 1)
@@ -13,6 +13,7 @@ var hitstunDirection = Vector2(0, 0)
 var groundedPosition = Vector2(0, 0)
 var targetDirection
 var gravity = 2
+var isDead = false
 var countJuggleDistance = false
 var isAttacking = false
 var hasException = false
@@ -53,7 +54,7 @@ func _ready():
 
 func _physics_process(delta):
 	handle_states()
-	%RichTextLabel.text = temp
+	%RichTextLabel.text = str(stats.currentHealth)
 
 func handle_states():
 	match currentState:
@@ -91,13 +92,18 @@ func handle_states():
 		state.lag:
 			temp = "lag"
 			lag()
+		state.dying:
+			temp = "dying"
+			die()
 
 func idle():
 	rng.randomize()
 	var random = rng.randi_range(0,7)
 	idleTimer -= 1
 	velocity = Vector2(0, 0)
-	if idleTimer <= 0:
+	if isDead:
+		currentState = state.dying
+	elif idleTimer <= 0:
 		if encounterTarget != null:
 			enemyAttacks.decide_action(self, encounterDistance)
 		else:
@@ -192,6 +198,9 @@ func lag():
 	else:
 		lagTimer = lagTimer - 1
 
+func die():
+	queue_free()
+
 func return_to_juggle():
 	airCount = 0
 	hitstunTimer = hitstunTimerDefault
@@ -246,4 +255,8 @@ func _on_area_2d_body_exited(body):
 	if encounterTarget != null:
 		if body.name == encounterTarget.name:
 			encounterTarget = null
+	pass # Replace with function body.
+
+func _on_health_is_zero():
+	isDead = true
 	pass # Replace with function body.

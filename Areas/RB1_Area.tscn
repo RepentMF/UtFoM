@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctb7qng6vhli2"]
+[gd_scene load_steps=9 format=3 uid="uid://ctb7qng6vhli2"]
 
 [ext_resource type="PackedScene" uid="uid://b66jxtkt13ggh" path="res://TileMaps/RockBottom1_TileMap.tscn" id="1_dmxwq"]
 [ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="2_rexkg"]
-[ext_resource type="Script" uid="uid://ccvjmsl2ubqa3" path="res://Areas/CustomCamera2D.gd" id="2_tod6f"]
+[ext_resource type="Script" uid="uid://dwve2slo7xvr1" path="res://Actors/CustomCamera2D.gd" id="2_tod6f"]
 [ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="3_tod6f"]
 [ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="4_psbc5"]
 [ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_tod6f"]
+[ext_resource type="Script" uid="uid://d3crm7t23ylnk" path="res://Scripts/PuzzleScripts/PuzzleKillroom.gd" id="7_cwy2k"]
+[ext_resource type="PackedScene" uid="uid://nbf1tkcmqgtp" path="res://Actors/Enemies/Commons/SlimeCharacter.tscn" id="8_kdqdq"]
 
 [node name="RB1_Area" type="Node2D"]
 metadata/_edit_group_ = true
@@ -30,9 +32,9 @@ script = ExtResource("2_tod6f")
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
 unique_name_in_owner = true
 offset_left = 35.0
-offset_top = 98.0
+offset_top = 143.0
 offset_right = 247.0
-offset_bottom = 215.0
+offset_bottom = 260.0
 metadata/_edit_use_anchors_ = true
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_rexkg")]
@@ -52,3 +54,15 @@ position = Vector2(128, -24)
 scale = Vector2(4, 1)
 metadata/NextSceneName = "RB2_Area"
 metadata/NextScenePosition = Vector2(192, 256)
+
+[node name="PZ01" type="Node2D" parent="."]
+script = ExtResource("7_cwy2k")
+metadata/KillroomList = ["SlimeCharacter"]
+
+[node name="SlimeCharacter" parent="." instance=ExtResource("8_kdqdq")]
+position = Vector2(105, 40)
+
+[node name="SlimeCharacter2" parent="." instance=ExtResource("8_kdqdq")]
+position = Vector2(172, 64)
+
+[connection signal="child_exiting_tree" from="." to="PZ01" method="_on_child_exiting_tree"]

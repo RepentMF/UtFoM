@@ -1,5 +1,7 @@
 extends Node2D
 
+signal health_is_zero
+
 var maxHealth
 var maxMana
 var maxStamina
@@ -18,9 +20,6 @@ func _ready():
 # Modify corresponding current stat and return calculated stat
 func modify_stat(curStat, change, maxStat):
 	var calculatedStat = curStat + change
-	#var stack_trace = get_stack()
-	#for item in stack_trace:
-	#	print(item)
 	return check_min_max(calculatedStat, maxStat)
 
 # Check if calculated stat will be changed to be greater than max stat or 
@@ -42,6 +41,8 @@ func check_stat_overage(curStat, change, maxStat, zeroStat):
 func check_min_max(minStat, maxStat):
 	if minStat <= 0:
 		minStat = 0
+		if currentHealth <= 0:
+			health_is_zero.emit()
 	elif minStat >= maxStat:
 		minStat = maxStat
 	return minStat
