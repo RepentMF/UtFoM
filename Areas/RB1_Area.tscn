@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://b66jxtkt13ggh" path="res://TileMaps/RockBottom1_TileMap.tscn" id="1_dmxwq"]
 [ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="2_rexkg"]
-[ext_resource type="Script" uid="uid://dwve2slo7xvr1" path="res://Actors/CustomCamera2D.gd" id="2_tod6f"]
+[ext_resource type="Script" uid="uid://dll4weva7gu6f" path="res://Actors/CustomCamera2D.gd" id="2_tod6f"]
 [ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="3_tod6f"]
 [ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="4_psbc5"]
 [ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_tod6f"]
-[ext_resource type="Script" uid="uid://d3crm7t23ylnk" path="res://Scripts/PuzzleScripts/PuzzleKillroom.gd" id="7_cwy2k"]
+[ext_resource type="Script" uid="uid://btmrjd8spmvi8" path="res://Scripts/PuzzleScripts/PuzzleKillroom.gd" id="7_cwy2k"]
 [ext_resource type="PackedScene" uid="uid://nbf1tkcmqgtp" path="res://Actors/Enemies/Commons/SlimeCharacter.tscn" id="8_kdqdq"]
 
 [node name="RB1_Area" type="Node2D"]
