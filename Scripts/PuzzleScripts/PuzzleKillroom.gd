@@ -13,22 +13,17 @@ func _ready():
 		for enemy in killroomList:
 			if child.name.contains(enemy):
 				enemyNames.push_front(enemy)
-				print(enemy)
-	print()
 	pass # Replace with function body.
 
 func attempt_puzzle_solve():
 	if enemyNames.is_empty():
 		solved = true
-		print("door open!")
-	else:
-		print(enemyNames.size())
+		queue_free()
 
-func _on_child_exiting_tree(node):
+func on_child_exiting_tree(node):
 	for enemy in enemyNames:
 		if node.name.contains(enemy):
 			enemyNames.erase(enemy)
-			print(enemy)
 			break
 	attempt_puzzle_solve()
 	pass # Replace with function body.
