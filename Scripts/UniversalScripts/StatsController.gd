@@ -18,7 +18,7 @@ func _ready():
 	currentStamina = get_parent().get_meta("Stamina")
 
 # Modify corresponding current stat and return calculated stat
-func modify_stat(curStat, change, maxStat):
+func modify_stat(curStat, change, maxStat, line):
 	var calculatedStat = curStat + change
 	return check_min_max(calculatedStat, maxStat)
 
@@ -41,8 +41,6 @@ func check_stat_overage(curStat, change, maxStat, zeroStat):
 func check_min_max(minStat, maxStat):
 	if minStat <= 0:
 		minStat = 0
-		if currentHealth <= 0:
-			health_is_zero.emit()
 	elif minStat >= maxStat:
 		minStat = maxStat
 	return minStat

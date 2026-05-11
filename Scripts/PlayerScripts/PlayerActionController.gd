@@ -183,21 +183,21 @@ func handle_states():
 		if ((isDazeUnlocked && !countJuggleDistance && currentState != state.hitstun) || isBurstUnlocked) && !isStationary && currentState != state.roll && currentState != state.dash && currentState != state.hop && currentState != state.jump && currentState != state.push && currentState != state.heal && currentState != state.lag:
 			if isTopazEnabled:
 				if stats.check_stat_overage(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana, true) && stats.check_stat_overage(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth, true):
-					stats.currentMana = stats.modify_stat(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana)
-					stats.currentHealth = stats.modify_stat(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth)
+					stats.currentMana = stats.modify_stat(stats.currentMana, int(roundf(float(burstManaCost) / 2)), stats.maxMana, 186)
+					stats.currentHealth = stats.modify_stat(stats.currentHealth, int(roundf(float(burstManaCost) / 2)), stats.maxHealth, 187)
 		# Pearl is a chance Gem that returns mana spent on a spell to the player if the player successfully hits a target
 					if isPearlEnabled:
 						if rng.randi() % 4 == 0:
-							stats.currentMana = stats.modify_stat(stats.currentMana, -int(roundf(float(burstManaCost) / 2)), stats.maxMana)
-							stats.currentHealth = stats.modify_stat(stats.currentHealth, -int(roundf(float(burstManaCost) / 2)), stats.maxHealth)
+							stats.currentMana = stats.modify_stat(stats.currentMana, -int(roundf(float(burstManaCost) / 2)), stats.maxMana, 191)
+							stats.currentHealth = stats.modify_stat(stats.currentHealth, -int(roundf(float(burstManaCost) / 2)), stats.maxHealth, 192)
 					currentState = state.burst
 			else:
 				if stats.check_stat_overage(stats.currentMana, burstManaCost, stats.maxMana, true):
-					stats.currentMana = stats.modify_stat(stats.currentMana, burstManaCost, stats.maxMana)
+					stats.currentMana = stats.modify_stat(stats.currentMana, burstManaCost, stats.maxMana, 196)
 		# Pearl is a chance Gem that returns mana spent on a spell to the player if the player successfully hits a target
 					if isPearlEnabled:
 						if rng.randi() % 4 == 0:
-							stats.currentMana = stats.modify_stat(stats.currentMana, -burstManaCost, stats.maxMana)
+							stats.currentMana = stats.modify_stat(stats.currentMana, -burstManaCost, stats.maxMana, 200)
 					currentState = state.burst
 	elif Input.is_action_just_pressed("action_heal") && !isAttacking && currentState != state.dash && currentState != state.roll && currentState != state.jump && currentState != state.burst && height == "grounded":
 	# Goshenite is a challenge Gem that prevents the player from healing
@@ -246,16 +246,16 @@ func handle_states():
 	# Citrine is a dilemma Gem that allows the player to use less stamina per movement ability in exchange
 	# for it dealing the difference to their health and mana in equal parts
 					if isCitrineEnabled && stats.check_stat_overage(stats.currentStamina, int(roundf(float(dashStaminaCost) / 3)), stats.maxStamina, true) && stats.check_stat_overage(stats.currentHealth, int(roundf(float(dashStaminaCost) / 3)), stats.maxHealth, true) && stats.check_stat_overage(stats.currentMana, int(roundf(float(dashStaminaCost) / 3)), stats.maxMana, true):
-						stats.currentStamina = stats.modify_stat(stats.currentStamina, int(roundf(float(dashStaminaCost) / 3)), stats.maxStamina)
-						stats.currentHealth = stats.modify_stat(stats.currentHealth, int(roundf(float(dashStaminaCost) / 3)), stats.maxHealth)
-						stats.currentMana = stats.modify_stat(stats.currentMana, int(roundf(float(dashStaminaCost) / 3)), stats.maxMana)
+						stats.currentStamina = stats.modify_stat(stats.currentStamina, int(roundf(float(dashStaminaCost) / 3)), stats.maxStamina, 249)
+						stats.currentHealth = stats.modify_stat(stats.currentHealth, int(roundf(float(dashStaminaCost) / 3)), stats.maxHealth, 250)
+						stats.currentMana = stats.modify_stat(stats.currentMana, int(roundf(float(dashStaminaCost) / 3)), stats.maxMana, 251)
 	# Pearl is a chance Gem that returns mana spent on a spell to the player if the player successfully hits a target
 						if isPearlEnabled:
 							if rng.randi() % 4 == 0:
-								stats.currentMana = stats.modify_stat(stats.currentMana, -int(roundf(float(dashStaminaCost) / 3)), stats.maxMana)
+								stats.currentMana = stats.modify_stat(stats.currentMana, -int(roundf(float(dashStaminaCost) / 3)), stats.maxMana, 255)
 						currentState = state.dash
 					elif !isCitrineEnabled && stats.check_stat_overage(stats.currentStamina, dashStaminaCost, stats.maxStamina, true):
-						stats.currentStamina = stats.modify_stat(stats.currentStamina, dashStaminaCost, stats.maxStamina)
+						stats.currentStamina = stats.modify_stat(stats.currentStamina, dashStaminaCost, stats.maxStamina, 258)
 						currentState = state.dash
 				else:
 					print("cannot use SP")
@@ -650,7 +650,7 @@ func heal():
 	if healTimer <= 0:
 		healTimer = healTimerDefault
 		replenish_movement_timers()
-		get_node("StatsController").currentHealth = get_node("StatsController").modify_stat(get_node("StatsController").currentHealth, healAmount, get_node("StatsController").maxHealth)
+		get_node("StatsController").currentHealth = get_node("StatsController").modify_stat(get_node("StatsController").currentHealth, healAmount, get_node("StatsController").maxHealth, 653)
 		if is_direction_held():
 			currentState = state.walk
 		else:

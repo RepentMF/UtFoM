@@ -1077,6 +1077,7 @@ graph_offset = Vector2(-262, -18)
 
 [node name="SlimeCharacter" type="CharacterBody2D"]
 z_index = 5
+y_sort_enabled = true
 collision_layer = 128
 collision_mask = 128
 script = ExtResource("1_f3nq7")

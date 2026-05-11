@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://lcfx5jcv30on" path="res://Objects/LockedDoor.tscn" id="9_piphp"]
 
 [node name="RB1_Area" type="Node2D"]
+y_sort_enabled = true
 metadata/_edit_group_ = true
 
 [node name="RB1_TileMap" parent="." instance=ExtResource("1_dmxwq")]
@@ -40,9 +41,8 @@ metadata/_edit_use_anchors_ = true
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_rexkg")]
 unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
-z_index = 5
 y_sort_enabled = true
-position = Vector2(128, 59)
+position = Vector2(95, 111)
 
 [node name="GemsController" parent="." instance=ExtResource("3_tod6f")]
 
@@ -56,7 +56,7 @@ metadata/NextSceneName = "RB2_Area"
 metadata/NextScenePosition = Vector2(192, 256)
 
 [node name="SlimeCharacter" parent="." instance=ExtResource("8_kdqdq")]
-position = Vector2(105, 40)
+position = Vector2(95, 118)
 
 [node name="SlimeCharacter2" parent="." instance=ExtResource("8_kdqdq")]
 position = Vector2(172, 64)

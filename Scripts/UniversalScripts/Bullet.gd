@@ -133,6 +133,6 @@ func run_damage_calc(body):
 	var maxMP = stats.maxMana
 	var curSP = stats.currentStamina
 	var maxSP = stats.maxStamina
-	stats.currentHealth = stats.modify_stat(curHP, baseDamage, maxHP)
-	stats.currentMana = stats.modify_stat(curMP, manaDamage, maxMP)
-	stats.currentStamina = stats.modify_stat(curSP, staminaDamage, maxSP)
+	stats.currentHealth = stats.modify_stat(curHP, baseDamage, maxHP, 136)
+	stats.currentMana = stats.modify_stat(curMP, manaDamage, maxMP, 137)
+	stats.currentStamina = stats.modify_stat(curSP, staminaDamage, maxSP, 138)

@@ -28,6 +28,7 @@ var userName
 var allowCombo = false
 var firstAttack = true
 var continueAttack = true
+var frameOne = true
 
 func _ready():
 	if has_meta("Offset"):
@@ -54,55 +55,55 @@ func _ready():
 		statusList.push_front(new_status_effect(statusName, statusChange, statusTimer, statusFreq))
 
 func _physics_process(_delta):
-	if user == null:
-		var index = str(get_tree().current_scene).find(":")
-		areaSceneName = str(get_tree().current_scene).left(index)
-		user = get_tree().root.get_node(areaSceneName + "/" + userName)
-	if has_meta("HasException"):
-		user.hasException = true
-	attacked = true
-	attackHeight = user.height
-	if attackHeight == "aerial":
-		z_index = 7
-	elif attackHeight == "mid":
-		z_index = 6
-	elif attackHeight == "low":
-		z_index = 5
-	else:
-		z_index = 4
-	direction = user.direction
-	determine_direction()
-	if continueAttack:
-		user.isAttacking = true
-	user.isStationary = get_meta("isStationary")
-	if name.contains("Laser"):
-		get_node("Area").scale.y = get_meta("Size")
-	if firstAttack && animation_tree != null:
-		animation_tree["parameters/playback"].travel(name.to_lower() + "_tree")
-		animation_tree.set("parameters/" + name.to_lower() + "_tree/blend_position", direction)
-		firstAttack = false
-	if !user.isStationary && animation_tree != null:
-		animation_tree["parameters/playback"].travel(name.to_lower() + "_tree")
-		animation_tree.set("parameters/" + name.to_lower() + "_tree/blend_position", direction)
-	user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, manaCost, user.stats.maxMana)
-	if userName.contains("PlayerCharacter"):
-		if user.isTopazEnabled:
-			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, -manaCost, user.stats.maxMana)
-			user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, int(roundf(float(manaCost) / 2)), user.stats.maxMana)
-			user.stats.currentHealth = user.stats.modify_stat(user.stats.currentHealth, int(roundf(float(manaCost) / 2)), user.stats.maxHealth)
+	if frameOne:
+		if user == null:
+			var index = str(get_tree().current_scene).find(":")
+			areaSceneName = str(get_tree().current_scene).left(index)
+			user = get_tree().root.get_node(areaSceneName + "/" + userName)
+		if has_meta("HasException"):
+			user.hasException = true
+		attacked = true
+		attackHeight = user.height
+		if attackHeight == "aerial":
+			z_index = 7
+		elif attackHeight == "mid":
+			z_index = 6
+		elif attackHeight == "low":
+			z_index = 5
+		else:
+			z_index = 4
+		direction = user.direction
+		print(user.direction)
+		determine_direction()
+		print(direction)
+		print()
+		if continueAttack:
+			user.isAttacking = true
+		user.isStationary = get_meta("isStationary")
+		if name.contains("Laser"):
+			get_node("Area").scale.y = get_meta("Size")
+		if firstAttack && animation_tree != null:
+			animation_tree["parameters/playback"].travel(name.to_lower() + "_tree")
+			animation_tree.set("parameters/" + name.to_lower() + "_tree/blend_position", direction)
+			firstAttack = false
+		if !user.isStationary && animation_tree != null:
+			animation_tree["parameters/playback"].travel(name.to_lower() + "_tree")
+			animation_tree.set("parameters/" + name.to_lower() + "_tree/blend_position", direction)
+		user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, manaCost, user.stats.maxMana, 87)
+		if userName.contains("PlayerCharacter"):
+			if user.isTopazEnabled:
+				user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, -manaCost, user.stats.maxMana, 90)
+				user.stats.currentMana = user.stats.modify_stat(user.stats.currentMana, int(roundf(float(manaCost) / 2)), user.stats.maxMana, 91)
+				user.stats.currentHealth = user.stats.modify_stat(user.stats.currentHealth, int(roundf(float(manaCost) / 2)), user.stats.maxHealth, 92)
 	if attackTimer != -1:
 		if attackTimer > 0:
 			attackTimer -= 1
 		elif attackTimer == 0:
 			finish_attack()
-
+	frameOne = false
 
 func _on_area_body_entered(body):
-	if user == null:
-		var index = str(get_tree().current_scene).find(":")
-		areaSceneName = str(get_tree().current_scene).left(index)
-		user = get_tree().root.get_node(areaSceneName + "/" + userName)
-	if body is CharacterBody2D && !body.name.contains(userName):
+	if body is CharacterBody2D && !body.name.contains(userName) && !frameOne:
 		if height_check(body.height):
 			if !body.isInvincible:
 				if userName == "PlayerCharacter":
@@ -123,6 +124,7 @@ func _on_area_body_entered(body):
 					body.hitstunTimer = hitstunTimer
 					body.hitstunDirection = direction
 					body.currentState = body.state.hitstun
+					print(frameOne)
 				if speed != 0:
 					body.KBSpeed = speed
 				if knockUp:
@@ -144,6 +146,10 @@ func _on_area_body_entered(body):
 						burstDir.y = sign(burstDir.y)
 					body.hitstunDirection = burstDir
 				run_damage_calc(body)
+	if user == null:
+		var index = str(get_tree().current_scene).find(":")
+		areaSceneName = str(get_tree().current_scene).left(index)
+		user = get_tree().root.get_node(areaSceneName + "/" + userName)
 	pass # Replace with function body.
 
 func determine_direction():
@@ -258,9 +264,11 @@ func run_damage_calc(body):
 	var maxMP = stats.maxMana
 	var curSP = stats.currentStamina
 	var maxSP = stats.maxStamina
-	stats.currentHealth = stats.modify_stat(curHP, baseDamage, maxHP)
-	stats.currentMana = stats.modify_stat(curMP, manaDamage, maxMP)
-	stats.currentStamina = stats.modify_stat(curSP, staminaDamage, maxSP)
+	stats.currentHealth = stats.modify_stat(curHP, baseDamage, maxHP, 261)
+	if stats.currentHealth <= 0:
+		stats.health_is_zero.emit()
+	stats.currentMana = stats.modify_stat(curMP, manaDamage, maxMP, 262)
+	stats.currentStamina = stats.modify_stat(curSP, staminaDamage, maxSP, 263)
 
 func reset_combo():
 	allowCombo = false
