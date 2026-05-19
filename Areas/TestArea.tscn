@@ -37,7 +37,6 @@ texture = ExtResource("1_ama53")
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_qs71s")]
 unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
-z_index = 5
 y_sort_enabled = true
 position = Vector2(139.473, 85)
 

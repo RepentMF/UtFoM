@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctb7qng6vhli2"]
+[gd_scene load_steps=10 format=3 uid="uid://ctb7qng6vhli2"]
 
 [ext_resource type="PackedScene" uid="uid://b66jxtkt13ggh" path="res://TileMaps/RockBottom1_TileMap.tscn" id="1_dmxwq"]
 [ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="2_rexkg"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="4_psbc5"]
 [ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_tod6f"]
 [ext_resource type="PackedScene" uid="uid://nbf1tkcmqgtp" path="res://Actors/Enemies/Commons/SlimeCharacter.tscn" id="8_kdqdq"]
+[ext_resource type="PackedScene" uid="uid://dm1e6rbjgpiim" path="res://Objects/SmallKey.tscn" id="9_jcwih"]
 [ext_resource type="PackedScene" uid="uid://lcfx5jcv30on" path="res://Objects/LockedDoor.tscn" id="9_piphp"]
 
 [node name="RB1_Area" type="Node2D"]
@@ -42,7 +43,7 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 y_sort_enabled = true
-position = Vector2(95, 111)
+position = Vector2(162, 126)
 
 [node name="GemsController" parent="." instance=ExtResource("3_tod6f")]
 
@@ -64,5 +65,8 @@ position = Vector2(172, 64)
 [node name="LockedDoor" parent="." instance=ExtResource("9_piphp")]
 position = Vector2(128, 0)
 metadata/KillroomList = ["SlimeCharacter"]
+
+[node name="SmallKey" parent="." instance=ExtResource("9_jcwih")]
+position = Vector2(204, 120)
 
 [connection signal="child_exiting_tree" from="." to="LockedDoor" method="on_child_exiting_tree"]

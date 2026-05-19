@@ -136,7 +136,7 @@ func handle_states():
 	
 	# Selenite is a challenge Gem that causes the player to use no other weapons except "fists"
 	if isSeleniteEnabled && currentWeapon.name != "fists":
-		inventory.currentWeapon = inventory.inventory[0]
+		inventory.currentWeapon = inventory.weaponsInventory[0]
 		currentWeapon = inventory.currentWeapon
 		attackLight = currentWeapon.light
 		attackHeavy = currentWeapon.heavy
@@ -148,20 +148,20 @@ func handle_states():
 	# The following blocks enable the player to switch weapons and makes the proper assignments
 	# to variables to reflect the changes
 			if ((!isAmetrineEnabled && !isAttacking) || isAmetrineEnabled):
-				var index = inventory.inventory.find(inventory.currentWeapon)
+				var index = inventory.weaponsInventory.find(inventory.currentWeapon)
 				if Input.is_action_just_pressed("menu_prev_weapon"):
 					if index - 1 == -1:
-						index = inventory.inventory.size()
-					inventory.currentWeapon = inventory.inventory[index - 1]
+						index = inventory.weaponsInventory.size()
+					inventory.currentWeapon = inventory.weaponsInventory[index - 1]
 					currentWeapon = inventory.currentWeapon
 					attackLight = currentWeapon.light
 					attackHeavy = currentWeapon.heavy
 					attackJuggle = currentWeapon.juggle
 					print("Switched to " + currentWeapon.name + "!")
 				elif Input.is_action_just_pressed("menu_next_weapon"):
-					if index + 1 == inventory.inventory.size():
+					if index + 1 == inventory.weaponsInventory.size():
 						index = -1
-					inventory.currentWeapon = inventory.inventory[index + 1]
+					inventory.currentWeapon = inventory.weaponsInventory[index + 1]
 					currentWeapon = inventory.currentWeapon
 					attackLight = currentWeapon.light
 					attackHeavy = currentWeapon.heavy
