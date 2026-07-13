@@ -16,7 +16,7 @@ var isJetEnabled = false
 var isNuummiteEnabled = false
 var isObsidianEnabled = false
 
-func ready():
+func _ready():
 	rng.randomize()
 
 func gem_function_checker(attack):

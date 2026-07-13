@@ -1,20 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctb7qng6vhli2"]
+[gd_scene load_steps=10 format=4 uid="uid://ctb7qng6vhli2"]
 
 [ext_resource type="PackedScene" uid="uid://b66jxtkt13ggh" path="res://TileMaps/RockBottom1_TileMap.tscn" id="1_dmxwq"]
 [ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="2_rexkg"]
-[ext_resource type="Script" uid="uid://dwve2slo7xvr1" path="res://Actors/CustomCamera2D.gd" id="2_tod6f"]
+[ext_resource type="Script" uid="uid://dll4weva7gu6f" path="res://Actors/CustomCamera2D.gd" id="2_tod6f"]
 [ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="3_tod6f"]
 [ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="4_psbc5"]
 [ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_tod6f"]
-[ext_resource type="PackedScene" uid="uid://nbf1tkcmqgtp" path="res://Actors/Enemies/Commons/SlimeCharacter.tscn" id="8_kdqdq"]
-[ext_resource type="PackedScene" uid="uid://dm1e6rbjgpiim" path="res://Objects/SmallKey.tscn" id="9_jcwih"]
-[ext_resource type="PackedScene" uid="uid://lcfx5jcv30on" path="res://Objects/LockedDoor.tscn" id="9_piphp"]
+[ext_resource type="PackedScene" uid="uid://lcfx5jcv30on" path="res://Objects/EnemyDoor.tscn" id="8_kdqdq"]
+[ext_resource type="PackedScene" uid="uid://c4eu0evb3ass6" path="res://Objects/BigTreasureChest.tscn" id="8_piphp"]
+[ext_resource type="PackedScene" uid="uid://nbf1tkcmqgtp" path="res://Actors/Enemies/Commons/SlimeCharacter.tscn" id="9_piphp"]
 
 [node name="RB1_Area" type="Node2D"]
 y_sort_enabled = true
 metadata/_edit_group_ = true
 
 [node name="RB1_TileMap" parent="." instance=ExtResource("1_dmxwq")]
+tile_map_data = PackedByteArray("AAD//wAAAAABAAAAAAD//wEAAAABAAAAAAD//wIAAAABAAAAAAD//wMAAAABAAAAAAD//wQAAAABAAAAAAD//wUAAAABAAAAAAD//wYAAAABAAAAAAD//wcAAAABAAAAAAD//wgAAAABAAAAAAAQAAAAAAABAAAAAAAQAAEAAAABAAAAAAAQAAIAAAABAAAAAAAQAAMAAAABAAAAAAAQAAQAAAABAAAAAAAQAAUAAAABAAAAAAAQAAYAAAABAAAAAAAQAAcAAAABAAAAAAAQAAgAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAKAAAAAAABAAAAAAALAAAAAAABAAAAAAAMAAAAAAABAAAAAAANAAAAAAABAAAAAAAOAAAAAAABAAAAAAAPAAAAAAABAAAAAAAJAAAAAAABAAAAAAAGAAAAAAABAAAAAAAJAP//AAABAAAAAAAGAP//AAABAAAAAAAGAP7/AAAAAAAAAAAHAP7/AAAAAAAAAAAIAP7/AAAAAAAAAAAJAP7/AAAAAAAAAAAAAP//AAABAAAAAAABAP//AAABAAAAAAACAP//AAABAAAAAAADAP//AAABAAAAAAAEAP//AAABAAAAAAAFAP//AAABAAAAAAAKAP//AAABAAAAAAALAP//AAABAAAAAAAMAP//AAABAAAAAAANAP//AAABAAAAAAAOAP//AAABAAAAAAAPAP//AAABAAAAAAAAAAgAAAABAAAAAAABAAgAAAABAAAAAAACAAgAAAABAAAAAAADAAgAAAABAAAAAAAEAAgAAAABAAAAAAAFAAgAAAABAAAAAAAGAAgAAAABAAAAAAAHAAgAAAABAAAAAAAIAAgAAAABAAAAAAAJAAgAAAABAAAAAAAKAAgAAAABAAAAAAALAAgAAAABAAAAAAAMAAgAAAABAAAAAAANAAgAAAABAAAAAAAOAAgAAAABAAAAAAAPAAgAAAABAAAAAAAPAAIAAAABAAAAAAAOAAIAAAABAAAAAAANAAIAAAABAAAAAAA=")
 
 [node name="CustomCamera2D" type="Camera2D" parent="."]
 position = Vector2(128, 72)
@@ -23,7 +24,7 @@ process_callback = 0
 limit_left = 0
 limit_top = -16
 limit_right = 256
-limit_bottom = 144
+limit_bottom = 128
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 6.5
@@ -43,7 +44,7 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 y_sort_enabled = true
-position = Vector2(162, 126)
+position = Vector2(13, 115)
 
 [node name="GemsController" parent="." instance=ExtResource("3_tod6f")]
 
@@ -56,17 +57,23 @@ scale = Vector2(4, 1)
 metadata/NextSceneName = "RB2_Area"
 metadata/NextScenePosition = Vector2(192, 256)
 
-[node name="SlimeCharacter" parent="." instance=ExtResource("8_kdqdq")]
-position = Vector2(95, 118)
+[node name="BigTreasureChest" parent="." instance=ExtResource("8_piphp")]
+position = Vector2(251, 21)
+metadata/direction = "left"
+metadata/iName = "sword"
+metadata/description = "swoosh"
+metadata/light = "LightSword"
+metadata/heavy = "HeavySword"
+metadata/juggle = "LightSword"
 
-[node name="SlimeCharacter2" parent="." instance=ExtResource("8_kdqdq")]
-position = Vector2(172, 64)
-
-[node name="LockedDoor" parent="." instance=ExtResource("9_piphp")]
+[node name="LockedDoor" parent="." instance=ExtResource("8_kdqdq")]
 position = Vector2(128, 0)
-metadata/KillroomList = ["SlimeCharacter"]
 
-[node name="SmallKey" parent="." instance=ExtResource("9_jcwih")]
-position = Vector2(204, 120)
+[node name="SlimeCharacter" parent="." instance=ExtResource("9_piphp")]
+position = Vector2(81, 43)
 
-[connection signal="child_exiting_tree" from="." to="LockedDoor" method="on_child_exiting_tree"]
+[node name="SlimeCharacter2" parent="." instance=ExtResource("9_piphp")]
+position = Vector2(166, 44)
+
+[node name="SlimeCharacter3" parent="." instance=ExtResource("9_piphp")]
+position = Vector2(126, 109)

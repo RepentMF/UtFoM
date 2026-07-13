@@ -27,7 +27,11 @@ var secondAttack = false
 var isAttacking = false
 var hasException = false
 var isExhausted = false
+var isInteracting = false
 var isInvincible = false
+var isNearInteractable = false
+var itemToReceive
+var itemTypeToReceive
 var isStationary = false
 var isSpeedBoosted = false
 var temp
@@ -212,8 +216,16 @@ func handle_states():
 		if (attackHeavy != ""):
 			currentState = state.heavy_attack
 	elif Input.is_action_just_pressed("action_juggle_attack") && (!isAttacking || canCombo) && currentState != state.dash && currentState != state.roll && currentState != state.jump &&  currentState != state.burst && currentState != state.spark && currentState != state.laser && currentState != state.frost && currentState != state.storm:
-		if (attackJuggle  != ""):
-			currentState = state.juggle_attack
+		if !isNearInteractable:
+			if (attackJuggle  != ""):
+				currentState = state.juggle_attack
+		else:
+			#isInteracting = true
+			match itemTypeToReceive:
+				"key":
+					inventory.keyItemsInventory.push_back(itemToReceive)
+				"weapon":
+					inventory.weaponsInventory.push_back(itemToReceive)
 	elif Input.is_action_just_pressed("action_spell") && isSparkActive:
 		currentState = state.spark
 	elif Input.is_action_just_pressed("action_spell") && isLaserActive:

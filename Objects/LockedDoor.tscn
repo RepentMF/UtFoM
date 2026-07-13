@@ -1,18 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://lcfx5jcv30on"]
+[gd_scene load_steps=5 format=3 uid="uid://b5705tdsr4ef2"]
 
-[ext_resource type="Script" uid="uid://d3crm7t23ylnk" path="res://Scripts/PuzzleScripts/PuzzleKillroom.gd" id="1_1mocn"]
-[ext_resource type="Texture2D" uid="uid://h566fwprb8ht" path="res://Sprites/KillroomDoorPlaceholder.png" id="1_yr67k"]
+[ext_resource type="Script" uid="uid://ds1nxprt4v1dy" path="res://Scripts/PuzzleScripts/PuzzleLockedDoor.gd" id="1_1mocn"]
+[ext_resource type="Texture2D" uid="uid://cfausimn6qqvs" path="res://Sprites/LockedDoorPlaceholder.png" id="2_1mocn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mocn"]
 size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlb23"]
+size = Vector2(32, 10)
 
 [node name="LockedDoor" type="Node2D"]
 script = ExtResource("1_1mocn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_yr67k")
+texture = ExtResource("2_1mocn")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_1mocn")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 21)
+shape = SubResource("RectangleShape2D_qlb23")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
