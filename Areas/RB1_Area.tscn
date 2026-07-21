@@ -44,7 +44,7 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 y_sort_enabled = true
-position = Vector2(13, 115)
+position = Vector2(238, 23)
 
 [node name="GemsController" parent="." instance=ExtResource("3_tod6f")]
 
