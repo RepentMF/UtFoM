@@ -20,7 +20,7 @@ func attempt_puzzle_solve():
 		solved = true
 		queue_free()
 
-func on_child_exiting_tree(node):
+func _on_child_exiting_tree(node):
 	for enemy in enemyNames:
 		if node.name.contains(enemy):
 			enemyNames.erase(enemy)

@@ -68,6 +68,7 @@ metadata/juggle = "LightSword"
 
 [node name="LockedDoor" parent="." instance=ExtResource("8_kdqdq")]
 position = Vector2(128, 0)
+metadata/KillroomList = ["SlimeCharacter"]
 
 [node name="SlimeCharacter" parent="." instance=ExtResource("9_piphp")]
 position = Vector2(81, 43)
