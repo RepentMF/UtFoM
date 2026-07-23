@@ -8,6 +8,7 @@ var nextPlayerPosition = Vector2(0, 0)
 # Player values
 var weaponsInventory
 var currentWeaponIndex
+var keyItemsInventory
 var attackLight
 var attackHeavy
 var attackJuggle
@@ -68,8 +69,9 @@ func _physics_process(delta):
 		start = false
 
 func save_player_data(body, nextScenePosition):
-	weaponsInventory = body.weaponsInventory.inventory
-	currentWeaponIndex = body.weaponsInventory.inventory.find(body.currentWeapon)
+	weaponsInventory = body.inventory.weaponsInventory
+	currentWeaponIndex = body.inventory.weaponsInventory.find(body.currentWeapon)
+	keyItemsInventory = body.inventory.keyItemsInventory
 	
 	attackLight = body.attackLight
 	attackHeavy = body.attackHeavy
@@ -130,8 +132,9 @@ func save_player_data(body, nextScenePosition):
 func load_player_data():
 	var player = get_tree().current_scene.get_node("PlayerCharacter")
 	
-	get_tree().current_scene.get_node("InventoryController").inventory = weaponsInventory
+	get_tree().current_scene.get_node("InventoryController").weaponsInventory = weaponsInventory
 	get_tree().current_scene.get_node("InventoryController").currentWeapon = weaponsInventory[currentWeaponIndex]
+	get_tree().current_scene.get_node("InventoryController").keyItemsInventory = keyItemsInventory
 	
 	player.currentWeapon = weaponsInventory[currentWeaponIndex]
 	player.attackLight = attackLight

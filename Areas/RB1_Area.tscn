@@ -44,7 +44,7 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 y_sort_enabled = true
-position = Vector2(238, 23)
+position = Vector2(41, 114)
 
 [node name="GemsController" parent="." instance=ExtResource("3_tod6f")]
 
@@ -68,6 +68,7 @@ metadata/juggle = "LightSword"
 
 [node name="LockedDoor" parent="." instance=ExtResource("8_kdqdq")]
 position = Vector2(128, 0)
+metadata/KillroomList = ["SlimeCharacter"]
 
 [node name="SlimeCharacter" parent="." instance=ExtResource("9_piphp")]
 position = Vector2(81, 43)
@@ -77,3 +78,5 @@ position = Vector2(166, 44)
 
 [node name="SlimeCharacter3" parent="." instance=ExtResource("9_piphp")]
 position = Vector2(126, 109)
+
+[connection signal="child_exiting_tree" from="." to="LockedDoor" method="on_child_exiting_tree"]
