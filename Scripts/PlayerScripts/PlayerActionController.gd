@@ -224,6 +224,8 @@ func handle_states():
 			match itemTypeToReceive:
 				"key":
 					inventory.keyItemsInventory.push_back(itemToReceive)
+				"gem":
+					inventory.gemsInventory.push_back(itemToReceive)
 				"weapon":
 					inventory.weaponsInventory.push_back(itemToReceive)
 	elif Input.is_action_just_pressed("action_spell") && isSparkActive:

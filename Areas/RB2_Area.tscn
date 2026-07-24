@@ -65,5 +65,12 @@ metadata/treasureType = "key"
 metadata/iName = "Small Key"
 metadata/description = "it's a key"
 
+[node name="SmallTreasureChest2" parent="." instance=ExtResource("7_logqu")]
+position = Vector2(238, 75)
+metadata/treasureType = "gem"
+metadata/iName = "Obsidian"
+metadata/description = "poison"
+metadata/boolToChange = "isObsidianEnabled"
+
 [node name="LockedDoor" parent="." instance=ExtResource("8_31ds8")]
 position = Vector2(176, 16)
