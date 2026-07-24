@@ -123,6 +123,7 @@ metadata/description = ""
 metadata/light = ""
 metadata/heavy = ""
 metadata/juggle = ""
+metadata/boolToChange = ""
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6m86t")
