@@ -1,6 +1,7 @@
 extends Node2D
 
 var keyItemsInventory = []
+var gemInventory = []
 var weaponsInventory = []
 
 # Called when the node enters the scene tree for the first time.
