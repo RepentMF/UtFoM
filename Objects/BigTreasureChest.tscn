@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://c4eu0evb3ass6"]
 
-[ext_resource type="Script" uid="uid://bmtpcjkd6ee8d" path="res://Objects/TreasureChest.gd" id="1_fwsdj"]
-[ext_resource type="Texture2D" uid="uid://8fwe73enkks6" path="res://Sprites/BigChest_UpDown.png" id="2_gsii1"]
-[ext_resource type="Texture2D" uid="uid://brqli0piohjqn" path="res://Sprites/BigChest_LeftRight.png" id="3_5mht2"]
+[ext_resource type="Script" uid="uid://dpyb10nrfdb1i" path="res://Objects/TreasureChest.gd" id="1_fwsdj"]
+[ext_resource type="Texture2D" uid="uid://8titryw84rdj" path="res://Sprites/BigChest_UpDown.png" id="2_gsii1"]
+[ext_resource type="Texture2D" uid="uid://cuxlsj0uh8253" path="res://Sprites/BigChest_LeftRight.png" id="3_5mht2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qxh5e"]
 atlas = ExtResource("2_gsii1")

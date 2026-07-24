@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuepwgf8w5ypi"]
+
+[ext_resource type="PackedScene" uid="uid://ddpcxwjirngly" path="res://TileMaps/RockBottom6_TileMap.tscn" id="1_fii38"]
+[ext_resource type="PackedScene" uid="uid://bn4j8kecuseyi" path="res://Actors/CustomCamera2D.tscn" id="2_653qc"]
+[ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="3_scc2x"]
+[ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="4_fhcsj"]
+[ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="5_pws5v"]
+[ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_21on2"]
+
+[node name="RB6_Area" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 35.0
+offset_top = 143.0
+offset_right = 247.0
+offset_bottom = 260.0
+metadata/_edit_use_anchors_ = true
+
+[node name="RB6_TileMap" parent="." instance=ExtResource("1_fii38")]
+
+[node name="CustomCamera2D" parent="." instance=ExtResource("2_653qc")]
+limit_left = 1
+limit_bottom = 207
+
+[node name="PlayerCharacter" parent="." instance=ExtResource("3_scc2x")]
+unique_name_in_owner = true
+modulate = Color(0.563984, 0.99828, 0.694974, 1)
+y_sort_enabled = true
+position = Vector2(341, 127)
+
+[node name="GemsController" parent="." instance=ExtResource("4_fhcsj")]
+
+[node name="InventoryController" parent="." instance=ExtResource("5_pws5v")]
+unique_name_in_owner = true
+
+[node name="LoadZone" parent="." instance=ExtResource("6_21on2")]
+position = Vector2(376, 128)
+scale = Vector2(1, 4)
+metadata/NextSceneName = "RB5_Area"
