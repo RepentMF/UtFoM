@@ -19,6 +19,8 @@ func attempt_puzzle_solve():
 	if enemyNames.is_empty():
 		solved = true
 		queue_free()
+	else:
+		print("???")
 
 func _on_child_exiting_tree(node):
 	for enemy in enemyNames:

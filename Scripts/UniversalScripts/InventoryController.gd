@@ -24,13 +24,14 @@ func new_key_item_add(iName, description):
 	key_instantiator.description = description
 	return key_instantiator
 
-func new_gem_item_add(iName, description, boolToChange):
+func new_gem_item_add(iName, description, boolToChange, gemColor):
 	var NewGem = load("res://Scripts/UniversalScripts/GemItem.gd")
 	var gem_instantiator = NewGem.new()
 	gem_instantiator.name = iName
 	gem_instantiator.iName = iName
 	gem_instantiator.description = description
 	gem_instantiator.boolToChange = boolToChange
+	gem_instantiator.gemColor = gemColor
 	return gem_instantiator
 
 func new_weapon_add(iName, description, light, heavy, juggle):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cuepwgf8w5ypi"]
+[gd_scene load_steps=8 format=3 uid="uid://cuepwgf8w5ypi"]
 
 [ext_resource type="PackedScene" uid="uid://ddpcxwjirngly" path="res://TileMaps/RockBottom6_TileMap.tscn" id="1_fii38"]
 [ext_resource type="PackedScene" uid="uid://bn4j8kecuseyi" path="res://Actors/CustomCamera2D.tscn" id="2_653qc"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="4_fhcsj"]
 [ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="5_pws5v"]
 [ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_21on2"]
+[ext_resource type="PackedScene" uid="uid://c4eu0evb3ass6" path="res://Objects/BigTreasureChest.tscn" id="7_pws5v"]
 
 [node name="RB6_Area" type="Node2D"]
+y_sort_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -29,7 +31,7 @@ limit_bottom = 207
 unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 y_sort_enabled = true
-position = Vector2(341, 127)
+position = Vector2(352, 127)
 
 [node name="GemsController" parent="." instance=ExtResource("4_fhcsj")]
 
@@ -40,3 +42,12 @@ unique_name_in_owner = true
 position = Vector2(376, 128)
 scale = Vector2(1, 4)
 metadata/NextSceneName = "RB5_Area"
+metadata/NextScenePosition = Vector2(16, 128)
+
+[node name="BigTreasureChest" parent="." instance=ExtResource("7_pws5v")]
+position = Vector2(40, 34)
+metadata/treasureType = "gem"
+metadata/iName = "Obsidian"
+metadata/description = "poison"
+metadata/boolToChange = "isObsidianEnabled"
+metadata/gemColor = "black"

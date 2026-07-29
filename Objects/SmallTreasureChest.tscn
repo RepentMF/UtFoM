@@ -120,6 +120,7 @@ metadata/light = ""
 metadata/heavy = ""
 metadata/juggle = ""
 metadata/boolToChange = ""
+metadata/gemColor = ""
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_je5lt")

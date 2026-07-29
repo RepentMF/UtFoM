@@ -5,6 +5,7 @@ var invController
 var iName
 var description
 var boolToChange
+var gemColor
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,7 +18,7 @@ func _process(delta):
 
 func _on_area_2d_body_entered(body):
 	if body.name.contains("PlayerCharacter"):
-		var gemItem = invController.new_gem_item_add(iName, description, boolToChange)
+		var gemItem = invController.new_gem_item_add(iName, description, boolToChange, gemColor)
 		body.inventory.gemsInventory.push_back(gemItem)
 		queue_free()
 	pass # Replace with function body.

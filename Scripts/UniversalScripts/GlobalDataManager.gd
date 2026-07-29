@@ -59,6 +59,19 @@ var isGosheniteEnabled
 var isMoonStoneEnabled
 var isPearlEnabled
 
+#Puzzle values
+var gameStart = true
+var dataChanged = false
+#Power boxes
+var powerBoxesList = []
+var powerBoxesCount = 5
+
+func _ready():
+	if gameStart:
+		gameStart = false
+		for num in powerBoxesCount:
+			powerBoxesList.push_back(false)
+
 func _physics_process(delta):
 	if loadingFromPrev && !start:
 		loadingFromPrev = false
@@ -67,6 +80,9 @@ func _physics_process(delta):
 		framesActive += 1
 	else:
 		start = false
+	
+	if dataChanged:
+		dataChanged = false
 
 func save_player_data(body, nextScenePosition):
 	weaponsInventory = body.inventory.weaponsInventory
@@ -192,3 +208,7 @@ func load_player_data():
 	player.isMoonStoneEnabled = isMoonStoneEnabled
 	player.isPearlEnabled = isPearlEnabled
 	player.global_position = nextPlayerPosition
+
+func change_power_box_data(ID):
+	powerBoxesList[ID - 1] = true
+	dataChanged = true

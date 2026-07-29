@@ -1,0 +1,101 @@
+[gd_scene load_steps=13 format=3 uid="uid://dvckdw1hfku5k"]
+
+[ext_resource type="Script" uid="uid://yrj4s7r3dipp" path="res://Objects/PowerBox.gd" id="1_lvmub"]
+[ext_resource type="Texture2D" uid="uid://bego01wuufa0d" path="res://Sprites/PowerBox.png" id="2_lvmub"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fi0g6"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(0, 0, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ori7m"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(0, 40, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ig8o4"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(26, 40, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ml7f0"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(0, 60, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpode"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(26, 60, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afsqy"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(0, 0, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0a3y"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(26, 0, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cv78g"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(26, 20, 26, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ko7pq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fi0g6")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ori7m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ig8o4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ml7f0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpode")
+}],
+"loop": true,
+"name": &"on",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afsqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0a3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cv78g")
+}],
+"loop": false,
+"name": &"switched_on",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eiv8r"]
+size = Vector2(16, 6)
+
+[node name="PowerBox" type="Node2D"]
+script = ExtResource("1_lvmub")
+metadata/ID = 0
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(5, -1)
+sprite_frames = SubResource("SpriteFrames_ko7pq")
+animation = &"on"
+frame_progress = 0.18213463
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 14)
+shape = SubResource("RectangleShape2D_eiv8r")
+
+[connection signal="animation_finished" from="Sprite2D" to="." method="_on_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

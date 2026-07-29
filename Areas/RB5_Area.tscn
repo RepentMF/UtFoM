@@ -1,3 +1,79 @@
-[gd_scene format=3 uid="uid://cwlrhvebivqkr"]
+[gd_scene load_steps=10 format=3 uid="uid://cwlrhvebivqkr"]
+
+[ext_resource type="PackedScene" uid="uid://by6k5qv6csl1c" path="res://TileMaps/RockBottom5_TileMap.tscn" id="1_pwkp4"]
+[ext_resource type="PackedScene" uid="uid://bn4j8kecuseyi" path="res://Actors/CustomCamera2D.tscn" id="2_1ffqy"]
+[ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="3_32lcc"]
+[ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="4_0wntx"]
+[ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="5_2mmqo"]
+[ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_85jkj"]
+[ext_resource type="PackedScene" uid="uid://dvckdw1hfku5k" path="res://Objects/PowerBox.tscn" id="7_dj8st"]
+[ext_resource type="PackedScene" uid="uid://ce7dt7h6sld3j" path="res://Objects/PowerDoor.tscn" id="8_1ffqy"]
+[ext_resource type="PackedScene" uid="uid://di1nw1b8iy2y7" path="res://Objects/SwitchDoor.tscn" id="9_32lcc"]
 
 [node name="RB5_Area" type="Node2D"]
+
+[node name="RB5_TileMap" parent="." instance=ExtResource("1_pwkp4")]
+position = Vector2(0, 16)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 35.0
+offset_top = 143.0
+offset_right = 247.0
+offset_bottom = 260.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CustomCamera2D" parent="." instance=ExtResource("2_1ffqy")]
+limit_right = 223
+
+[node name="PlayerCharacter" parent="." instance=ExtResource("3_32lcc")]
+unique_name_in_owner = true
+modulate = Color(0.563984, 0.99828, 0.694974, 1)
+y_sort_enabled = true
+position = Vector2(40, 52)
+
+[node name="GemsController" parent="." instance=ExtResource("4_0wntx")]
+
+[node name="InventoryController" parent="." instance=ExtResource("5_2mmqo")]
+unique_name_in_owner = true
+
+[node name="LoadZone" parent="." instance=ExtResource("6_85jkj")]
+position = Vector2(-8, 128)
+scale = Vector2(1, 4)
+metadata/NextSceneName = "RB6_Area"
+metadata/NextScenePosition = Vector2(352, 127)
+
+[node name="LoadZone2" parent="." instance=ExtResource("6_85jkj")]
+position = Vector2(112, -8)
+scale = Vector2(4, 1)
+metadata/NextSceneName = "TP1_Area"
+
+[node name="LoadZone3" parent="." instance=ExtResource("6_85jkj")]
+position = Vector2(232, 128)
+scale = Vector2(1, 4)
+metadata/NextSceneName = "RB4_Area"
+
+[node name="LoadZone4" parent="." instance=ExtResource("6_85jkj")]
+position = Vector2(112, 248)
+scale = Vector2(4, 1)
+metadata/NextSceneName = "RB2_Area"
+metadata/NextScenePosition = Vector2(176, 16)
+
+[node name="PowerBox" parent="." instance=ExtResource("7_dj8st")]
+position = Vector2(52, 21)
+metadata/ID = 1
+
+[node name="PowerLockedDoor" parent="." instance=ExtResource("8_1ffqy")]
+position = Vector2(112, 16)
+metadata/Direction = "down"
+
+[node name="PowerLockedDoor2" parent="." instance=ExtResource("8_1ffqy")]
+position = Vector2(8, 128)
+metadata/Direction = "left"
+metadata/Solution = [1]
+
+[node name="SwitchDoor" parent="." instance=ExtResource("9_32lcc")]
+position = Vector2(216, 128)
+metadata/Direction = "right"

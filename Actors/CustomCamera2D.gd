@@ -7,4 +7,7 @@ func _ready():
 
 func _physics_process(delta):
 	position = targetPlayer.position
+	if !limit_smoothed:
+		limit_smoothed = true
+		reset_smoothing()
 	pass

@@ -32,7 +32,7 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 y_sort_enabled = true
-position = Vector2(280, 120)
+position = Vector2(176, 16)
 
 [node name="GemsController" parent="." instance=ExtResource("3_1fojb")]
 
@@ -55,21 +55,14 @@ metadata/NextScenePosition = Vector2(192, 256)
 [node name="LoadZone3" parent="." instance=ExtResource("6_50i7q")]
 position = Vector2(176, -8)
 scale = Vector2(4, 1)
-metadata/NextSceneName = "RB1_Area"
-metadata/NextScenePosition = Vector2(128, 0)
+metadata/NextSceneName = "RB5_Area"
+metadata/NextScenePosition = Vector2(112, 224)
 
 [node name="SmallTreasureChest" parent="." instance=ExtResource("7_logqu")]
 position = Vector2(280, 104)
 metadata/treasureType = "key"
 metadata/iName = "Small Key"
 metadata/description = "it's a key"
-
-[node name="SmallTreasureChest2" parent="." instance=ExtResource("7_logqu")]
-position = Vector2(238, 75)
-metadata/treasureType = "gem"
-metadata/iName = "Obsidian"
-metadata/description = "poison"
-metadata/boolToChange = "isObsidianEnabled"
 
 [node name="LockedDoor" parent="." instance=ExtResource("8_31ds8")]
 position = Vector2(176, 16)

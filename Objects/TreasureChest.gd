@@ -13,6 +13,7 @@ var light
 var juggle
 var heavy
 var boolToChange
+var gemColor
 
 func _ready():
 	invController = get_parent().get_node("InventoryController")
@@ -26,6 +27,7 @@ func _ready():
 			juggle = get_meta("juggle")
 			heavy = get_meta("heavy")
 	boolToChange = get_meta("boolToChange")
+	gemColor = get_meta("gemColor")
 	pass
 
 func _process(delta):
@@ -74,7 +76,7 @@ func process_item_data(body):
 		"key":
 			treasureItem = invController.new_key_item_add(iName, description)
 		"gem":
-			treasureItem = invController.new_gem_item_add(iName, description, boolToChange)
+			treasureItem = invController.new_gem_item_add(iName, description, boolToChange, gemColor)
 		"weapon":
 			treasureItem = invController.new_weapon_add(iName, description, light, heavy, juggle)
 	body.itemToReceive = treasureItem

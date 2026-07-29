@@ -18,14 +18,13 @@ metadata/_edit_group_ = true
 tile_map_data = PackedByteArray("AAD//wAAAAABAAAAAAD//wEAAAABAAAAAAD//wIAAAABAAAAAAD//wMAAAABAAAAAAD//wQAAAABAAAAAAD//wUAAAABAAAAAAD//wYAAAABAAAAAAD//wcAAAABAAAAAAD//wgAAAABAAAAAAAQAAAAAAABAAAAAAAQAAEAAAABAAAAAAAQAAIAAAABAAAAAAAQAAMAAAABAAAAAAAQAAQAAAABAAAAAAAQAAUAAAABAAAAAAAQAAYAAAABAAAAAAAQAAcAAAABAAAAAAAQAAgAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAAFAAAAAAABAAAAAAAKAAAAAAABAAAAAAALAAAAAAABAAAAAAAMAAAAAAABAAAAAAANAAAAAAABAAAAAAAOAAAAAAABAAAAAAAPAAAAAAABAAAAAAAJAAAAAAABAAAAAAAGAAAAAAABAAAAAAAJAP//AAABAAAAAAAGAP//AAABAAAAAAAGAP7/AAAAAAAAAAAHAP7/AAAAAAAAAAAIAP7/AAAAAAAAAAAJAP7/AAAAAAAAAAAAAP//AAABAAAAAAABAP//AAABAAAAAAACAP//AAABAAAAAAADAP//AAABAAAAAAAEAP//AAABAAAAAAAFAP//AAABAAAAAAAKAP//AAABAAAAAAALAP//AAABAAAAAAAMAP//AAABAAAAAAANAP//AAABAAAAAAAOAP//AAABAAAAAAAPAP//AAABAAAAAAAAAAgAAAABAAAAAAABAAgAAAABAAAAAAACAAgAAAABAAAAAAADAAgAAAABAAAAAAAEAAgAAAABAAAAAAAFAAgAAAABAAAAAAAGAAgAAAABAAAAAAAHAAgAAAABAAAAAAAIAAgAAAABAAAAAAAJAAgAAAABAAAAAAAKAAgAAAABAAAAAAALAAgAAAABAAAAAAAMAAgAAAABAAAAAAANAAgAAAABAAAAAAAOAAgAAAABAAAAAAAPAAgAAAABAAAAAAAPAAIAAAABAAAAAAAOAAIAAAABAAAAAAANAAIAAAABAAAAAAAQAP//AAABAAAAAAD/////AAABAAAAAAA=")
 
 [node name="CustomCamera2D" type="Camera2D" parent="."]
-position = Vector2(128, 72)
+position = Vector2(71, 121)
 zoom = Vector2(4.5, 4.5)
 process_callback = 0
 limit_left = -16
 limit_top = -16
 limit_right = 272
 limit_bottom = 144
-limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 6.5
 script = ExtResource("2_tod6f")
@@ -44,7 +43,7 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 y_sort_enabled = true
-position = Vector2(13, 115)
+position = Vector2(244, 87)
 
 [node name="GemsController" parent="." instance=ExtResource("3_tod6f")]
 
@@ -55,7 +54,7 @@ unique_name_in_owner = true
 position = Vector2(128, -24)
 scale = Vector2(4, 1)
 metadata/NextSceneName = "RB2_Area"
-metadata/NextScenePosition = Vector2(192, 256)
+metadata/NextScenePosition = Vector2(176, 244)
 
 [node name="BigTreasureChest" parent="." instance=ExtResource("8_piphp")]
 position = Vector2(251, 21)
@@ -67,7 +66,7 @@ metadata/heavy = "HeavySword"
 metadata/juggle = "LightSword"
 
 [node name="LockedDoor" parent="." instance=ExtResource("8_kdqdq")]
-position = Vector2(128, 0)
+position = Vector2(209, -39)
 metadata/KillroomList = ["SlimeCharacter"]
 
 [node name="SlimeCharacter" parent="." instance=ExtResource("9_piphp")]
@@ -78,3 +77,5 @@ position = Vector2(166, 44)
 
 [node name="SlimeCharacter3" parent="." instance=ExtResource("9_piphp")]
 position = Vector2(126, 109)
+
+[connection signal="child_exiting_tree" from="." to="LockedDoor" method="_on_child_exiting_tree"]
