@@ -1,3 +1,4 @@
+#GlobalDataManager.gd
 extends Node2D
 
 var framesActive = 0
@@ -59,9 +60,14 @@ var isGosheniteEnabled
 var isMoonStoneEnabled
 var isPearlEnabled
 
-#Puzzle values
+#Game engine values
 var gameStart = true
 var dataChanged = false
+
+#Treasure values
+var treasureChestsList = []
+var treasureChestCount = 5
+
 #Power boxes
 var powerBoxesList = []
 var powerBoxesCount = 5
@@ -71,6 +77,8 @@ func _ready():
 		gameStart = false
 		for num in powerBoxesCount:
 			powerBoxesList.push_back(false)
+		for num in treasureChestCount:
+			treasureChestsList.push_back(false)
 
 func _physics_process(delta):
 	if loadingFromPrev && !start:
@@ -208,6 +216,10 @@ func load_player_data():
 	player.isMoonStoneEnabled = isMoonStoneEnabled
 	player.isPearlEnabled = isPearlEnabled
 	player.global_position = nextPlayerPosition
+
+func change_treasure_chest_data(ID):
+	treasureChestsList[ID - 1] = true
+	dataChanged = true
 
 func change_power_box_data(ID):
 	powerBoxesList[ID - 1] = true

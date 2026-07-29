@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://di1nw1b8iy2y7" path="res://Objects/SwitchDoor.tscn" id="9_32lcc"]
 
 [node name="RB5_Area" type="Node2D"]
+y_sort_enabled = true
 
 [node name="RB5_TileMap" parent="." instance=ExtResource("1_pwkp4")]
 position = Vector2(0, 16)
@@ -26,6 +27,7 @@ offset_bottom = 260.0
 metadata/_edit_use_anchors_ = true
 
 [node name="CustomCamera2D" parent="." instance=ExtResource("2_1ffqy")]
+position = Vector2(20, 129)
 limit_right = 223
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("3_32lcc")]
@@ -64,10 +66,18 @@ metadata/NextScenePosition = Vector2(176, 16)
 [node name="PowerBox" parent="." instance=ExtResource("7_dj8st")]
 position = Vector2(52, 21)
 metadata/ID = 1
+metadata/Direction = "down"
+
+[node name="PowerBox2" parent="." instance=ExtResource("7_dj8st")]
+position = Vector2(52, 226)
+metadata/ID = 2
+metadata/Solution = [1]
+metadata/Direction = "up"
 
 [node name="PowerLockedDoor" parent="." instance=ExtResource("8_1ffqy")]
 position = Vector2(112, 16)
 metadata/Direction = "down"
+metadata/Solution = [1, 2]
 
 [node name="PowerLockedDoor2" parent="." instance=ExtResource("8_1ffqy")]
 position = Vector2(8, 128)

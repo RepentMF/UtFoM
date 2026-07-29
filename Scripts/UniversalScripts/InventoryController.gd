@@ -1,3 +1,4 @@
+#InventoryController.gd
 extends Node
 
 var keyItemsInventory = []

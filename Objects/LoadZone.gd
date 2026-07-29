@@ -1,3 +1,4 @@
+#LoadZone.gd
 extends Area2D
 
 var areaSceneName

@@ -1,6 +1,5 @@
+#slimeAttacksController.gd
 extends Node
-
-# Enemy name: slime
 
 var rng = RandomNumberGenerator.new()
 

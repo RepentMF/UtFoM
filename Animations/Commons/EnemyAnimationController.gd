@@ -1,3 +1,4 @@
+#EnemyAnimationController.gd
 extends AnimationTree
 
 @onready var actor = get_owner()

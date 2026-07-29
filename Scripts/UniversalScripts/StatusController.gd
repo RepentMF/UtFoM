@@ -1,3 +1,4 @@
+#StatusController.gd
 extends Node2D
 
 var statusList = []

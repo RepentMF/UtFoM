@@ -1,3 +1,4 @@
+#LaserDetector.gd
 extends RayCast2D
 
 var attack

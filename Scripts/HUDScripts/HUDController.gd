@@ -1,3 +1,4 @@
+#HUDCiontroller.gd
 extends Control
 
 #sets various sprites for hud

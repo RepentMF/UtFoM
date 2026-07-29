@@ -1,3 +1,4 @@
+#StatsController.gd
 extends Node2D
 
 signal health_is_zero

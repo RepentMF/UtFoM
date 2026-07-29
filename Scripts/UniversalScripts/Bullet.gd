@@ -1,3 +1,4 @@
+#Bullet.gd
 extends RigidBody2D
 
 var statusList = []

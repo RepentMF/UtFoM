@@ -1,3 +1,4 @@
+#Turret.gd
 extends Area2D
 
 var bulletMeta

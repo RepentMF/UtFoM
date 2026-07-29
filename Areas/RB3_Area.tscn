@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://biw377d4lxosj"]
+
+[ext_resource type="PackedScene" uid="uid://cqgduvnfvy4x3" path="res://TileMaps/RockBottom3_TileMap.tscn" id="2_bjga2"]
+[ext_resource type="PackedScene" uid="uid://bn4j8kecuseyi" path="res://Actors/CustomCamera2D.tscn" id="2_pmcod"]
+[ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="3_dk2ad"]
+[ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="4_torfk"]
+[ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="5_8qlom"]
+[ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_yjr6g"]
+[ext_resource type="PackedScene" uid="uid://lcfx5jcv30on" path="res://Objects/EnemyDoor.tscn" id="7_bjga2"]
+
+[node name="RB3_Area" type="Node2D"]
+y_sort_enabled = true
+
+[node name="CustomCamera2D" parent="." instance=ExtResource("2_pmcod")]
+position = Vector2(17, 144)
+limit_right = 256
+limit_bottom = 176
+
+[node name="RB3_TileMap" parent="." instance=ExtResource("2_bjga2")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 35.0
+offset_top = 98.0
+offset_right = 247.0
+offset_bottom = 215.0
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerCharacter" parent="." instance=ExtResource("3_dk2ad")]
+unique_name_in_owner = true
+modulate = Color(0.563984, 0.99828, 0.694974, 1)
+y_sort_enabled = true
+position = Vector2(17, 144)
+
+[node name="GemsController" parent="." instance=ExtResource("4_torfk")]
+
+[node name="InventoryController" parent="." instance=ExtResource("5_8qlom")]
+unique_name_in_owner = true
+
+[node name="LoadZone" parent="." instance=ExtResource("6_yjr6g")]
+position = Vector2(-8, 144)
+scale = Vector2(1, 4)
+metadata/NextSceneName = "RB2_Area"
+metadata/NextScenePosition = Vector2(352, 144)
+
+[node name="LoadZone2" parent="." instance=ExtResource("6_yjr6g")]
+position = Vector2(128, -8)
+scale = Vector2(4, 1)
+metadata/NextSceneName = "RB4_Area"
+metadata/NextScenePosition = Vector2(112, 224)
+
+[node name="EnemyDoor" parent="." instance=ExtResource("7_bjga2")]
+position = Vector2(48, 56)
+metadata/Direction = "up"
+
+[node name="EnemyDoor2" parent="." instance=ExtResource("7_bjga2")]
+position = Vector2(208, 56)
+metadata/Direction = "up"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cuepwgf8w5ypi"]
+[gd_scene load_steps=9 format=3 uid="uid://cuepwgf8w5ypi"]
 
 [ext_resource type="PackedScene" uid="uid://ddpcxwjirngly" path="res://TileMaps/RockBottom6_TileMap.tscn" id="1_fii38"]
 [ext_resource type="PackedScene" uid="uid://bn4j8kecuseyi" path="res://Actors/CustomCamera2D.tscn" id="2_653qc"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="5_pws5v"]
 [ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_21on2"]
 [ext_resource type="PackedScene" uid="uid://c4eu0evb3ass6" path="res://Objects/BigTreasureChest.tscn" id="7_pws5v"]
+[ext_resource type="PackedScene" uid="uid://dvckdw1hfku5k" path="res://Objects/PowerBox.tscn" id="8_21on2"]
 
 [node name="RB6_Area" type="Node2D"]
 y_sort_enabled = true
@@ -24,6 +25,7 @@ metadata/_edit_use_anchors_ = true
 [node name="RB6_TileMap" parent="." instance=ExtResource("1_fii38")]
 
 [node name="CustomCamera2D" parent="." instance=ExtResource("2_653qc")]
+position = Vector2(350, 126)
 limit_left = 1
 limit_bottom = 207
 
@@ -51,3 +53,9 @@ metadata/iName = "Obsidian"
 metadata/description = "poison"
 metadata/boolToChange = "isObsidianEnabled"
 metadata/gemColor = "black"
+metadata/ID = 3
+
+[node name="PowerBox" parent="." instance=ExtResource("8_21on2")]
+position = Vector2(224, 194)
+metadata/ID = 3
+metadata/Direction = "up"

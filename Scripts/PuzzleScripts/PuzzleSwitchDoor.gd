@@ -1,3 +1,4 @@
+#PuzzleSwitchDoor.gd
 extends Node2D
 
 var direction
@@ -8,14 +9,14 @@ func _ready():
 	direction = get_meta("Direction")
 	get_node("Sprite2D").animation = direction
 	match direction:
-			"down":
-				get_node("StaticBody2D/CollisionShape2D").disabled = false
-			"left":
-				get_node("StaticBody2D2/CollisionShape2D").disabled = false
-			"up":
-				get_node("StaticBody2D3/CollisionShape2D").disabled = false
-			"right":
-				get_node("StaticBody2D2/CollisionShape2D").disabled = false
+		"down":
+			get_node("StaticBody2D/CollisionShape2D").disabled = false
+		"left":
+			get_node("StaticBody2D2/CollisionShape2D").disabled = false
+		"up":
+			get_node("StaticBody2D3/CollisionShape2D").disabled = false
+		"right":
+			get_node("StaticBody2D2/CollisionShape2D").disabled = false
 	pass # Replace with function body.
 
 func attempt_puzzle_solve(body):

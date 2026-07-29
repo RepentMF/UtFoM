@@ -1,3 +1,4 @@
+#PuzzlePowerDoor.gd
 extends Node2D
 
 var direction

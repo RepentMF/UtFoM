@@ -1,3 +1,4 @@
+#PushSwitch.gd
 extends Node2D
 
 var sprite

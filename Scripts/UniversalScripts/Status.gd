@@ -1,3 +1,4 @@
+#Status.gd
 class_name Status
 
 var name

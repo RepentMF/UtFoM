@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://cxouqojr63iy4"]
 
 [ext_resource type="Texture2D" uid="uid://dkflhuc0a4skb" path="res://Sprites/SmallChest.png" id="1_8q83x"]
-[ext_resource type="Script" uid="uid://bmtpcjkd6ee8d" path="res://Objects/TreasureChest.gd" id="1_ume0x"]
+[ext_resource type="Script" uid="uid://ul8vkaexqi4v" path="res://Objects/TreasureChest.gd" id="1_ume0x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ume0x"]
 atlas = ExtResource("1_8q83x")
@@ -121,6 +121,7 @@ metadata/heavy = ""
 metadata/juggle = ""
 metadata/boolToChange = ""
 metadata/gemColor = ""
+metadata/ID = 0
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_je5lt")

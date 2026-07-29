@@ -1,7 +1,9 @@
+#TreasureChest.gd
 extends Node2D
 
 var invController
 
+var ID
 var direction
 var opened
 var isNearTreasure = false
@@ -16,21 +18,56 @@ var boolToChange
 var gemColor
 
 func _ready():
-	invController = get_parent().get_node("InventoryController")
+	print("")
+	print(GlobalDataManager.treasureChestsList)
+	ID = get_meta("ID")
 	direction = get_meta("direction")
-	treasureType = get_meta("treasureType")
-	iName = get_meta("iName")
-	description = get_meta("description")
-	match treasureType:
-		"weapon":
-			light = get_meta("light")
-			juggle = get_meta("juggle")
-			heavy = get_meta("heavy")
-	boolToChange = get_meta("boolToChange")
-	gemColor = get_meta("gemColor")
+	if GlobalDataManager.treasureChestsList[ID - 1]:
+		opened = true
+	if !opened:
+		invController = get_parent().get_node("InventoryController")
+		treasureType = get_meta("treasureType")
+		iName = get_meta("iName")
+		description = get_meta("description")
+		match treasureType:
+			"weapon":
+				light = get_meta("light")
+				juggle = get_meta("juggle")
+				heavy = get_meta("heavy")
+		boolToChange = get_meta("boolToChange")
+		gemColor = get_meta("gemColor")
+	else:
+		rig_animation()
 	pass
 
 func _process(delta):
+	rig_animation()
+	if name.contains("Big") && (direction == "right" || direction == "left"):
+		get_node("StaticBody2D").get_node("CollisionShape2D").disabled = true
+	elif name.contains("Big") && (direction == "up" || direction == "down"):
+		get_node("StaticBody2D2").get_node("CollisionShape2D").disabled = true
+
+func _physics_process(delta):
+	if isNearTreasure:
+		if Input.is_action_just_pressed("action_juggle_attack"):
+			opened = true
+			GlobalDataManager.change_treasure_chest_data(ID)
+	pass
+
+func process_item_data(body):
+	var treasureItem
+	match treasureType:
+		"key":
+			treasureItem = invController.new_key_item_add(iName, description)
+		"gem":
+			treasureItem = invController.new_gem_item_add(iName, description, boolToChange, gemColor)
+		"weapon":
+			treasureItem = invController.new_weapon_add(iName, description, light, heavy, juggle)
+	body.itemToReceive = treasureItem
+	body.itemTypeToReceive = treasureType
+	pass
+
+func rig_animation():
 	if !opened:
 		match direction:
 			"down":
@@ -59,29 +96,6 @@ func _process(delta):
 			"right":
 				get_node("Area2D").rotation = -PI / 2
 				get_node("Sprite2D").animation = "right_open"
-	if name.contains("Big") && (direction == "right" || direction == "left"):
-		get_node("StaticBody2D").get_node("CollisionShape2D").disabled = true
-	elif name.contains("Big") && (direction == "up" || direction == "down"):
-		get_node("StaticBody2D2").get_node("CollisionShape2D").disabled = true
-
-func _physics_process(delta):
-	if isNearTreasure:
-		if Input.is_action_just_pressed("action_juggle_attack"):
-			opened = true
-	pass
-
-func process_item_data(body):
-	var treasureItem
-	match treasureType:
-		"key":
-			treasureItem = invController.new_key_item_add(iName, description)
-		"gem":
-			treasureItem = invController.new_gem_item_add(iName, description, boolToChange, gemColor)
-		"weapon":
-			treasureItem = invController.new_weapon_add(iName, description, light, heavy, juggle)
-	body.itemToReceive = treasureItem
-	body.itemTypeToReceive = treasureType
-	pass
 
 func _on_area_2d_body_entered(body):
 	if body.name.contains("PlayerCharacter") && !opened:

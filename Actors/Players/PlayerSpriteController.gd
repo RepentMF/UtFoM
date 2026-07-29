@@ -1,3 +1,4 @@
+#PlayerSpriteController.gd
 extends Sprite2D
 
 var isActorAttacking = false

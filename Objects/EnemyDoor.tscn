@@ -1,19 +1,91 @@
-[gd_scene load_steps=4 format=3 uid="uid://lcfx5jcv30on"]
+[gd_scene load_steps=11 format=3 uid="uid://lcfx5jcv30on"]
 
-[ext_resource type="Script" uid="uid://btmrjd8spmvi8" path="res://Scripts/PuzzleScripts/PuzzleKillroom.gd" id="1_1mocn"]
+[ext_resource type="Script" uid="uid://d3crm7t23ylnk" path="res://Scripts/PuzzleScripts/PuzzleKillroom.gd" id="1_1mocn"]
 [ext_resource type="Texture2D" uid="uid://h566fwprb8ht" path="res://Sprites/KillroomDoorPlaceholder.png" id="1_yr67k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkx4r"]
+atlas = ExtResource("1_yr67k")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhj0v"]
+atlas = ExtResource("1_yr67k")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgkw6"]
+atlas = ExtResource("1_yr67k")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3e5m"]
+atlas = ExtResource("1_yr67k")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_00hbe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkx4r")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhj0v")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dgkw6")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3e5m")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mocn"]
 size = Vector2(32, 32)
 
-[node name="LockedDoor" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mkx4r"]
+size = Vector2(16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xhj0v"]
+size = Vector2(32, 16)
+
+[node name="EnemyDoor" type="Node2D"]
 script = ExtResource("1_1mocn")
 metadata/KillroomList = []
+metadata/Direction = ""
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_yr67k")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_00hbe")
+animation = &"up"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_1mocn")
+disabled = true
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("RectangleShape2D_mkx4r")
+disabled = true
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource("RectangleShape2D_xhj0v")
+disabled = true

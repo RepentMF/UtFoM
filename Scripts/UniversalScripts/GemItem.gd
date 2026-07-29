@@ -1,3 +1,4 @@
+#GemItem.gd
 extends Node2D
 
 var invController

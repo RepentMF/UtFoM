@@ -1,3 +1,4 @@
+#CustomCamera2D.gd
 extends Camera2D
 
 var targetPlayer

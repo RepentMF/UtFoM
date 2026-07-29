@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://dvckdw1hfku5k"]
+[gd_scene load_steps=28 format=3 uid="uid://dvckdw1hfku5k"]
 
-[ext_resource type="Script" uid="uid://yrj4s7r3dipp" path="res://Objects/PowerBox.gd" id="1_lvmub"]
-[ext_resource type="Texture2D" uid="uid://bego01wuufa0d" path="res://Sprites/PowerBox.png" id="2_lvmub"]
+[ext_resource type="Script" uid="uid://pr4bwglgkqn" path="res://Objects/PowerBox.gd" id="1_lvmub"]
+[ext_resource type="Texture2D" uid="uid://dfbn56pwsdya6" path="res://Sprites/PowerBox.png" id="2_lvmub"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fi0g6"]
 atlas = ExtResource("2_lvmub")
@@ -23,6 +23,26 @@ region = Rect2(0, 60, 26, 20)
 atlas = ExtResource("2_lvmub")
 region = Rect2(26, 60, 26, 20)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvmub"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(0, 0, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ko7pq"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(52, 0, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3i3v"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(52, 20, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3m41f"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(52, 0, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7qp1"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(0, 0, 26, 20)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_afsqy"]
 atlas = ExtResource("2_lvmub")
 region = Rect2(0, 0, 26, 20)
@@ -35,6 +55,46 @@ region = Rect2(26, 0, 26, 20)
 atlas = ExtResource("2_lvmub")
 region = Rect2(26, 20, 26, 20)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_afppi"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(52, 40, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqoec"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(78, 0, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7k0u"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(52, 40, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0l3ao"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(78, 20, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trkeb"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(78, 40, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rh1k"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(78, 20, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1tra"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(52, 40, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oh481"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(52, 40, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_he745"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(52, 60, 26, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7j0w"]
+atlas = ExtResource("2_lvmub")
+region = Rect2(78, 0, 26, 20)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ko7pq"]
 animations = [{
 "frames": [{
@@ -42,7 +102,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_fi0g6")
 }],
 "loop": true,
-"name": &"off",
+"name": &"down_off",
 "speed": 5.0
 }, {
 "frames": [{
@@ -59,8 +119,28 @@ animations = [{
 "texture": SubResource("AtlasTexture_mpode")
 }],
 "loop": true,
-"name": &"on",
+"name": &"down_on",
 "speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvmub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ko7pq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3i3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3m41f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7qp1")
+}],
+"loop": false,
+"name": &"down_switch_failed",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -73,7 +153,57 @@ animations = [{
 "texture": SubResource("AtlasTexture_cv78g")
 }],
 "loop": false,
-"name": &"switched_on",
+"name": &"down_switched_on",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afppi")
+}],
+"loop": true,
+"name": &"up_off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kqoec")
+}],
+"loop": true,
+"name": &"up_on",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7k0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0l3ao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trkeb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rh1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1tra")
+}],
+"loop": false,
+"name": &"up_switch_failed",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oh481")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_he745")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7j0w")
+}],
+"loop": false,
+"name": &"up_switched_on",
 "speed": 8.0
 }]
 
@@ -81,21 +211,35 @@ animations = [{
 size = Vector2(16, 6)
 
 [node name="PowerBox" type="Node2D"]
+z_index = 5
+y_sort_enabled = true
 script = ExtResource("1_lvmub")
 metadata/ID = 0
+metadata/Solution = []
+metadata/Direction = ""
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(5, -1)
 sprite_frames = SubResource("SpriteFrames_ko7pq")
-animation = &"on"
-frame_progress = 0.18213463
+animation = &"up_off"
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 14)
 shape = SubResource("RectangleShape2D_eiv8r")
+disabled = true
+
+[node name="Area2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+z_index = 5
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_eiv8r")
+disabled = true
 
 [connection signal="animation_finished" from="Sprite2D" to="." method="_on_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_body_exited"]

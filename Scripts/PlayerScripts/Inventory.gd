@@ -1,3 +1,4 @@
+#Inventory.gd
 extends Node2D
 
 var keyItemsInventory = []

@@ -1,3 +1,4 @@
+#PuzzleLockedDoor.gd
 extends Node2D
 
 var solved = false
