@@ -16,10 +16,10 @@ var juggle
 var heavy
 var boolToChange
 var gemColor
+var statToChange
+var modifierAmount
 
 func _ready():
-	print("")
-	print(GlobalDataManager.treasureChestsList)
 	ID = get_meta("ID")
 	direction = get_meta("direction")
 	if GlobalDataManager.treasureChestsList[ID - 1]:
@@ -36,6 +36,8 @@ func _ready():
 				heavy = get_meta("heavy")
 		boolToChange = get_meta("boolToChange")
 		gemColor = get_meta("gemColor")
+		statToChange = get_meta("statToChange")
+		modifierAmount = get_meta("modifierAmount")
 	else:
 		rig_animation()
 	pass
@@ -59,6 +61,8 @@ func process_item_data(body):
 	match treasureType:
 		"key":
 			treasureItem = invController.new_key_item_add(iName, description)
+		"upgrade":
+			treasureItem = invController.new_upgrade_item_add(iName, description, statToChange, modifierAmount)
 		"gem":
 			treasureItem = invController.new_gem_item_add(iName, description, boolToChange, gemColor)
 		"weapon":

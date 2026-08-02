@@ -68,17 +68,29 @@ var dataChanged = false
 var treasureChestsList = []
 var treasureChestCount = 5
 
-#Power boxes
+#Switches values
+var switchesList = []
+var switchesCount = 5
+
+#Power boxes values
 var powerBoxesList = []
 var powerBoxesCount = 5
+
+#Doors values
+var doorsList = []
+var doorsCount = 10
 
 func _ready():
 	if gameStart:
 		gameStart = false
 		for num in powerBoxesCount:
 			powerBoxesList.push_back(false)
+		for num in switchesCount:
+			switchesList.push_back(false)
 		for num in treasureChestCount:
 			treasureChestsList.push_back(false)
+		for num in doorsCount:
+			doorsList.push_back(false)
 
 func _physics_process(delta):
 	if loadingFromPrev && !start:
@@ -217,8 +229,16 @@ func load_player_data():
 	player.isPearlEnabled = isPearlEnabled
 	player.global_position = nextPlayerPosition
 
+func change_door_data(ID):
+	doorsList[ID - 1] = true
+	dataChanged = true
+
 func change_treasure_chest_data(ID):
 	treasureChestsList[ID - 1] = true
+	dataChanged = true
+
+func change_switch_data(ID):
+	switchesList[ID - 1] = true
 	dataChanged = true
 
 func change_power_box_data(ID):

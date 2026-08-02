@@ -1,0 +1,74 @@
+[gd_scene load_steps=10 format=3 uid="uid://c3undhweqkfj4"]
+
+[ext_resource type="PackedScene" uid="uid://dgq7fpp3qfpkn" path="res://TileMaps/RockBottom4_TileMap.tscn" id="1_6qiyi"]
+[ext_resource type="PackedScene" uid="uid://bn4j8kecuseyi" path="res://Actors/CustomCamera2D.tscn" id="2_3hwkf"]
+[ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="3_f547b"]
+[ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="4_pjswb"]
+[ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="5_43wb2"]
+[ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_rjb2l"]
+[ext_resource type="PackedScene" uid="uid://clu7xacjxd5u4" path="res://Objects/PushSwitch.tscn" id="8_euaxf"]
+[ext_resource type="PackedScene" uid="uid://c4eu0evb3ass6" path="res://Objects/BigTreasureChest.tscn" id="9_3hwkf"]
+[ext_resource type="PackedScene" uid="uid://di1nw1b8iy2y7" path="res://Objects/SwitchDoor.tscn" id="9_lc3vi"]
+
+[node name="RB4_Area" type="Node2D"]
+y_sort_enabled = true
+
+[node name="RB5_TileMap" parent="." instance=ExtResource("1_6qiyi")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 35.0
+offset_top = 143.0
+offset_right = 247.0
+offset_bottom = 260.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CustomCamera2D" parent="." instance=ExtResource("2_3hwkf")]
+position = Vector2(20, 129)
+limit_right = 223
+
+[node name="PlayerCharacter" parent="." instance=ExtResource("3_f547b")]
+unique_name_in_owner = true
+modulate = Color(0.563984, 0.99828, 0.694974, 1)
+y_sort_enabled = true
+position = Vector2(162, 17)
+
+[node name="GemsController" parent="." instance=ExtResource("4_pjswb")]
+
+[node name="InventoryController" parent="." instance=ExtResource("5_43wb2")]
+unique_name_in_owner = true
+
+[node name="LoadZone" parent="." instance=ExtResource("6_rjb2l")]
+position = Vector2(-8, 48)
+scale = Vector2(1, 4)
+metadata/NextSceneName = "RB5_Area"
+metadata/NextScenePosition = Vector2(208, 128)
+
+[node name="LoadZone2" parent="." instance=ExtResource("6_rjb2l")]
+position = Vector2(216.00002, -40)
+scale = Vector2(3, 1)
+metadata/NextSceneName = "TC1_Area"
+
+[node name="LoadZone3" parent="." instance=ExtResource("6_rjb2l")]
+position = Vector2(112, 168)
+scale = Vector2(4, 1)
+metadata/NextSceneName = "RB3_Area"
+metadata/NextScenePosition = Vector2(128, 16)
+
+[node name="PushSwitch" parent="." instance=ExtResource("8_euaxf")]
+position = Vector2(82, 77)
+metadata/ID = 1
+
+[node name="SwitchDoor" parent="." instance=ExtResource("9_lc3vi")]
+position = Vector2(8, 48)
+metadata/Direction = "left"
+metadata/Solution = [1]
+
+[node name="BigTreasureChest" parent="." instance=ExtResource("9_3hwkf")]
+position = Vector2(110, 74)
+metadata/treasureType = "upgrade"
+metadata/iName = "Vitality Up"
+metadata/description = "health go up"
+metadata/statToChange = "maxHealth"

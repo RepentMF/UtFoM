@@ -34,7 +34,7 @@ limit_right = 223
 unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 y_sort_enabled = true
-position = Vector2(40, 52)
+position = Vector2(112, 224)
 
 [node name="GemsController" parent="." instance=ExtResource("4_0wntx")]
 
@@ -45,7 +45,7 @@ unique_name_in_owner = true
 position = Vector2(-8, 128)
 scale = Vector2(1, 4)
 metadata/NextSceneName = "RB6_Area"
-metadata/NextScenePosition = Vector2(352, 127)
+metadata/NextScenePosition = Vector2(376, 128)
 
 [node name="LoadZone2" parent="." instance=ExtResource("6_85jkj")]
 position = Vector2(112, -8)
@@ -56,6 +56,7 @@ metadata/NextSceneName = "TP1_Area"
 position = Vector2(232, 128)
 scale = Vector2(1, 4)
 metadata/NextSceneName = "RB4_Area"
+metadata/NextScenePosition = Vector2(16, 48)
 
 [node name="LoadZone4" parent="." instance=ExtResource("6_85jkj")]
 position = Vector2(112, 248)
@@ -87,3 +88,4 @@ metadata/Solution = [1]
 [node name="SwitchDoor" parent="." instance=ExtResource("9_32lcc")]
 position = Vector2(216, 128)
 metadata/Direction = "right"
+metadata/Solution = [1]

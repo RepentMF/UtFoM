@@ -66,6 +66,7 @@ size = Vector2(32, 16)
 [node name="SwitchDoor" type="Node2D"]
 script = ExtResource("1_wwic0")
 metadata/Direction = ""
+metadata/Solution = []
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q50vo")

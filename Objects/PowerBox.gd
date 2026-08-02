@@ -51,7 +51,7 @@ func _on_area_2d_body_entered(body):
 	if body.name.contains("PlayerCharacter") && !switched:
 		player = body
 		player.isNearInteractable = true
-		print("press a on controller. press d on keyboard.")
+		#print("press a on controller. press d on keyboard.")
 	pass # Replace with function body.
 
 func _on_area_2d_body_exited(body):

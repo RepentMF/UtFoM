@@ -3,6 +3,7 @@ extends Node
 
 var keyItemsInventory = []
 var gemsInventory = []
+var upgradesInventory = []
 var weaponsInventory = []
 var currentWeapon
 
@@ -24,6 +25,16 @@ func new_key_item_add(iName, description):
 	key_instantiator.iName = iName
 	key_instantiator.description = description
 	return key_instantiator
+
+func new_upgrade_item_add(iName, description, statToChange, modifierAmount):
+	var NewUpgradeItem = load("res://Scripts/UniversalScripts/UpgradeItem.gd")
+	var upgrade_instantiator = NewUpgradeItem.new()
+	upgrade_instantiator.name = iName
+	upgrade_instantiator.iName = iName
+	upgrade_instantiator.description = description
+	upgrade_instantiator.statToChange = statToChange
+	upgrade_instantiator.modifierAmount = modifierAmount
+	return upgrade_instantiator
 
 func new_gem_item_add(iName, description, boolToChange, gemColor):
 	var NewGem = load("res://Scripts/UniversalScripts/GemItem.gd")

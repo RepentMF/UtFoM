@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=3 uid="uid://dvckdw1hfku5k"]
 
-[ext_resource type="Script" uid="uid://pr4bwglgkqn" path="res://Objects/PowerBox.gd" id="1_lvmub"]
-[ext_resource type="Texture2D" uid="uid://dfbn56pwsdya6" path="res://Sprites/PowerBox.png" id="2_lvmub"]
+[ext_resource type="Script" uid="uid://yrj4s7r3dipp" path="res://Objects/PowerBox.gd" id="1_lvmub"]
+[ext_resource type="Texture2D" uid="uid://bego01wuufa0d" path="res://Sprites/PowerBox.png" id="2_lvmub"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fi0g6"]
 atlas = ExtResource("2_lvmub")

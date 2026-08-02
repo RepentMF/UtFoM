@@ -2,10 +2,12 @@
 extends Node2D
 
 var direction
+var solution = []
 var solved = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	solution = get_meta("Solution")
 	direction = get_meta("Direction")
 	get_node("Sprite2D").animation = direction
 	match direction:
@@ -17,12 +19,20 @@ func _ready():
 			get_node("StaticBody2D3/CollisionShape2D").disabled = false
 		"right":
 			get_node("StaticBody2D2/CollisionShape2D").disabled = false
+	attempt_puzzle_solve()
 	pass # Replace with function body.
 
-func attempt_puzzle_solve(body):
+func _physics_process(delta):
+	if GlobalDataManager.dataChanged:
+		attempt_puzzle_solve()
 	pass
 
-func _on_area_2d_body_entered(body):
-	if body.name.contains("PlayerCharacter"):
-		attempt_puzzle_solve(body)
-	pass # Replace with function body.
+func attempt_puzzle_solve():
+	for ID in solution:
+		if GlobalDataManager.switchesList[ID - 1]:
+			solution.erase(ID)
+	if solution.is_empty():
+		queue_free()
+	#else:
+	#	print("not all switches pressed")
+	pass

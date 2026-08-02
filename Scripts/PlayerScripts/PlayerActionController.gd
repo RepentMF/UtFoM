@@ -225,6 +225,8 @@ func handle_states():
 			match itemTypeToReceive:
 				"key":
 					inventory.keyItemsInventory.push_back(itemToReceive)
+				"upgrade":
+					inventory.upgradesInventory.push_back(itemToReceive)
 				"gem":
 					inventory.gemsInventory.push_back(itemToReceive)
 				"weapon":

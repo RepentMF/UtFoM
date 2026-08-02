@@ -32,7 +32,7 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 y_sort_enabled = true
-position = Vector2(17, 144)
+position = Vector2(74, 84)
 
 [node name="GemsController" parent="." instance=ExtResource("4_torfk")]
 
@@ -49,12 +49,14 @@ metadata/NextScenePosition = Vector2(352, 144)
 position = Vector2(128, -8)
 scale = Vector2(4, 1)
 metadata/NextSceneName = "RB4_Area"
-metadata/NextScenePosition = Vector2(112, 224)
+metadata/NextScenePosition = Vector2(112, 144)
 
 [node name="EnemyDoor" parent="." instance=ExtResource("7_bjga2")]
 position = Vector2(48, 56)
 metadata/Direction = "up"
+metadata/ID = 2
 
 [node name="EnemyDoor2" parent="." instance=ExtResource("7_bjga2")]
 position = Vector2(208, 56)
 metadata/Direction = "up"
+metadata/ID = 2

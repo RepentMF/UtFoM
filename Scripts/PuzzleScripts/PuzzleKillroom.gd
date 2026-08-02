@@ -1,6 +1,8 @@
 #PuzzleKillroom.gd
 extends Node2D
 
+var ID
+
 var solved = false
 var direction
 var killroomList
@@ -10,6 +12,9 @@ var missingCount = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	ID = get_meta("ID")
+	if GlobalDataManager.doorsList[ID - 1]:
+		solved = true
 	if !solved:
 		killroomList = get_meta("KillroomList")
 		for child in get_parent().get_children():
@@ -27,11 +32,14 @@ func _ready():
 				get_node("StaticBody2D3/CollisionShape2D").disabled = false
 			"right":
 				get_node("StaticBody2D2/CollisionShape2D").disabled = false
+	else:
+		queue_free()
 	pass # Replace with function body.
 
 func attempt_puzzle_solve():
 	if enemyNames.is_empty():
 		solved = true
+		GlobalDataManager.change_door_data(ID)
 		queue_free()
 	else:
 		print("???")

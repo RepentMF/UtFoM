@@ -35,7 +35,7 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 y_sort_enabled = true
-position = Vector2(352, 144)
+position = Vector2(223, 62)
 
 [node name="GemsController" parent="." instance=ExtResource("3_1fojb")]
 
@@ -53,7 +53,7 @@ position = Vector2(376, 144)
 rotation = 1.5707964
 scale = Vector2(4, 1)
 metadata/NextSceneName = "RB3_Area"
-metadata/NextScenePosition = Vector2(17, 144)
+metadata/NextScenePosition = Vector2(16, 144)
 
 [node name="LoadZone3" parent="." instance=ExtResource("6_50i7q")]
 position = Vector2(176, -8)
@@ -62,7 +62,7 @@ metadata/NextSceneName = "RB5_Area"
 metadata/NextScenePosition = Vector2(112, 224)
 
 [node name="SmallTreasureChest" parent="." instance=ExtResource("7_logqu")]
-position = Vector2(280, 104)
+position = Vector2(284, 75)
 metadata/treasureType = "key"
 metadata/iName = "Small Key"
 metadata/description = "it's a key"
@@ -70,6 +70,7 @@ metadata/ID = 2
 
 [node name="LockedDoor" parent="." instance=ExtResource("8_31ds8")]
 position = Vector2(176, 16)
+metadata/ID = 2
 
 [node name="PowerBox" parent="." instance=ExtResource("9_irtce")]
 position = Vector2(77, 242)
@@ -78,6 +79,6 @@ metadata/Solution = [3]
 metadata/Direction = "up"
 
 [node name="PowerLockedDoor" parent="." instance=ExtResource("10_hekhg")]
-position = Vector2(405, 304)
+position = Vector2(360, 144)
 metadata/Direction = "right"
 metadata/Solution = [4]
