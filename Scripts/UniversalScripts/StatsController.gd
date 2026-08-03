@@ -19,7 +19,7 @@ func _ready():
 	currentStamina = get_parent().get_meta("Stamina")
 
 # Modify corresponding current stat and return calculated stat
-func modify_stat(curStat, change, maxStat):
+func modify_stat(curStat, change, maxStat, line):
 	var calculatedStat = curStat + change
 	return check_min_max(calculatedStat, maxStat)
 

@@ -9,12 +9,14 @@
 [ext_resource type="PackedScene" uid="uid://lcfx5jcv30on" path="res://Objects/EnemyDoor.tscn" id="7_bjga2"]
 
 [node name="RB3_Area" type="Node2D"]
+modulate = Color(0.61297315, 0.9999998, 0.6945885, 1)
 y_sort_enabled = true
 
 [node name="CustomCamera2D" parent="." instance=ExtResource("2_pmcod")]
 position = Vector2(17, 144)
-limit_right = 256
-limit_bottom = 176
+limit_left = -16
+limit_right = 272
+limit_bottom = 192
 
 [node name="RB3_TileMap" parent="." instance=ExtResource("2_bjga2")]
 
@@ -40,7 +42,7 @@ position = Vector2(74, 84)
 unique_name_in_owner = true
 
 [node name="LoadZone" parent="." instance=ExtResource("6_yjr6g")]
-position = Vector2(-8, 144)
+position = Vector2(-24, 144)
 scale = Vector2(1, 4)
 metadata/NextSceneName = "RB2_Area"
 metadata/NextScenePosition = Vector2(352, 144)

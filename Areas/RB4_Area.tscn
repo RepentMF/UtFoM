@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://di1nw1b8iy2y7" path="res://Objects/SwitchDoor.tscn" id="9_lc3vi"]
 
 [node name="RB4_Area" type="Node2D"]
+modulate = Color(0.61297315, 0.9999998, 0.6945885, 1)
 y_sort_enabled = true
 
 [node name="RB5_TileMap" parent="." instance=ExtResource("1_6qiyi")]
@@ -27,7 +28,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="CustomCamera2D" parent="." instance=ExtResource("2_3hwkf")]
 position = Vector2(20, 129)
-limit_right = 223
+limit_left = -16
+limit_top = -32
+limit_right = 256
+limit_bottom = 176
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("3_f547b")]
 unique_name_in_owner = true
@@ -41,7 +45,7 @@ position = Vector2(162, 17)
 unique_name_in_owner = true
 
 [node name="LoadZone" parent="." instance=ExtResource("6_rjb2l")]
-position = Vector2(-8, 48)
+position = Vector2(-24, 48)
 scale = Vector2(1, 4)
 metadata/NextSceneName = "RB5_Area"
 metadata/NextScenePosition = Vector2(208, 128)
@@ -52,7 +56,7 @@ scale = Vector2(3, 1)
 metadata/NextSceneName = "TC1_Area"
 
 [node name="LoadZone3" parent="." instance=ExtResource("6_rjb2l")]
-position = Vector2(112, 168)
+position = Vector2(112, 184)
 scale = Vector2(4, 1)
 metadata/NextSceneName = "RB3_Area"
 metadata/NextScenePosition = Vector2(128, 16)
