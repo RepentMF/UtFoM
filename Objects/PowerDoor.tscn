@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://ce7dt7h6sld3j"]
 
-[ext_resource type="Script" uid="uid://dd2bsc4h6t8st" path="res://Scripts/PuzzleScripts/PuzzlePowerDoor.gd" id="1_624kc"]
+[ext_resource type="Script" uid="uid://cdidlj75cvgfk" path="res://Scripts/PuzzleScripts/PuzzlePowerDoor.gd" id="1_624kc"]
 [ext_resource type="Texture2D" uid="uid://d4ar4chjann10" path="res://Sprites/PowerDoorPlaceholder.png" id="2_624kc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2pvmy"]
@@ -64,6 +64,8 @@ size = Vector2(16, 32)
 size = Vector2(32, 16)
 
 [node name="PowerLockedDoor" type="Node2D"]
+z_index = 5
+y_sort_enabled = true
 script = ExtResource("1_624kc")
 metadata/Direction = ""
 metadata/Solution = []
@@ -73,18 +75,24 @@ sprite_frames = SubResource("SpriteFrames_it8oi")
 animation = &"down"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 129
+collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_624kc")
 disabled = true
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
+collision_layer = 129
+collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 shape = SubResource("RectangleShape2D_1mocn")
 disabled = true
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
+collision_layer = 129
+collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 shape = SubResource("RectangleShape2D_2pvmy")

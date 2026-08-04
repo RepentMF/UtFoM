@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://clu7xacjxd5u4"]
 
-[ext_resource type="Script" uid="uid://drf2na4u4nfj3" path="res://PushSwitch.gd" id="1_1e70k"]
+[ext_resource type="Script" uid="uid://w27xwlhtxuog" path="res://PushSwitch.gd" id="1_1e70k"]
 [ext_resource type="Texture2D" uid="uid://by38ld6ysdyi2" path="res://Sprites/PressSwtich.png" id="2_rfgq7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pfgvx"]
@@ -42,6 +42,8 @@ sprite_frames = SubResource("SpriteFrames_u5t14")
 animation = &"idle"
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -1)

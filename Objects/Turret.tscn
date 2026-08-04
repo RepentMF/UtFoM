@@ -15,6 +15,8 @@ size = Vector2(16, 16)
 
 [node name="Turret" type="RigidBody2D"]
 z_index = -1
+collision_layer = 129
+collision_mask = 129
 mass = 100.0
 physics_material_override = SubResource("PhysicsMaterial_rxbd5")
 gravity_scale = 0.0

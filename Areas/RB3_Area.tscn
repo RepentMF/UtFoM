@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://biw377d4lxosj"]
+[gd_scene load_steps=9 format=4 uid="uid://biw377d4lxosj"]
 
 [ext_resource type="PackedScene" uid="uid://cqgduvnfvy4x3" path="res://TileMaps/RockBottom3_TileMap.tscn" id="2_bjga2"]
 [ext_resource type="PackedScene" uid="uid://bn4j8kecuseyi" path="res://Actors/CustomCamera2D.tscn" id="2_pmcod"]
+[ext_resource type="PackedScene" uid="uid://dhlm30wmo46l2" path="res://TileMaps/PlaceHolderTileSet.tscn" id="3_4ykss"]
 [ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="3_dk2ad"]
 [ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="4_torfk"]
 [ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="5_8qlom"]
@@ -19,6 +20,12 @@ limit_right = 272
 limit_bottom = 192
 
 [node name="RB3_TileMap" parent="." instance=ExtResource("2_bjga2")]
+y_sort_enabled = false
+
+[node name="RB3_TileMap_Overlap" parent="." instance=ExtResource("3_4ykss")]
+z_index = 5
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAAAAMAAAADAAMAAAABAAMAAAABAAIAAAAFAAMAAAABAAMAAAAGAAMAAAABAAMAAAAHAAMAAAABAAMAAAAIAAMAAAABAAMAAAAJAAMAAAABAAMAAAAPAAMAAAAEAAMAAAAEAAMAAAAAAAMAAAAOAAMAAAAAAAMAAAAKAAMAAAABAAMAAAALAAMAAAABAAIAAAA=")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -34,12 +41,22 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 modulate = Color(0.563984, 0.99828, 0.694974, 1)
 y_sort_enabled = true
-position = Vector2(74, 84)
+position = Vector2(121, 40)
 
 [node name="GemsController" parent="." instance=ExtResource("4_torfk")]
 
 [node name="InventoryController" parent="." instance=ExtResource("5_8qlom")]
 unique_name_in_owner = true
+
+[node name="EnemyDoor" parent="." instance=ExtResource("7_bjga2")]
+position = Vector2(48, 56)
+metadata/Direction = "up"
+metadata/ID = 2
+
+[node name="EnemyDoor2" parent="." instance=ExtResource("7_bjga2")]
+position = Vector2(208, 56)
+metadata/Direction = "up"
+metadata/ID = 2
 
 [node name="LoadZone" parent="." instance=ExtResource("6_yjr6g")]
 position = Vector2(-24, 144)
@@ -52,13 +69,3 @@ position = Vector2(128, -8)
 scale = Vector2(4, 1)
 metadata/NextSceneName = "RB4_Area"
 metadata/NextScenePosition = Vector2(112, 144)
-
-[node name="EnemyDoor" parent="." instance=ExtResource("7_bjga2")]
-position = Vector2(48, 56)
-metadata/Direction = "up"
-metadata/ID = 2
-
-[node name="EnemyDoor2" parent="." instance=ExtResource("7_bjga2")]
-position = Vector2(208, 56)
-metadata/Direction = "up"
-metadata/ID = 2

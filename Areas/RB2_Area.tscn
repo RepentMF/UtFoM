@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://sot5ytgdskk5"]
+[gd_scene load_steps=12 format=4 uid="uid://sot5ytgdskk5"]
 
 [ext_resource type="PackedScene" uid="uid://bsjp4a5n1v0q8" path="res://TileMaps/RockBottom2_TileMap.tscn" id="1_gsta2"]
 [ext_resource type="PackedScene" uid="uid://bn4j8kecuseyi" path="res://Actors/CustomCamera2D.tscn" id="2_1fojb"]
 [ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="2_lgekc"]
 [ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="3_1fojb"]
+[ext_resource type="PackedScene" uid="uid://dhlm30wmo46l2" path="res://TileMaps/PlaceHolderTileSet.tscn" id="3_n3t1o"]
 [ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="4_om2yf"]
 [ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_50i7q"]
 [ext_resource type="PackedScene" uid="uid://cxouqojr63iy4" path="res://Objects/SmallTreasureChest.tscn" id="7_logqu"]
@@ -21,6 +22,12 @@ limit_bottom = 272
 
 [node name="RB2_TileMap" parent="." instance=ExtResource("1_gsta2")]
 position = Vector2(-16, 0)
+
+[node name="RB2_TileMap_Overlap" parent="." instance=ExtResource("3_n3t1o")]
+z_index = 5
+y_sort_enabled = true
+position = Vector2(-16, 0)
+tile_map_data = PackedByteArray("AAAKAAwAAAACAAMAAAAKAA0AAAAEAAEAAAANAA0AAAAEAAEAAAANAAwAAAACAAMAAAANAAsAAAACAAIAAAAKAAsAAAACAAIAAAAKAAcAAAACAAIAAAAKAAgAAAACAAMAAAAKAAkAAAAEAAEAAAANAAcAAAACAAIAAAANAAgAAAACAAMAAAANAAkAAAAEAAEAAAAKAAMAAAACAAIAAAAKAAQAAAACAAMAAAAKAAUAAAAEAAEAAAANAAMAAAACAAIAAAANAAQAAAACAAMAAAANAAUAAAAEAAEAAAASAAoAAAAAAAQAAAATAAoAAAABAAQAAAASAAQAAAAAAAQAAAATAAQAAAABAAQAAAASAAUAAAACAAQAAAATAAUAAAADAAQAAAASAAsAAAACAAQAAAATAAsAAAADAAQAAAAEAAQAAAAAAAQAAAAEAAUAAAACAAQAAAAEAAoAAAAAAAQAAAAEAAsAAAACAAQAAAAFAAQAAAABAAQAAAAFAAUAAAADAAQAAAAFAAoAAAABAAQAAAAFAAsAAAADAAQAAAA=")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -63,7 +70,7 @@ metadata/NextSceneName = "RB5_Area"
 metadata/NextScenePosition = Vector2(112, 224)
 
 [node name="SmallTreasureChest" parent="." instance=ExtResource("7_logqu")]
-position = Vector2(284, 75)
+position = Vector2(347, 33)
 metadata/treasureType = "key"
 metadata/iName = "Small Key"
 metadata/description = "it's a key"

@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://c4eu0evb3ass6"]
 
-[ext_resource type="Script" uid="uid://bmtpcjkd6ee8d" path="res://Objects/TreasureChest.gd" id="1_fwsdj"]
-[ext_resource type="Texture2D" uid="uid://8fwe73enkks6" path="res://Sprites/BigChest_UpDown.png" id="2_gsii1"]
-[ext_resource type="Texture2D" uid="uid://brqli0piohjqn" path="res://Sprites/BigChest_LeftRight.png" id="3_5mht2"]
+[ext_resource type="Script" uid="uid://ul8vkaexqi4v" path="res://Objects/TreasureChest.gd" id="1_fwsdj"]
+[ext_resource type="Texture2D" uid="uid://8titryw84rdj" path="res://Sprites/BigChest_UpDown.png" id="2_gsii1"]
+[ext_resource type="Texture2D" uid="uid://cuxlsj0uh8253" path="res://Sprites/BigChest_LeftRight.png" id="3_5mht2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qxh5e"]
 atlas = ExtResource("2_gsii1")
@@ -137,6 +137,8 @@ animation = &"left_shut"
 visible = false
 position = Vector2(1, 0)
 rotation = 1.5707964
+collision_layer = 129
+collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(2, 0.99999994)
@@ -144,6 +146,8 @@ shape = SubResource("RectangleShape2D_pplhs")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2(1, 0)
+collision_layer = 129
+collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 y_sort_enabled = true

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b5705tdsr4ef2"]
 
-[ext_resource type="Script" uid="uid://ds1nxprt4v1dy" path="res://Scripts/PuzzleScripts/PuzzleLockedDoor.gd" id="1_1mocn"]
+[ext_resource type="Script" uid="uid://c8fq3nloy36d3" path="res://Scripts/PuzzleScripts/PuzzleLockedDoor.gd" id="1_1mocn"]
 [ext_resource type="Texture2D" uid="uid://cfausimn6qqvs" path="res://Sprites/LockedDoorPlaceholder.png" id="2_1mocn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mocn"]
@@ -10,6 +10,8 @@ size = Vector2(32, 32)
 size = Vector2(32, 10)
 
 [node name="LockedDoor" type="Node2D"]
+z_index = 5
+y_sort_enabled = true
 script = ExtResource("1_1mocn")
 metadata/ID = 0
 
@@ -17,6 +19,8 @@ metadata/ID = 0
 texture = ExtResource("2_1mocn")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 129
+collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_1mocn")

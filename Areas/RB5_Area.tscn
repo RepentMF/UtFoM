@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwlrhvebivqkr"]
+[gd_scene load_steps=11 format=4 uid="uid://cwlrhvebivqkr"]
 
 [ext_resource type="PackedScene" uid="uid://by6k5qv6csl1c" path="res://TileMaps/RockBottom5_TileMap.tscn" id="1_pwkp4"]
+[ext_resource type="PackedScene" uid="uid://dhlm30wmo46l2" path="res://TileMaps/PlaceHolderTileSet.tscn" id="2_0wntx"]
 [ext_resource type="PackedScene" uid="uid://bn4j8kecuseyi" path="res://Actors/CustomCamera2D.tscn" id="2_1ffqy"]
 [ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="3_32lcc"]
 [ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="4_0wntx"]
@@ -16,6 +17,12 @@ y_sort_enabled = true
 
 [node name="RB5_TileMap" parent="." instance=ExtResource("1_pwkp4")]
 position = Vector2(0, 16)
+
+[node name="RB5_TileMap_Overlap" parent="." instance=ExtResource("2_0wntx")]
+z_index = 5
+y_sort_enabled = true
+position = Vector2(0, 16)
+tile_map_data = PackedByteArray("AAAFAAoAAAACAAIAAAAFAAsAAAAEAAEAAAAIAAoAAAACAAIAAAAIAAsAAAAEAAEAAAAFAAIAAAACAAIAAAAFAAMAAAAEAAEAAAAIAAIAAAACAAIAAAAIAAMAAAAEAAEAAAACAAgAAAAAAAMAAAACAAUAAAAAAAMAAAADAAgAAAABAAIAAAADAAUAAAABAAIAAAAKAAUAAAAAAAMAAAAKAAgAAAAAAAMAAAALAAUAAAABAAIAAAALAAgAAAABAAIAAAAGAAYAAAAAAAQAAAAGAAcAAAACAAQAAAAHAAYAAAABAAQAAAAHAAcAAAADAAQAAAA=")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

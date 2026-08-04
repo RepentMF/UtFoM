@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctb7qng6vhli2"]
+[gd_scene load_steps=11 format=4 uid="uid://ctb7qng6vhli2"]
 
 [ext_resource type="PackedScene" uid="uid://b66jxtkt13ggh" path="res://TileMaps/RockBottom1_TileMap.tscn" id="1_dmxwq"]
+[ext_resource type="PackedScene" uid="uid://dhlm30wmo46l2" path="res://TileMaps/PlaceHolderTileSet.tscn" id="2_jcwih"]
 [ext_resource type="PackedScene" uid="uid://rbec2tuumb8s" path="res://Actors/Players/PlayerCharacter.tscn" id="2_rexkg"]
-[ext_resource type="Script" uid="uid://dll4weva7gu6f" path="res://Actors/CustomCamera2D.gd" id="2_tod6f"]
+[ext_resource type="Script" uid="uid://dwve2slo7xvr1" path="res://Actors/CustomCamera2D.gd" id="2_tod6f"]
 [ext_resource type="PackedScene" uid="uid://dhqprgxsmgngg" path="res://MenuObjects/GemsController.tscn" id="3_tod6f"]
 [ext_resource type="PackedScene" uid="uid://bdigcqsh6k0dx" path="res://MenuObjects/InventoryController.tscn" id="4_psbc5"]
 [ext_resource type="PackedScene" uid="uid://ck1tcu2wkl7u7" path="res://Objects/LoadZone.tscn" id="6_tod6f"]
@@ -13,9 +14,15 @@
 [node name="RB1_Area" type="Node2D"]
 modulate = Color(0.61297315, 0.9999998, 0.6945885, 1)
 y_sort_enabled = true
+texture_filter = 1
 metadata/_edit_group_ = true
 
 [node name="RB1_TileMap" parent="." instance=ExtResource("1_dmxwq")]
+
+[node name="RB1_TileMap_Overlap" parent="." instance=ExtResource("2_jcwih")]
+z_index = 5
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAFAAQAAAABAAIAAAAEAAQAAAABAAMAAAADAAQAAAABAAMAAAACAAQAAAABAAMAAAABAAQAAAABAAMAAAAAAAQAAAABAAMAAAD//wQAAAADAAMAAAAQAAQAAAAEAAMAAAAPAAQAAAABAAMAAAAOAAQAAAABAAMAAAANAAQAAAABAAMAAAAMAAQAAAABAAMAAAALAAQAAAABAAMAAAAKAAQAAAAAAAMAAAAFAAIAAAAEAAEAAAAKAAIAAAAEAAEAAAAFAAEAAAACAAMAAAAKAAEAAAACAAMAAAAKAAAAAAAEAAAAAAAFAAAAAAAEAAAAAAA=")
 
 [node name="CustomCamera2D" type="Camera2D" parent="."]
 position = Vector2(71, 121)
@@ -42,7 +49,7 @@ metadata/_edit_use_anchors_ = true
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_rexkg")]
 unique_name_in_owner = true
 y_sort_enabled = true
-position = Vector2(186, 130)
+position = Vector2(128, 111)
 
 [node name="GemsController" parent="." instance=ExtResource("3_tod6f")]
 
@@ -60,13 +67,13 @@ metadata/juggle = "LightSword"
 metadata/ID = 1
 
 [node name="SlimeCharacter" parent="." instance=ExtResource("9_piphp")]
-position = Vector2(81, 43)
+position = Vector2(46, 111)
 
 [node name="SlimeCharacter2" parent="." instance=ExtResource("9_piphp")]
-position = Vector2(166, 44)
+position = Vector2(128, 47)
 
 [node name="SlimeCharacter3" parent="." instance=ExtResource("9_piphp")]
-position = Vector2(126, 109)
+position = Vector2(210, 111)
 
 [node name="LockedDoor" parent="." instance=ExtResource("8_kdqdq")]
 position = Vector2(128, 0)

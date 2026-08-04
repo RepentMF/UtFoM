@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://di1nw1b8iy2y7"]
 
-[ext_resource type="Script" uid="uid://07p80wvmioqx" path="res://Scripts/PuzzleScripts/PuzzleSwitchDoor.gd" id="1_wwic0"]
-[ext_resource type="Texture2D" uid="uid://dt7v63l1lg6a2" path="res://Sprites/SwitchDoorPlaceholder.png" id="2_wwic0"]
+[ext_resource type="Script" uid="uid://dvnd61gvwlnws" path="res://Scripts/PuzzleScripts/PuzzleSwitchDoor.gd" id="1_wwic0"]
+[ext_resource type="Texture2D" uid="uid://dp2lggebrcvjb" path="res://Sprites/SwitchDoorPlaceholder.png" id="2_wwic0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wwic0"]
 atlas = ExtResource("2_wwic0")
@@ -73,17 +73,23 @@ sprite_frames = SubResource("SpriteFrames_q50vo")
 animation = &"down"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 129
+collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_1mocn")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
+collision_layer = 129
+collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 shape = SubResource("RectangleShape2D_wwic0")
 disabled = true
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
+collision_layer = 129
+collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 shape = SubResource("RectangleShape2D_rk15y")
