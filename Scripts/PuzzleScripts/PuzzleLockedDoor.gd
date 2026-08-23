@@ -9,9 +9,8 @@ var solved = false
 func _ready():
 	ID = get_meta("ID")
 	if GlobalDataManager.doorsList[ID - 1]:
-		solved = true
-	if solved:
 		queue_free()
+		
 	pass # Replace with function body.
 
 func attempt_puzzle_solve(body):
@@ -20,6 +19,7 @@ func attempt_puzzle_solve(body):
 	for keyItem in body.inventory.keyItemsInventory:
 		if keyItem.name == "Small Key":
 			body.inventory.keyItemsInventory.erase(keyItem)
+			GlobalDataManager.change_door_data(ID)
 			print("opened!")
 			queue_free()
 		else:
